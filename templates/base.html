@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>repository</title>
+    <meta name="author" content="mugbya">
+
+    <meta name="description" content="mugbua&#39;s blog">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+    <!--<meta property="og:image" content="undefined"/>-->
+
+
+    <meta http-equiv="Content-Language" content="zh-Hans"/>
+
+
+    <!--<link href="/img/favicon.ico" rel="icon">-->
+
+    <!--<link rel="apple-touch-icon" href="/img/favicon.ico">-->
+    <!--<link rel="apple-touch-icon-precomposed" href="/img/favicon.ico">-->
+
+
+    <link rel="stylesheet" href="http://blog.mugbya.cn/css/style.css" media="screen" type="text/css">
+
+
+    <!-- Chinese readability improment -->
+    <style type="text/css">
+        article {font-weight: 400;letter-spacing: .01rem;}
+        article .entry{line-height:2;}
+    </style>
+
+
+    <style type="text/css">
+        /* Tim Pietrusky advanced checkbox hack (Android <= 4.1.2) */
+        body{ -webkit-animation: bugfix infinite 1s; }
+        @-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+    </style>
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'null', 'auto');
+  ga('send', 'pageview');
+ 
+
+
+
+
+
+    </script>
+
+
+    <!-- 360 Font and Baidu CDN in China -->
+
+    <link href='http://fonts.useso.com/css?family=Open+Sans:300,400|Playball' rel='stylesheet' type='text/css'>
+
+    <link href='http://apps.bdimg.com/libs/fontawesome/4.1.0/css/font-awesome.css' rel='stylesheet' type='text/css'>
+    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+
+
+</head>
+
+<body>
+<header id="header" class="inner">
+    <div class="padding">
+        <div class="alignleft logo">
+            <h1><a href="/">ITSS知识库</a></h1>
+        </div>
+        <nav id="main-nav" class="alignright">
+            <input type="checkbox" id="toggle"/>
+            <label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick><i
+                    class="fa fa-bars"></i></label>
+            <ul class="menu">
+
+                <li><a href="/">Home</a></li>
+
+                <li><a href="/archives">Archives</a></li>
+
+
+                <li><a href="/atom.xml" target="_blank" title="bruce tan blog rss" class="rss-top"><i
+                        class="fa fa-rss"></i></a></li>
+
+            </ul>
+        </nav>
+        <div class="clearfix"></div>
+    </div>
+</header>
+
+{% block mainbody %}
+<p>original</p>
+{% endblock %}
+
+
+</body>
+
+</html>

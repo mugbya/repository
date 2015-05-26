@@ -6,4 +6,5 @@ urlpatterns = patterns('',
                        url(r'^$', 'operations.views.index'),
                        url(r'^list$', 'operations.views.list'),
                        url(r'^test$', 'operations.views.test'),
+                       url(r'^add$', 'operations.views.addClassification'),
                        )

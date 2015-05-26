@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
+from django.core.context_processors import csrf
 
 # Create your views here.
 #
-#  http://zhaofei.tk/2014/12/26/django_start/#comment-1786960623
+#  http://zhaofei.tk/2015/01/11/django_start(2)/
 #  http://djangobook.py3k.cn/2.0/chapter01/
 #   http://www.w3cschool.cc/django/django-template.html
-#
-#   https://github.com/Vamei/Python-Tutorial-Vamei/blob/master/content%2F%E8%A2%AB%E8%A7%A3%E6%94%BE%E7%9A%84%E5%A7%9C%E6%88%8802%20%E5%BA%84%E5%9B%AD%E7%96%91%E4%BA%91.md
 #
 
 #  archlinux percona  安装
@@ -18,20 +17,51 @@ from django.shortcuts import render
 
 # from django.http import HttpResponse
 from operations.models import Classification
+from django import forms
 
-# def index(request):
-#     return HttpResponse("欢迎进入运维知识库！")
-#
+def index(request):
+    ctx = {}
+    all_records = Classification.objects.all()
+    ctx['list'] = all_records
+    return render(request, "operations/index.html", ctx)
+
+class ClassificationForm(forms.Form):
+    name = forms.CharField(max_length=200)
+
 def list(request):
     list = Classification.objects.all()
-    # print(list + " : " + list.type)
-    list_str = map(str, list)
-    # return HttpResponse("<p>" + ' '.join(list_str) + "</p>")
-    context = {'label': ' '.join(list_str)}
-    return render(request, 'templay.html', context)
+    return render(request, 'templay.html', {'list' : list})
+    # list_str = map(str, list)
+    # # return HttpResponse("<p>" + ' '.join(list_str) + "</p>")
+    # context = {'label': ' '.join(list_str)}
+    # return render(request, 'templay.html', context)
 
 def test(request):
     context = {}
     context['label'] = 'Hello World!'
     return render(request, 'templay.html', context)  #
+
+def addClassification(request):
+    if request.POST:
+        form = ClassificationForm(request.POST)
+        if form.is_valid():
+            submitted  = form.cleaned_data['name']
+            new_record = Classification(name = submitted)
+            new_record.save()
+    form = ClassificationForm()
+    ctx = {}
+    ctx.update(csrf(request))
+    all_records = Classification.objects.all()
+    ctx['staff'] = all_records
+    ctx['form'] = form
+    return render(request, "addClassification.html", ctx)
+    # if request.POST:
+    #     submitted = request.POST['staff']
+    #     new_record = Classification(name = submitted)
+    #     new_record.save()
+    # ctx ={}
+    # ctx.update(csrf(request))
+    # all_records = Classification.objects.all()
+    # ctx['staff'] = all_records
+    # return render(request, "addClassification.html", ctx)
 

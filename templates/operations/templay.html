@@ -1,4 +1,12 @@
+{% extends "base.html" %}
 
-{{ label }}
+{% block mainbody %}
 
 
+{% for item in list %}
+
+{{ item.id }}, {{item}}
+
+{% endfor %}
+
+{% endblock %}
