@@ -17,10 +17,9 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 
-admin.autodiscover()
+# admin.autodiscover()
 
 urlpatterns = [
-    url(r'^$', 'repository.view.index'),
+    url(r'^$', include('qs.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^operations/', include('operations.urls')),
 ]

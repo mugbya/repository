@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 
+#    python  manage.py syncdb
+#
 # Create your models here.
 #   Your models have changes that are not yet reflected in a migration, and so won't be applied.
 #   Run 'python manage.py makemigrations' to make new migrations,

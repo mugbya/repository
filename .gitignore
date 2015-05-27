@@ -2,3 +2,5 @@
 repository/settings.py
 
 */__pycache__/*.pyc
+
+*/migrations/

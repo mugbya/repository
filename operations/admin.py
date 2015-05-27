@@ -9,19 +9,19 @@ class TagInline(admin.TabularInline):
 
 
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('name', 'age', 'email') # list
-    search_fields = ('name',)
+    # list_display = ('name', 'age', 'email') # list
+    # search_fields = ('name',)
 
-    # inlines = [TagInline]  # Inline
-    # fieldsets = (
-    #     ['Main',{
-    #         'fields':('name','email'),
-    #     }],
-    #     ['Advance',{
-    #         'classes': ('collapse',), # CSS
-    #         'fields': ('age',),
-    #     }]
-    # )
+    inlines = [TagInline]  # Inline
+    fieldsets = (
+        ['Main',{
+            'fields':('name','email'),
+        }],
+        ['Advance',{
+            'classes': ('collapse',), # CSS
+            'fields': ('age',),
+        }]
+    )
 
 # admin.site.register([Classification, Contact, Tag])
 
