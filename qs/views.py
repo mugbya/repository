@@ -12,14 +12,14 @@ from .forms import QuestionForm, SolutionForm
 
 from .models import *
 
-class IndexView(TemplateView):
-    template_name = 'qs/index.html'
-
-    def get_context_data(self, **kwargs):
-        question_list = Question.objects.all()
-        return {
-            'post_latest': question_list,
-        }
+# class IndexView(TemplateView):
+#     template_name = 'qs/index.html'
+#
+#     def get_context_data(self, **kwargs):
+#         question_list = Question.objects.all()
+#         return {
+#             'post_latest': question_list,
+#         }
 
 # class DetailView(ListView):
 #     model = Question
@@ -36,27 +36,27 @@ class IndexView(TemplateView):
 #         return context
 
 
-class CreateView(CreateView):
-    model = Question
-    fields = ['title', ]
-    template_name = 'qs/edit.html'
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user if self.request.user.is_authenticated() else None
-        form.instance.node = self.get_node()
-        return super(CreateView, self).form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super(CreateView, self).get_context_data(**kwargs)
-        return context
-
-    def get_form_class(self):
-        if self.request.user.is_superuser:
-            self.fields = ['title',  ]
-        elif self.request.user.is_authenticated():
-            self.fields = ['title',  ]
-
-        return super(CreateView, self).get_form_class()
+# class CreateView(CreateView):
+#     model = Question
+#     fields = ['title', ]
+#     template_name = 'qs/edit.html'
+#
+#     def form_valid(self, form):
+#         form.instance.author = self.request.user if self.request.user.is_authenticated() else None
+#         form.instance.node = self.get_node()
+#         return super(CreateView, self).form_valid(form)
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(CreateView, self).get_context_data(**kwargs)
+#         return context
+#
+#     def get_form_class(self):
+#         if self.request.user.is_superuser:
+#             self.fields = ['title',  ]
+#         elif self.request.user.is_authenticated():
+#             self.fields = ['title',  ]
+#
+#         return super(CreateView, self).get_form_class()
 
 # def save_solution(request, pk):
 #     question = get_object_or_404(Question, pk=pk)
@@ -66,6 +66,11 @@ class CreateView(CreateView):
 #         solution.question = question
 #         solution.save()
 #         return redirect('qs.views.detail', pk=pk)
+
+def index(request):
+    question_list = Question.objects.all()
+    return render(request, 'qs/index.html', {'post_latest': question_list})
+
 
 def detail(request, pk):
     detail_qs = get_object_or_404(Question, pk=pk) #Question.objects.get(id = 4)
@@ -77,6 +82,7 @@ def detail(request, pk):
         if form.is_valid():
             solution = form.save(commit=False)
             solution.question = detail_qs
+            solution.author = request.user
             solution.save()
             return redirect('qs.views.detail', pk=pk)
     else:
@@ -85,6 +91,13 @@ def detail(request, pk):
                                                    'solutions': solution_list,
                                                    'count': solution_count,
                                                    'form': form})
+
+def del_qs(request,pk):
+    question = get_object_or_404(Question, pk=pk)
+    solution = question.solution_set
+    # solution.delete()
+    question.delete()
+    return redirect('qs.views.index')
 
 def new_qs(request):
     if request.method == "POST":

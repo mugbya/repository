@@ -14,7 +14,7 @@ class SolutionInline(admin.StackedInline):
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ('category', 'tags', 'env',  'title', 'detailed')
+        fields = ( 'env',  'title', 'detailed', 'tags')
 
 class SolutionForm(forms.ModelForm):
     class Meta:

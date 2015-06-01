@@ -1,10 +1,10 @@
 from django.contrib import admin
-from qs.models import Question, Solution, Tag, Category
+from qs.models import Question, Solution, Tag
 
 # Register your models here.
 
 class TagAdmin(admin.ModelAdmin):
-    fields = ('name', 'category')
+    fields = ('name', 'description')
 
 # class SolutionAdmin(admin.ModelAdmin):
 #     fields = ('content',)
@@ -18,4 +18,4 @@ class QuestionAdmin(admin.ModelAdmin):
 
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Question, QuestionAdmin)
-admin.site.register([Solution,  Category])
+admin.site.register([Solution,  ])

@@ -33,17 +33,10 @@ class PostBase(models.Model):
 
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True, verbose_name=u'名称')
-
-    def __str__(self):
-        return self.name
-
-
 class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name=u'名称')
+    description = models.CharField(max_length=200, blank=True, null=True, verbose_name=u'描述')
     count_post = models.IntegerField(default=0, editable=False, verbose_name=u'条数')
-    category = models.ManyToManyField(Category, blank=True, verbose_name=u'分类')
 
     def get_absolute_url(self):
         return reverse('tag-detail', kwargs={'slug': self.pk})
@@ -64,7 +57,6 @@ class Question(PostBase):
                                 verbose_name=u"详细内容")
     is_solver = models.BooleanField(editable=False, blank=True, default=False)
     tags = models.ManyToManyField(Tag, blank=True, verbose_name=u'标签')
-    category = models.ForeignKey(Category, blank=True, verbose_name=u'分类')
 
     def save(self, *args, **kwargs):
         self.content_md = markdown.markdown(

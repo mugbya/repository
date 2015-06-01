@@ -13,11 +13,12 @@
 
 
                     <div class="entry">
-                        <p>最后编辑时间：{{detail_qs.last_edited}}
-                            <a class="" href="{% url 'edit_qs' pk=detail_qs.pk %}">修改</a></p>
+                        最后编辑时间：{{detail_qs.last_edited}}
+                            <a class="" href="{% url 'edit_qs' pk=detail_qs.pk %}">修改</a>
+                            <a class="" href="{% url 'del_qs' pk=detail_qs.pk %}">删除</a>
 
                         <h1>{{detail_qs.title}}</h1>
-                        <code>环境: {{detail_qs.env}}</code>修改
+                        <code>环境: {{detail_qs.env}}</code>
 
                         <h2>问题详细描述</h2>
 
