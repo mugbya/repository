@@ -20,6 +20,8 @@ urlpatterns = [
     url(r'^qs/new/$', views.new_qs, name='new_qs'),
     url(r'^qs/(?P<pk>[0-9]+)/edit/$', views.edit_qs, name='edit_qs'),
     url(r'^qs/(?P<pk>[0-9]+)/edit_solution/$', views.edit_solution, name='edit_solution'),
+    url(r'^qs/(?P<pk>[0-9]+)/del_solution/$', views.del_solution, name='del_solution'),
+    # url(r'^qs/(?P<pk>[0-9]+)/save_solution/$', views.save_solution, name='save_solution'),
 
     url(r'^qs/reply', views.reply, name='reply'),
     url(r'^user/draft/$', views.draft, name='draft'),

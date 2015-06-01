@@ -32,7 +32,9 @@
                             {% for solution in solutions %}
 
                                  <span>{{ solution.author }} {{ solution.last_edited}}</span>
-                                     <a class="" href="{% url 'edit_solution' pk=solution.pk %}">修改</a></p><br/>
+                                     <a class="" href="{% url 'edit_solution' pk=solution.pk %}">修改</a>
+                                     <a class="" href="{% url 'del_solution' pk=solution.pk %}">删除</a>
+                                    <br/>
 
                                  {{ solution.content_md | safe|default:"<i>正文无内容</i>" }}
 
@@ -43,7 +45,7 @@
 
                         <h2>撰写答案</h2>
                         <hr>
-                        <form method="post" action="">
+                        <form method="post" action="{% url 'detail' pk=detail_qs.pk %}">
                             {% csrf_token %}
                             {{ form.as_p }}
 

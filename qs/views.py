@@ -58,13 +58,33 @@ class CreateView(CreateView):
 
         return super(CreateView, self).get_form_class()
 
+# def save_solution(request, pk):
+#     question = get_object_or_404(Question, pk=pk)
+#     form = SolutionForm(request.POST)
+#     if form.is_valid():
+#         solution = form.save(commit=False)
+#         solution.question = question
+#         solution.save()
+#         return redirect('qs.views.detail', pk=pk)
 
 def detail(request, pk):
     detail_qs = get_object_or_404(Question, pk=pk) #Question.objects.get(id = 4)
     solution = detail_qs.solution_set
     solution_list = solution.all()
     solution_count = solution.count()
-    return render(request, 'qs/node/detail.html', {'detail_qs': detail_qs, 'solutions': solution_list, 'count': solution_count })
+    if request.method == "POST":
+        form = SolutionForm(request.POST, instance=Solution())
+        if form.is_valid():
+            solution = form.save(commit=False)
+            solution.question = detail_qs
+            solution.save()
+            return redirect('qs.views.detail', pk=pk)
+    else:
+        form = SolutionForm(instance=Solution())
+    return render(request, 'qs/node/detail.html', {'detail_qs': detail_qs,
+                                                   'solutions': solution_list,
+                                                   'count': solution_count,
+                                                   'form': form})
 
 def new_qs(request):
     if request.method == "POST":
@@ -91,8 +111,7 @@ def edit_qs(request, pk):
         form = QuestionForm(instance=post)
     return render(request, 'qs/edit.html', {'form': form})
 
-# def save_solution(requset, pk):
-#     question = get_object_or_404(Question, pk=pk)
+
 
 
 def edit_solution(request, pk):
@@ -109,6 +128,12 @@ def edit_solution(request, pk):
     else:
         form = SolutionForm(instance=solution)
     return render(request, 'qs/node/edit_solution.html', {'question': question,  'form': form})
+
+def del_solution(request, pk):
+    solution = get_object_or_404(Solution, pk=pk)
+    question = solution.question
+    solution.delete()
+    return redirect('qs.views.detail', pk=question.pk)
 
 def reply(request):
     pass
