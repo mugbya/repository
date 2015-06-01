@@ -1,10 +1,21 @@
 from django.contrib import admin
-from qs.models import Qs,Tag,Category
+from qs.models import Question, Solution, Tag, Category
 
 # Register your models here.
 
 class TagAdmin(admin.ModelAdmin):
     fields = ('name', 'category')
 
+# class SolutionAdmin(admin.ModelAdmin):
+#     fields = ('content',)
+
+class SolutionInline(admin.TabularInline):
+    model = Solution
+    template = 'admin/edit_inline/tabular.html'
+
+class QuestionAdmin(admin.ModelAdmin):
+    inlines = [SolutionInline]
+
 admin.site.register(Tag, TagAdmin)
-admin.site.register([Qs,  Category])
+admin.site.register(Question, QuestionAdmin)
+admin.site.register([Solution,  Category])

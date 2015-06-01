@@ -20,6 +20,7 @@ from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = [
-    url(r'^$', include('qs.urls')),
+    # 别多加$
+    url(r'^', include('qs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]

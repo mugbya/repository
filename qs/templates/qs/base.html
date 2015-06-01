@@ -1,5 +1,6 @@
-<!DOCTYPE HTML>
+{% load staticfiles %}
 
+<!DOCTYPE HTML>
 <html lang="zh-Hans">
 
 <head>
@@ -26,7 +27,7 @@
     <!--<link rel="apple-touch-icon-precomposed" href="/img/favicon.ico">-->
 
 
-    <link rel="stylesheet" href="http://blog.mugbya.cn/css/style.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="{% static 'style.css' %}" media="screen" type="text/css">
 
 
     <!-- Chinese readability improment -->
@@ -53,6 +54,10 @@
 
   ga('create', 'null', 'auto');
   ga('send', 'pageview');
+
+
+
+
 
     </script>
 
@@ -92,6 +97,37 @@
         <div class="clearfix"></div>
     </div>
 </header>
+
+<div id="page-heading-wrap">
+    <div class="inner">
+        <div class="padding">
+
+            <input type="search" name="q" results="0" placeholder="Search">
+
+            <a href="{% url 'new_qs' %}">新增知识</a>
+
+        </div>
+
+    </div>
+</div>
+
+
+<!-- --------dfgdfgdfg------ -->
+
+
+<aside id="sidebar" class="alignright">
+    <div class="padding">
+
+        <div class="widget recent-post">
+            <h3 class="title"></h3>
+            <ul class="entry">
+                <a href="{% url 'draft' %}">我的草稿</a>
+            </ul>
+        </div>
+    </div>
+    </div>
+</aside>
+
 
 {% block mainbody %}
 
