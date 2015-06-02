@@ -55,10 +55,6 @@
   ga('create', 'null', 'auto');
   ga('send', 'pageview');
 
-
-
-
-
     </script>
 
 
@@ -73,63 +69,6 @@
 </head>
 
 <body>
-<header id="header" class="inner">
-    <div class="padding">
-        <div class="alignleft logo">
-            <h1><a href="/">ITSS知识库</a></h1>
-        </div>
-        <nav id="main-nav" class="alignright">
-            <input type="checkbox" id="toggle"/>
-            <label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick><i
-                    class="fa fa-bars"></i></label>
-            <ul class="menu">
-
-                <li><a href="/">Home</a></li>
-
-                <li><a href="/archives">Archives</a></li>
-
-
-                <li><a href="/atom.xml" target="_blank" title="bruce tan blog rss" class="rss-top"><i
-                        class="fa fa-rss"></i></a></li>
-
-            </ul>
-        </nav>
-        <div class="clearfix"></div>
-    </div>
-</header>
-
-<div id="page-heading-wrap">
-    <div class="inner">
-        <div class="padding">
-
-            <input type="search" name="q" results="0" placeholder="Search">
-
-            {% if user.is_authenticated %}
-                 <a href="{% url 'new_qs' %}">新增知识</a>
-            {% else %}
-                 <a href="{% url 'django.contrib.auth.views.login' %}" class="top-menu">登陆</a>
-            {% endif %}
-        </div>
-
-    </div>
-</div>
-
-
-<!-- --------dfgdfgdfg------ -->
-
-
-<aside id="sidebar" class="alignright">
-    <div class="padding">
-
-        <div class="widget recent-post">
-            <h3 class="title"></h3>
-            <ul class="entry">
-                <a href="{% url 'draft' %}">我的草稿</a>
-            </ul>
-        </div>
-    </div>
-    </div>
-</aside>
 
 
 {% block mainbody %}

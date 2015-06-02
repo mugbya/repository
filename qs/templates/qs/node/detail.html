@@ -13,10 +13,16 @@
 
 
                     <div class="entry">
-                        最后编辑时间：{{detail_qs.last_edited}}
-                            <a class="" href="{% url 'edit_qs' pk=detail_qs.pk %}">修改</a>
-                            <a class="" href="{% url 'del_qs' pk=detail_qs.pk %}">删除</a>
+                        <a class="" href="">{{ detail_qs.author }}</a>
 
+                        最后编辑时间：{{detail_qs.last_edited}}
+
+                        {% if user.is_authenticated %}
+                            <a class="" href="{% url 'edit_qs' pk=detail_qs.pk %}">修改</a>
+                            {% if user == detail_qs.author %}
+                                <a class="" href="{% url 'del_qs' pk=detail_qs.pk %}">删除</a>
+                            {% endif %}
+                        {% endif %}
                         <h1>{{detail_qs.title}}</h1>
                         <code>环境: {{detail_qs.env}}</code>
 
@@ -33,8 +39,12 @@
                             {% for solution in solutions %}
 
                                  <span>{{ solution.author }} {{ solution.last_edited}}</span>
+                                {% if user.is_authenticated %}
                                      <a class="" href="{% url 'edit_solution' pk=solution.pk %}">修改</a>
-                                     <a class="" href="{% url 'del_solution' pk=solution.pk %}">删除</a>
+                                    {% if user == detail_qs.author %}
+                                         <a class="" href="{% url 'del_solution' pk=solution.pk %}">删除</a>
+                                    {% endif %}
+                                {% endif %}
                                     <br/>
 
                                  {{ solution.content_md | safe|default:"<i>正文无内容</i>" }}

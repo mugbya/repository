@@ -25,6 +25,8 @@ urlpatterns = [
     url(r'^qs/(?P<pk>[0-9]+)/del_solution/$', views.del_solution, name='del_solution'),
     # url(r'^qs/(?P<pk>[0-9]+)/save_solution/$', views.save_solution, name='save_solution'),
 
+
+
     url(r'^qs/reply', views.reply, name='reply'),
     url(r'^user/draft/$', views.draft, name='draft'),
 ]

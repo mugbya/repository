@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.forms.models import modelform_factory
 from django.forms.widgets import PasswordInput
 from django.utils.six import BytesIO
-
+from django.contrib.auth.decorators import login_required
 
 from .forms import QuestionForm, SolutionForm
 
@@ -69,11 +69,11 @@ from .models import *
 
 def index(request):
     question_list = Question.objects.all()
-    return render(request, 'qs/index.html', {'post_latest': question_list})
+    return render(request, 'qs/index.html', {'post_latest': question_list[:10]})
 
 
 def detail(request, pk):
-    detail_qs = get_object_or_404(Question, pk=pk) #Question.objects.get(id = 4)
+    detail_qs = get_object_or_404(Question, pk=pk)
     solution = detail_qs.solution_set
     solution_list = solution.all()
     solution_count = solution.count()
@@ -91,14 +91,13 @@ def detail(request, pk):
                                                    'solutions': solution_list,
                                                    'count': solution_count,
                                                    'form': form})
-
+@login_required
 def del_qs(request,pk):
     question = get_object_or_404(Question, pk=pk)
-    solution = question.solution_set
-    # solution.delete()
     question.delete()
     return redirect('qs.views.index')
 
+@login_required()
 def new_qs(request):
     if request.method == "POST":
         form = QuestionForm(request.POST)
@@ -111,13 +110,14 @@ def new_qs(request):
         form = QuestionForm()
     return render(request, 'qs/edit.html', {'form': form})
 
+@login_required
 def edit_qs(request, pk):
     post = get_object_or_404(Question, pk=pk)
     if request.method == "POST":
         form = QuestionForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
+            # post.author = request.user
             post.save()
             return redirect('qs.views.detail', pk=post.pk)
     else:
@@ -126,7 +126,7 @@ def edit_qs(request, pk):
 
 
 
-
+@login_required
 def edit_solution(request, pk):
     solution = get_object_or_404(Solution, pk=pk)
     question = solution.question
@@ -135,13 +135,14 @@ def edit_solution(request, pk):
         form = SolutionForm(request.POST, instance=solution)
         if form.is_valid():
             solution = form.save(commit=False)
-            solution.author = request.user
+            # solution.author = request.user
             solution.save()
             return redirect('qs.views.detail', pk=question.pk)
     else:
         form = SolutionForm(instance=solution)
     return render(request, 'qs/node/edit_solution.html', {'question': question,  'form': form})
 
+@login_required
 def del_solution(request, pk):
     solution = get_object_or_404(Solution, pk=pk)
     question = solution.question
