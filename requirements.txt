@@ -1,0 +1,8 @@
+
+# Install with: `pip install -r requirements.txt`
+
+Django >= 1.8
+
+# psycopg2
+
+markdown

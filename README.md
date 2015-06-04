@@ -20,9 +20,7 @@
 ### 例子
 
 - [一个基于 Django1.8 跟 Bootstrap3 开发的 博客系统](http://blog.csdn.net/billvsme/article/details/45606619)
--
-
-http://lcfcn.com/
+- [lcfcn](http://lcfcn.com/)
 
 
 

@@ -44,7 +44,6 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
-
 class Question(PostBase):
     env = models.CharField(max_length=200, verbose_name=u"环境")
     title = models.CharField(max_length=100, error_messages={
