@@ -21,12 +21,27 @@
 
 - [一个基于 Django1.8 跟 Bootstrap3 开发的 博客系统](http://blog.csdn.net/billvsme/article/details/45606619)
 - [lcfcn](http://lcfcn.com/)
-
-
-
-https://github.com/imelucifer/bigkola_empire
+- [bigkola_empire](https://github.com/imelucifer/bigkola_empire)
 
 
 
 
+
+## 使用
+
+### 安装依赖
+
+    pip install -r requirements.txt
+
+### 建立数据模型
+
+    python3  manage.py syncdb
+
+### 创建系统管理者（首次不用执行）
+
+     python3 manage.py createsuperuser
+
+### 运行服务器
+
+    python3 manage.py runserver 0.0.0.0:8000
 
