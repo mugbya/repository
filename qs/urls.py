@@ -29,5 +29,9 @@ urlpatterns = [
 
     url(r'^qs/reply', views.reply, name='reply'),
     url(r'^user/draft/$', views.draft, name='draft'),
+
+
+    url(r'^accounts/register/$', views.register, name='register'),
+
 ]
 

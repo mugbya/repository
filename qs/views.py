@@ -7,6 +7,8 @@ from django.forms.models import modelform_factory
 from django.forms.widgets import PasswordInput
 from django.utils.six import BytesIO
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import auth
 
 from .forms import QuestionForm, SolutionForm
 
@@ -155,3 +157,17 @@ def reply(request):
 def draft(request):
     posts = Question.objects.filter(published_date__isnull=True).order_by('-created_date')
     return render(request, 'blog/post_draft_list.html', {'posts': posts})
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+            auth.login(request, user)
+            return redirect('qs.views.index', )
+    else:
+        form = UserCreationForm()
+    return render(request, "registration/register.html", {'form': form})
+

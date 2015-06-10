@@ -15,6 +15,11 @@
 
 #### 关联关系CRUD
 
+
+### 未解
+
+- django redirect httpresponseredirect
+
 - [用Django保存一对多和多对多关系](http://onepub.tumblr.com/post/17750580320/django)
 
 ### 例子
@@ -44,4 +49,5 @@
 ### 运行服务器
 
     python3 manage.py runserver 0.0.0.0:8000
+
 

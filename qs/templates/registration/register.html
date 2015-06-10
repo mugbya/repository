@@ -1,0 +1,32 @@
+{% extends "registration/base.html" %}
+
+{% block mainbody %}
+
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+
+
+                  <form action="{% url 'register' %}" method="post" class="form-signin">
+                      {% csrf_token %}
+                      <h2 class="form-signin-heading">Create an account</h2>
+
+                      {{ form.as_p }}
+
+
+
+
+                      <input type="submit" value="Create the account">
+                  </form>
+
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+

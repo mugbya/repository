@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^', include('qs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
+
 ]
