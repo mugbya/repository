@@ -2173,6 +2173,7 @@ input.search-query {
     border-radius: 15px;
 }
 
+
 .form-search .input-append .search-query, .form-search .input-prepend .search-query {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -3901,9 +3902,10 @@ button.btn.btn-mini, input[type="submit"].btn.btn-mini {
     border-right: 1px solid #ffffff;
 }
 
-.navbar .btn, .navbar .btn-group {
+.navbar .btn-group {
     margin-top: 5px;
 }
+
 
 .navbar .btn-group .btn, .navbar .input-prepend .btn, .navbar .input-append .btn, .navbar .input-prepend .btn-group, .navbar .input-append .btn-group {
     margin-top: 0;
@@ -4024,7 +4026,7 @@ button.btn.btn-mini, input[type="submit"].btn.btn-mini {
     left: 0;
     display: block;
     float: left;
-    margin: 0 10px 0 0;
+    margin: 10px 10px 0 0;
 }
 
 .navbar .nav.pull-right {

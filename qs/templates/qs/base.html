@@ -69,21 +69,29 @@
 								<li class="divider-vertical">
 								</li>
 								<li class="dropdown">
-									 <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{user}}<strong class="caret"></strong></a>
-									<ul class="dropdown-menu">
-										<li>
-											<a href="#">我的主页</a>
-										</li>
+                                    {% if user.is_authenticated %}
 
-										<li>
-											<a href="#">帐号设置</a>
-										</li>
-										<li class="divider">
-										</li>
-										<li>
-											<a href="#">退出</a>
-										</li>
-									</ul>
+                                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{user.username}}<strong class="caret"></strong></a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#">我的主页</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">帐号设置</a>
+                                            </li>
+                                            <li class="divider">
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'django.contrib.auth.views.logout'%}">退出</a>
+                                            </li>
+                                        </ul>
+
+                                    {% else %}
+                                            <a  href="{% url 'django.contrib.auth.views.login' %}">点击登陆</a>
+                                    {% endif %}
+
+
 								</li>
 							</ul>
 						</div>
