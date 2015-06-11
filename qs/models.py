@@ -89,9 +89,7 @@ class Question(PostBase):
 class Solution(PostBase):
     question = models.ForeignKey(Question)
 
-    content = models.TextField(error_messages={},
-                               help_text="☞支持Markdown语法. 内容可以留空，但不要输入无意义的内容",
-                               verbose_name=u"解答")
+    content = models.TextField(error_messages={},)
 
     def save(self, *args, **kwargs):
         self.content_md = markdown.markdown(

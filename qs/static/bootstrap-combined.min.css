@@ -8069,7 +8069,7 @@ button.close {
 #LG {width:100%}
 
 
-#header {
+#header , .container-question{
    margin: 0 auto;
    width: 1000px;
    height: 96px;
@@ -8096,7 +8096,11 @@ float:left;
 .head_pull-right li a{
     float: none;
     padding: 10px 15px 10px;
-     color: #777777;
+    color: #777777;
     text-decoration: none;
     text-shadow: 0 1px 0 #ffffff;
+}
+
+label {
+    display:none
 }

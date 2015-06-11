@@ -13,6 +13,9 @@
 
 
                     <div class="entry">
+
+                        <h1><strong>{{detail_qs.title}}</strong></h1>
+                        <hr/>
                         <a class="" href="">{{ detail_qs.author }}</a>
 
                         最后编辑时间：{{detail_qs.last_edited}}
@@ -23,16 +26,16 @@
                                 <a class="" href="{% url 'del_qs' pk=detail_qs.pk %}">删除</a>
                             {% endif %}
                         {% endif %}
-                        <h1>{{detail_qs.title}}</h1>
-                        <code>环境: {{detail_qs.env}}</code>
 
-                        <h2>问题详细描述</h2>
+                        <blockquote><h3>环境: {{detail_qs.env}}</h3></blockquote>
+
+
 
                         <p>{{detail_qs.content_md | safe| default:"<i>正文无内容</i>" }}</p>
 
                         <br/>
 
-                        <h2>解决方法{{ count }}个</h2>
+                        <h3>解决方法{{ count }}个</h3>
                         <hr>
                         <p>
 
@@ -54,7 +57,7 @@
                             {% endfor %}
                         </p>
 
-                        <h2>撰写答案</h2>
+                        <h3>撰写答案</h3>
                         <hr>
                         <form method="post" action="{% url 'detail' pk=detail_qs.pk %}">
                             {% csrf_token %}
