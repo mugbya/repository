@@ -28,8 +28,8 @@ urlpatterns = [
 
 
     url(r'^qs/reply', views.reply, name='reply'),
-    url(r'^user/draft/$', views.draft, name='draft'),
-
+    url(r'^user/draft/$', views.draft_list, name='draft_list'),
+    url(r'^qs/(?P<pk>[0-9]+)/draft$', views.draft_detail, name='draft_detail'),
 
     url(r'^accounts/register/$', views.register, name='register'),
 

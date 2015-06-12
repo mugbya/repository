@@ -2,46 +2,10 @@
 
 {% block mainbody %}
 
-<div id="content" class="inner">
-    <div id="main-col" class="alignleft">
-        <div id="wrapper" class="padding">
-            {% for item in post_latest %}
+    {% for item in post_latest %}
 
+        <h3 class="title transition"><a href="{% url 'detail'  pk=item.pk|default:1%}">{{item.title}}</a></h3>
 
-
-            <article class="post">
-
-                <div class="post-content-index">
-
-                    <header>
-                        <div class="icon"></div>
-
-                        <!--<time datetime="2015-03-30T06:30:07.000Z"><a href="/2015/03/30/sql-injection/">2015-03-30</a>-->
-                        <!--</time>-->
-
-                        <h3 class="title transition"><a href="{% url 'detail'  pk=item.pk|default:1%}">{{item.title}}</a></h3>
-
-
-                    </header>
-
-                    <div class="entry">
-
-
-                    </div>
-                    <!--<footer>-->
-
-                    <!--<div class="alignright">-->
-                    <!--<a href="/2015/03/30/sql-injection/#more" class="more-link">阅读全文<i-->
-                    <!--class="fa fa-long-arrow-right fa-1"></i></a>-->
-                    <!--</div>-->
-
-                    <!--<div class="clearfix"></div>-->
-                    <!--</footer>-->
-                </div>
-            </article>
-            {% endfor %}
-        </div>
-    </div>
-</div>
+    {% endfor %}
 
 {% endblock %}

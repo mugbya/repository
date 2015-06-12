@@ -70,7 +70,8 @@ from .models import *
 #         return redirect('qs.views.detail', pk=pk)
 
 def index(request):
-    question_list = Question.objects.all()
+    # question_list = Question.objects.all()
+    question_list = Question.objects.filter(published_date__isnull=False).order_by('-published_date')
     return render(request, 'qs/index.html', {'post_latest': question_list[:10]})
 
 
@@ -106,8 +107,12 @@ def new_qs(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            post.save()
-            return redirect('qs.views.detail', pk=post.pk)
+            if 'publish' in request.POST:
+                post.publish()
+                return redirect('qs.views.index')
+            else:
+                post.save()
+                return redirect('qs.views.draft_list')
     else:
         form = QuestionForm()
     return render(request, 'qs/edit.html', {'form': form})
@@ -119,9 +124,13 @@ def edit_qs(request, pk):
         form = QuestionForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
-            # post.author = request.user
-            post.save()
-            return redirect('qs.views.detail', pk=post.pk)
+            post.published_date = None
+            if 'publish' in request.POST:
+                post.publish()
+                return redirect('qs.views.index')
+            else:
+                post.save()
+                return redirect('qs.views.draft_list')
     else:
         form = QuestionForm(instance=post)
     return render(request, 'qs/edit.html', {'form': form})
@@ -154,9 +163,33 @@ def del_solution(request, pk):
 def reply(request):
     pass
 
-def draft(request):
-    posts = Question.objects.filter(published_date__isnull=True).order_by('-created_date')
-    return render(request, 'blog/post_draft_list.html', {'posts': posts})
+
+@login_required
+def draft_list(request):
+    # posts = Question.objects.filter(published_date__isnull=True)
+    posts = Question.objects.filter(published_date__isnull=True).order_by('-created')
+    return render(request, 'qs/draft_list.html', {'posts': posts})
+
+@login_required
+def draft_detail(request, pk):
+    post = get_object_or_404(Question, pk=pk)
+    if request.method == "POST":
+        form = QuestionForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.published_date = None
+            if 'publish' in request.POST:
+                post.publish()
+                return redirect('qs.views.index')
+            elif 'discard' in request.POST:
+                post.delete()
+            else:
+                post.save()
+            return redirect('qs.views.draft_list')
+    else:
+        form = QuestionForm(instance=post)
+    return render(request, 'qs/node/draft_detail.html', {'form': form})
+
 
 
 def register(request):

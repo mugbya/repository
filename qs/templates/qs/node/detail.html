@@ -2,79 +2,62 @@
 
 {% block mainbody %}
 
+    <h3><strong><a href="{% url 'detail'  pk=detail_qs.pk|default:1%}">{{detail_qs.title}}</a> </strong></h3>
+    <hr/>
+    <a class="" href="">{{ detail_qs.author }}</a>
 
-<div id="content" class="inner">
-    <div id="main-col" class="alignleft">
-        <div id="wrapper" class="padding">
-            <article class="post">
+    最后编辑时间：{{detail_qs.last_edited}}
 
+    {% if user.is_authenticated %}
+        <a class="" href="{% url 'edit_qs' pk=detail_qs.pk %}">修改</a>
+        {% if user == detail_qs.author %}
+            <a class="" href="{% url 'del_qs' pk=detail_qs.pk %}">删除</a>
+        {% endif %}
+    {% endif %}
 
-                <div class="post-content">
-
-
-                    <div class="entry">
-
-                        <h3><strong><a href="{% url 'detail'  pk=detail_qs.pk|default:1%}">{{detail_qs.title}}</a> </strong></h3>
-                        <hr/>
-                        <a class="" href="">{{ detail_qs.author }}</a>
-
-                        最后编辑时间：{{detail_qs.last_edited}}
-
-                        {% if user.is_authenticated %}
-                            <a class="" href="{% url 'edit_qs' pk=detail_qs.pk %}">修改</a>
-                            {% if user == detail_qs.author %}
-                                <a class="" href="{% url 'del_qs' pk=detail_qs.pk %}">删除</a>
-                            {% endif %}
-                        {% endif %}
-
-                        <blockquote><h3>环境: {{detail_qs.env}}</h3></blockquote>
+    <blockquote><h3>环境: {{detail_qs.env}}</h3></blockquote>
 
 
 
-                        <p>{{detail_qs.content_md | safe| default:"<i>正文无内容</i>" }}</p>
+    <p>{{detail_qs.content_md | safe| default:"<i>正文无内容</i>" }}</p>
 
-                        <br/>
+    <br/>
 
-                        <h3>解决方法{{ count }}个</h3>
-                        <hr>
-                        <p>
+    <h3>解决方法{{ count }}个</h3>
+    <hr>
+    <p>
 
-                            {% for solution in solutions %}
+        {% for solution in solutions %}
 
-                                 <span>{{ solution.author }} {{ solution.last_edited}}</span>
-                                {% if user.is_authenticated %}
-                                     <a class="" href="{% url 'edit_solution' pk=solution.pk %}">修改</a>
-                                    {% if user == detail_qs.author %}
-                                         <a class="" href="{% url 'del_solution' pk=solution.pk %}">删除</a>
-                                    {% endif %}
-                                {% endif %}
-                                    <br/>
+             <span>{{ solution.author }} {{ solution.last_edited}}</span>
+            {% if user.is_authenticated %}
+                 <a class="" href="{% url 'edit_solution' pk=solution.pk %}">修改</a>
+                {% if user == detail_qs.author %}
+                     <a class="" href="{% url 'del_solution' pk=solution.pk %}">删除</a>
+                {% endif %}
+            {% endif %}
+                <br/>
 
-                                 {{ solution.content_md | safe|default:"<i>正文无内容</i>" }}
+             {{ solution.content_md | safe|default:"<i>正文无内容</i>" }}
 
-                                <hr/>
+            <hr/>
 
-                            {% endfor %}
-                        </p>
+        {% endfor %}
+    </p>
 
-                        <h3>撰写答案</h3>
-                        <hr>
-                        <form method="post" action="{% url 'detail' pk=detail_qs.pk %}">
-                            {% csrf_token %}
-                            {{ form.as_p }}
+    <h3>撰写答案</h3>
+    <hr>
+    <form method="post" action="{% url 'detail' pk=detail_qs.pk %}">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-                            <div class="pull-right">
-                                <a href="" class="btn">保存到草稿</a>
-                                <button type="submit" class="btn">保存并发布</button>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </article>
+        <div class="pull-right">
+            <button type="submit" class="btn" name="draft">保存到草稿</button>
+            <button type="submit" class="btn" name="publish">保存并发布</button>
         </div>
-    </div>
-</div>
+    </form>
+
+
 
 
 {% endblock %}

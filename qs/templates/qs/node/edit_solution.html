@@ -2,33 +2,12 @@
 
 {% block mainbody %}
 
+    <h1>{{question.title}}</h1><br/>
 
-<div id="content" class="inner">
-    <div id="main-col" class="alignleft">
-        <div id="wrapper" class="padding">
-            <article class="post">
-
-
-                <div class="post-content">
-
-
-                    <div class="entry">
-
-                        <h1>{{question.title}}</h1>
-
-                        <br/>
-
-                        <form method="post">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <button type="submit" class="">保存</button>
-                        </form>
-                    </div>
-                </div>
-            </article>
-        </div>
-    </div>
-</div>
-
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="">保存</button>
+    </form>
 
 {% endblock %}
