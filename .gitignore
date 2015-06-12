@@ -1,7 +1,7 @@
 .idea/
 .DS_Store
 db.sqlite3
-repository/settings.py
+repository/local_settings.py
 
 */__pycache__/*.pyc
 
