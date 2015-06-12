@@ -13,14 +13,14 @@
 
                     <div class="entry">
 
-                        <h1>新增一个知识点</h1>
+                        <h3>新增一个知识点</h3>
 
                         <form method="post" >
                             {% csrf_token %}
                             {{ form.as_p }}
 
 
-                            <button type="submit" class="">保存</button>
+                            <button type="submit" class="">保存到草稿</button>
                             <button type="submit" class="">保存并发布</button>
                         </form>
                     </div>

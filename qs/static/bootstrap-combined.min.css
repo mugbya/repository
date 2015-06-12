@@ -1661,7 +1661,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 
 input, textarea, .uneditable-input {
-    width: 206px;
+    width: 406px;
 }
 
 textarea {
@@ -8069,7 +8069,7 @@ button.close {
 #LG {width:100%}
 
 
-#header , .container-question{
+#header {
    margin: 0 auto;
    width: 1000px;
    height: 96px;
@@ -8103,4 +8103,21 @@ float:left;
 
 label {
     display:none
+}
+
+.container-question{
+   margin-left: 300px;
+   width: 660px;
+   height: 96px;
+   padding: 0 15px;
+   box-sizing: content-box;
+   position: relative;
+}
+
+.CodeMirror {
+   height: 210px !important;
+}
+
+.mr10 {
+    margin-right: 10px;
 }

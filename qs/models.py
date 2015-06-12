@@ -50,9 +50,8 @@ class Question(PostBase):
         'blank': "标题不能为空",
         'null': "标题不能为空",
         'invalid': "您输入了一个无效的标题，标题的长度请控制在100个字符内"
-    }, help_text="☞标题为必填且不能超过100个字符", verbose_name=u"标题")
+    }, verbose_name=u"标题")
     detailed = models.TextField(error_messages={},
-                                help_text="☞支持Markdown语法. 内容可以留空，但不要输入无意义的内容",
                                 verbose_name=u"详细内容")
     is_solver = models.BooleanField(editable=False, blank=True, default=False)
     tags = models.ManyToManyField(Tag, blank=True, verbose_name=u'标签')

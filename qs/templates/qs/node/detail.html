@@ -14,7 +14,7 @@
 
                     <div class="entry">
 
-                        <h1><strong>{{detail_qs.title}}</strong></h1>
+                        <h3><strong><a href="{% url 'detail'  pk=detail_qs.pk|default:1%}">{{detail_qs.title}}</a> </strong></h3>
                         <hr/>
                         <a class="" href="">{{ detail_qs.author }}</a>
 
@@ -63,7 +63,10 @@
                             {% csrf_token %}
                             {{ form.as_p }}
 
-                            <button type="submit" class="">保存</button>
+                            <div class="pull-right">
+                                <a href="" class="btn">保存到草稿</a>
+                                <button type="submit" class="btn">保存并发布</button>
+                            </div>
                         </form>
 
                     </div>

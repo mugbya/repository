@@ -45,7 +45,7 @@
       <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script>
+    <script type="text/javascript">
         function oo(){
             var editor = new Editor();
             editor.render();
@@ -82,7 +82,7 @@
 							</ul>
 							<ul class="nav pull-right">
 								<li>
-									<a href="#">我的草稿</a>
+									<a href="{% url 'new_qs' %}">新增知识</a>
 								</li>
 								<li class="divider-vertical">
 								</li>
@@ -94,7 +94,9 @@
                                             <li>
                                                 <a href="#">我的主页</a>
                                             </li>
-
+                                            <li>
+                                                <a href="#">我的草稿</a>
+                                            </li>
                                             <li>
                                                 <a href="#">帐号设置</a>
                                             </li>
@@ -154,6 +156,8 @@
 </div>
 
 
+<!--container-question-->
+
 <div class="container-question">
 	<div class="row-fluid">
 		<div class="span12">
@@ -162,6 +166,16 @@
 
             {% endblock %}
 
+		</div>
+	</div>
+</div>
+
+
+<!-- footer -->
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
 		</div>
 	</div>
 </div>
