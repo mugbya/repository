@@ -160,8 +160,6 @@ def del_solution(request, pk):
     solution.delete()
     return redirect('qs.views.detail', pk=question.pk)
 
-def reply(request):
-    pass
 
 
 @login_required
