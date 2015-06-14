@@ -1,5 +1,6 @@
 .idea/
 .DS_Store
+.sass-cache
 db.sqlite3
 repository/local_settings.py
 

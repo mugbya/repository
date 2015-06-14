@@ -1,0 +1,27 @@
+// block center
+%center-block{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+%clearfix{
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}
+%text-overflow{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+%base-position{
+  position: relative;
+  top: 0;left: 0;
+}
+
