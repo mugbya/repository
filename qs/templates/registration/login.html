@@ -1,96 +1,32 @@
-{% extends "registration/base.html" %}
+{% extends "partial/base.html" %}
+
+
+{% block head %}
+  <!-- <link rel="stylesheet" href=""> -->
+{% endblock %}
+
 
 {% block mainbody %}
 
-<!--<div id="content" class="inner">-->
-    <!--<div id="main-col" class="alignleft">-->
-        <!--<div id="wrapper" class="padding">-->
-
-                <!--{% if form.errors %}-->
-                <!--<p>Your username and password didn't match. Please try again.</p>-->
-                <!--{% endif %}-->
-
-                <!--<form method="post" action="{% url 'django.contrib.auth.views.login' %}">-->
-                <!--{% csrf_token %}-->
-                <!--<table>-->
-                <!--<tr>-->
-                    <!--<td>{{ form.username.label_tag }}</td>-->
-                    <!--<td>{{ form.username }}</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td>{{ form.password.label_tag }}</td>-->
-                    <!--<td>{{ form.password }}</td>-->
-                <!--</tr>-->
-                <!--</table>-->
-
-                <!--<input type="submit" value="login" />-->
-                <!--<input type="hidden" name="next" value="{{ next }}" />-->
-
-                <!--</form>-->
-
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-
-
-<!--  sdfsd  --->
-
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12">
-
-                {% if form.errors %}
-                    <p>Your username and password didn't match. Please try again.</p>
-                {% endif %}
-
-			<form class="form-signin" method="post" action="{% url 'django.contrib.auth.views.login' %}">
-                {% csrf_token %}
-
-
-
-
-
-        <h2 class="form-signin-heading">Please sign in</h2>
-
-
-        <label  class="sr-only">Username</label>
-        <!--<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus> -->
-                {{ form.username }}
-        <label  class="sr-only">Password</label>
-        <!--<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>-->
-                {{ form.password }}
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-
-
-				<!--<div class="control-group">-->
-					 <!--<label class="control-label" for="inputEmail">username</label>-->
-					<!--<div class="controls">-->
-						<!--<input id="inputEmail" type="text" />-->
-                        <!--&lt;!&ndash;{{ form.username }}&ndash;&gt;-->
-					<!--</div>-->
-				<!--</div>-->
-				<!--<div class="control-group">-->
-					 <!--<label class="control-label" for="inputPassword">密码</label>-->
-					<!--<div class="controls">-->
-						<!--<input id="inputPassword" type="password" />-->
-                        <!--&lt;!&ndash;{{ form.password }}&ndash;&gt;-->
-					<!--</div>-->
-				<!--</div>-->
-				<!--<div class="control-group">-->
-					<!--<div class="controls">-->
-						 <!--<label class="checkbox"><input type="checkbox" /> 记住我</label> <button type="submit" class="btn">登陆</button>-->
-					<!--</div>-->
-				<!--</div>-->
-
-			</form>
-		</div>
-	</div>
-</div>
-
-
+  <div class="row login-box">
+    <div class="col-md-6 col-md-offset-2">
+        {% if form.errors %}
+          <p>Your username and password didn't match. Please try again.</p>
+        {% endif %}
+        <form class="form-signin" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+          {% csrf_token %}
+          <label for="username">用户名/Email:</label>
+          <input type="text" name="username">
+          <!-- {{ form.username }} -->
+          <label for="password">密 码:</label>
+          <input type="text" name="password">
+          <!-- {{ form.password }} -->
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="remember-me">记住登录</label>
+          </div>
+          <button class="btn btn-default" type="submit">登 录</button>
+        </form>
+    </div>
+  </div>
 {% endblock %}
