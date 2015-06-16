@@ -1,4 +1,25 @@
 .login-box {
+  width: 200px;
+  margin: 0 auto;
   padding: 100px 0; }
+
+.error-text {
+  font-size: 14px;
+  line-height: 20px;
+  color: #f23;
+  height: 40px;
+  overflow: hidden; }
+
+.register-box {
+  width: 400px;
+  margin: 0 auto;
+  padding: 100px 0; }
+  .register-box .row {
+    margin: 0; }
+  .register-box p {
+    font-size: 14px;
+    line-height: 1.5; }
+    .register-box p strong {
+      color: #f34; }
 
 /*# sourceMappingURL=user.css.map */

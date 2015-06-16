@@ -1,10 +1,17 @@
 @charset "UTF-8";
 
 header{
-	padding: 10px 0;
 	background:#f5f5f5;
 	border-bottom: 1px solid $border;
 	box-shadow: 0 2px 3px $border;
+	
+	h1{
+		font-size: 20px;
+		line-height: 50px;
+		margin: 0;
+		padding: 0;
+	}
+
 	.logo{
 		font-size: 30px;
 		color: #000;
@@ -13,6 +20,18 @@ header{
 		&:hover{
 			text-decoration: none;
 		}
+	}
+
+	.form-group{
+		width: 85%;
+
+		input.form-control{
+			width: 100%;
+		}
+	}
+
+	.row>div{
+		padding: 0;
 	}
 
 	.search{
