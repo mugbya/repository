@@ -7,3 +7,5 @@ repository/local_settings.py
 */__pycache__/*.pyc
 
 */migrations/
+
+whoosh_index/
