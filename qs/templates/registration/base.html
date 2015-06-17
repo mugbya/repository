@@ -12,7 +12,7 @@
     <meta name="author" content="">
     <!--<link rel="icon" href="../../favicon.ico">-->
 
-    <title>Repository</title>
+    <title>ITSS专注解决IT行业疑难杂症</title>
 
     <!-- Bootstrap core CSS -->
     <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
@@ -23,7 +23,11 @@
     <!-- Custom styles for this template -->
     <!--<link href="navbar.css" rel="stylesheet">-->
     <link href=" {% static 'signin.css' %}" rel="stylesheet">
-
+    <link rel="stylesheet" href=" {%static 'css/base.css' %}">
+    <link rel="stylesheet" href=" {%static 'css/user.css' %}">
+    
+    {% block head %}
+    {% endblock %}
 
 
 
@@ -40,56 +44,17 @@
 
   <body>
 
+  {% include "partial/_header.html" %}
+
     <div class="container">
 
-      <!-- Static navbar -->
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Repository</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{% url 'index' %}">ITSS Repository </a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <!--<ul class="nav navbar-nav">-->
-              <!--<li class="active"><a href="#">Home</a></li>-->
-              <!--<li><a href="#">About</a></li>-->
-              <!--<li><a href="#">Contact</a></li>-->
-              <!--<li class="dropdown">-->
-                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
-                <!--<ul class="dropdown-menu" role="menu">-->
-                  <!--<li><a href="#">Action</a></li>-->
-                  <!--<li><a href="#">Another action</a></li>-->
-                  <!--<li><a href="#">Something else here</a></li>-->
-                  <!--<li class="divider"></li>-->
-                  <!--<li class="dropdown-header">Nav header</li>-->
-                  <!--<li><a href="#">Separated link</a></li>-->
-                  <!--<li><a href="#">One more separated link</a></li>-->
-                <!--</ul>-->
-              <!--</li>-->
-            <!--</ul>-->
-            <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="{% url 'django.contrib.auth.views.login' %}">登陆 <span class="sr-only">(current)</span></a></li>
-              <li><a href="{% url 'register' %}">注册</a></li>
-              <!--<li><a href="../navbar-fixed-top/">Fixed top</a></li>-->
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </nav>
+      {% block mainbody %}
 
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
-          {% block mainbody %}
-
-          {% endblock %}
-      </div>
+      {% endblock %}
 
     </div> <!-- /container -->
 
+    {% include "partial/_footer.html" %}
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

@@ -3,30 +3,40 @@
 {% block mainbody %}
 
 
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12">
+<div class="register-box">
+    <h2 class="text－center">创建账户</h2>
+     <form class="form-signin" method="post" action="{% url 'register' %}">
+      {% csrf_token %}
+      <div class="row">      
+        <label for="username">用户名:</label>
+        <br>
+        <input type="text" name="username" class="form-control">
+        <br>
+        <p><strong>*</strong>不多于30个字符。只能用字母、数字和字符</p>
+      </div>
 
+      <div class="row">
+      <label for="password">密 码:</label>
+      <br>
+      <input type="password" name="password1" class="form-control">
+      <br>
+    <p><strong>*</strong>请输入你自己觉得足够安全的密码</p>
+      </div> 
 
-                  <form action="{% url 'register' %}" method="post" class="form-signin">
-                      {% csrf_token %}
-                      <h2 class="form-signin-heading">Create an account</h2>
-
-                      {{ form.as_p }}
-
-
-
-
-                      <input type="submit" value="Create the account">
-                  </form>
-
-            </div>
-        </div>
-    </div>
+      <div class="row">
+         <label for="password">确认密码:</label>
+        <br>
+        <input type="password" name="password2" class="form-control">
+        <br> 
+            <p><strong>*</strong>再次确认密码</p>
+      </div>
+      
+      <div class="row">
+          <button class="btn btn-default btn-block" type="submit">注 册</button>
+      </div>
+    </form> 
+</div>
 
 
 
 {% endblock %}
-
-
-

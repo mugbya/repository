@@ -397,10 +397,14 @@ th {
   max-width: 1000px; }
 
 header {
-  padding: 10px 0;
   background: #f5f5f5;
   border-bottom: 1px solid #e5e5e5;
   box-shadow: 0 2px 3px #e5e5e5; }
+  header h1 {
+    font-size: 20px;
+    line-height: 50px;
+    margin: 0;
+    padding: 0; }
   header .logo {
     font-size: 30px;
     color: #000;
@@ -408,6 +412,12 @@ header {
     line-height: 40px; }
     header .logo:hover {
       text-decoration: none; }
+  header .form-group {
+    width: 85%; }
+    header .form-group input.form-control {
+      width: 100%; }
+  header .row > div {
+    padding: 0; }
   header .search {
     padding: 3px 0; }
   header .nav-tabs {
