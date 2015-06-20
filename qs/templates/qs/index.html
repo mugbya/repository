@@ -1,6 +1,63 @@
 {% extends "qs/base.html" %}
 
+{% block head %}
+  <link rel="stylesheet" href=" {%static 'css/index.css' %}">
+  {% endblock %}
 {% block mainbody %}
+<div class="row">
+	<div class="col-md-8">
+		<nav>
+			<ul class="nav nav-tabs">
+			  <li role="presentation" class="active"><a href="#">最新的</a></li>
+			  <li role="presentation"><a href="#">热门的</a></li>
+			  <li role="presentation"><a href="#">未回答</a></li>
+			</ul>
+		</nav>
+		<div class="question-post-list">
+			<div class="qp-item">
+				<div class="tag-box">
+					<div class="tag-item">
+						<span class="tag-default">
+							0 <small>投票</small>
+						</span>
+					</div>
+					<div class="tag-item">
+						<span class="tag-default tag-green">
+							0 <small>回答</small>
+						</span>
+					</div>
+					<div class="tag-item">
+						<span class="tag-default">
+							0 <small>浏览</small>
+						</span>
+					</div>
+				</div>
+				<div class="content">
+					<div class="info">
+						<a class="name" href="">悲伤的泥流成河</a>
+						<a class="time" href="">2小时前回答</a>
+					</div>
+					<h2 class="title"><a href="">关于操作php 数组，进行相关计算的问题</a></h2>
+					<ul class="taglist">
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">PHP</a>
+						</li>
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">MYsql</a>
+						</li>
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">前端</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+
+	</div>
+</div>
+
 
     {% for item in post_latest %}
 

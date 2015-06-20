@@ -1,9 +1,17 @@
 @charset "UTF-8";
 
 .login-box{
-	width: 200px;
+	width: 300px;
 	margin: 0 auto;
 	padding: 100px 0;
+
+	.row{
+		margin: 0;
+		&>div{
+			margin: 0;
+			padding: 0;
+		}
+	}
 }
 
 .error-text{
@@ -18,7 +26,6 @@
 	width: 400px;
 	margin: 0 auto;
 	padding: 100px 0;
-	
 	.row{
 		margin: 0;
 	}

@@ -15,18 +15,28 @@
     </p>
     <form class="form-signin" method="post" action="{% url 'django.contrib.auth.views.login' %}">
       {% csrf_token %}
-      <label for="username">用户名/Email:</label>
-      <br>
-      <input type="text" name="username" class="form-control">
-      <br>
-      <label for="password">密 码:</label>
-      <br>
-      <input type="password" name="password" class="form-control">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" value="remember-me">记住登录</label>
+      <div class="row">
+        <label for="username">用户名/Email:</label>
+        <br>
+        <input type="text" name="username" class="form-control">
+        <br>
       </div>
-      <button class="btn btn-default" type="submit">登 录</button>
+      <div class="row">
+        <label for="password">密 码:</label>
+        <br>
+        <input type="password" name="password" class="form-control">
+        <br>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <input type="checkbox" value="remember-me">
+          <label>记住登录</label>
+        </div>
+        <div class="col-md-6 text-right">
+          <a href="">忘记密码</a>
+        </div>
+      </div>
+      <button class="btn btn-default btn-block" type="submit">登 录</button>
     </form>
   </div>
 </div>
