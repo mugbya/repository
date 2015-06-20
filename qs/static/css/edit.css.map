@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": ";;;;;;;;;;;;;;;;;;;AAWC,mBAAM;EACL,SAAS,EAAE,IAAI;EACf,MAAM,EAAE,MAAM;AAEf,iBAAI;EACH,MAAM,EAAE,CAAC",
+"sources": ["../scss/edit.scss"],
+"names": [],
+"file": "edit.css"
+}

@@ -1,7 +1,9 @@
 {% extends "qs/base.html" %}
 
+{% load staticfiles%}
+
 {% block head %}
-  <link rel="stylesheet" href=" {%static 'css/index.css' %}">
+	 <link rel="stylesheet" href=" {%static 'css/index.css' %}">
   {% endblock %}
 {% block mainbody %}
 <div class="row">
@@ -16,19 +18,20 @@
 		<div class="question-post-list">
 			<div class="qp-item">
 				<div class="tag-box">
+				<!-- tag-red tag-gray tag-green -->
 					<div class="tag-item">
 						<span class="tag-default">
-							0 <small>投票</small>
+							2 <small>投票</small>
 						</span>
 					</div>
 					<div class="tag-item">
-						<span class="tag-default tag-green">
-							0 <small>回答</small>
+						<span class="tag-default tag-red">
+							23 <small>回答</small>
 						</span>
 					</div>
 					<div class="tag-item">
 						<span class="tag-default">
-							0 <small>浏览</small>
+							100 <small>浏览</small>
 						</span>
 					</div>
 				</div>
@@ -51,11 +54,182 @@
 					</ul>
 				</div>
 			</div>
+			<div class="qp-item">
+				<div class="tag-box">
+					<div class="tag-item">
+						<span class="tag-default">
+							34 <small>投票</small>
+						</span>
+					</div>
+					<div class="tag-item">
+						<span class="tag-default tag-green">
+							200 <small>回答</small>
+						</span>
+					</div>
+					<div class="tag-item">
+						<span class="tag-default">
+							80 <small>浏览</small>
+						</span>
+					</div>
+				</div>
+				<div class="content">
+					<div class="info">
+						<a class="name" href="">悲伤的泥流成河</a>
+						<a class="time" href="">2小时前回答</a>
+					</div>
+					<h2 class="title"><a href="">关于操作php 数组，进行相关计算的问题关于操作php 数组，进行相关计算的问题关于操作php 数组，进行相关计算的问题</a></h2>
+					<ul class="taglist">
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">PHP</a>
+						</li>
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">MYsql</a>
+						</li>
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">前端</a>
+						</li>
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">PHP</a>
+						</li>
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">MYsql</a>
+						</li>
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">前端</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+						<div class="qp-item">
+				<div class="tag-box">
+				<!-- tag-red tag-gray tag-green -->
+					<div class="tag-item">
+						<span class="tag-default">
+							2 <small>投票</small>
+						</span>
+					</div>
+					<div class="tag-item">
+						<span class="tag-default tag-red">
+							23 <small>回答</small>
+						</span>
+					</div>
+					<div class="tag-item">
+						<span class="tag-default">
+							100 <small>浏览</small>
+						</span>
+					</div>
+				</div>
+				<div class="content">
+					<div class="info">
+						<a class="name" href="">悲伤的泥流成河</a>
+						<a class="time" href="">2小时前回答</a>
+					</div>
+					<h2 class="title"><a href="">关于操作php 数组，进行相关计算的问题</a></h2>
+					<ul class="taglist">
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">PHP</a>
+						</li>
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">MYsql</a>
+						</li>
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">前端</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="qp-item">
+				<div class="tag-box">
+					<div class="tag-item">
+						<span class="tag-default">
+							34 <small>投票</small>
+						</span>
+					</div>
+					<div class="tag-item">
+						<span class="tag-default tag-green">
+							200 <small>回答</small>
+						</span>
+					</div>
+					<div class="tag-item">
+						<span class="tag-default">
+							80 <small>浏览</small>
+						</span>
+					</div>
+				</div>
+				<div class="content">
+					<div class="info">
+						<a class="name" href="">悲伤的泥流成河</a>
+						<a class="time" href="">2小时前回答</a>
+					</div>
+					<h2 class="title"><a href="">关于操作php 数组，进行相关计算的问题关于操作php 数组，进行相关计算的问题关于操作php 数组，进行相关计算的问题</a></h2>
+					<ul class="taglist">
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">PHP</a>
+						</li>
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">MYsql</a>
+						</li>
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">前端</a>
+						</li>
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">PHP</a>
+						</li>
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">MYsql</a>
+						</li>
+						<li class="tagpopup">
+							<a href="" class="tag tag-sm">前端</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="col-md-4">
+		<div class="sidebar-box">
+				<h2 class="title">标签云</h2>
+				<ul class="taglist">
+					<li class="tag"><a href="">javascript</a></li>
+					<li class="tag"><a href="">PHP</a></li>
+					<li class="tag"><a href="">git</a></li>
+					<li class="tag"><a href="">PHP</a></li>
+					<li class="tag"><a href="">GO</a></li>
+					<li class="tag"><a href="">PHP</a></li>
+					<li class="tag"><a href="">PHP</a></li>
+					<li class="tag"><a href="">CSS3</a></li>
+					<li class="tag"><a href="">PHP</a></li>
+					<li class="tag"><a href="">程序员</a></li>
+					<li class="tag"><a href="">产品经理</a></li>
+					<li class="tag"><a href="">C#</a></li>
+					<li class="tag"><a href="">python</a></li>
+					<li class="tag"><a href="">PHP</a></li>
+					<li class="tag"><a href="">PHP</a></li>
+					<li class="tag"><a href="">PHP</a></li>
+					<li class="tag"><a href="">DBA</a></li>
+					<li class="tag"><a href="">PHP</a></li>
+					<li class="tag"><a href="">sql</a></li>
+				</ul>
+		</div>
 
+			<div class="sidebar-box">
+		<h2 class="title">最新问答</h2>
+		<ul class="qalist">
+			<li class="qa"><a href="">想用bootstrap+angular</a><small>7人回答|已解决</small></li>
+			<li class="qa"><a href="">想用bootstrap+angular开发一后台管理系统，请问有人知道这方面的开源项目吗？</a><small>7人回答</small></li>
+			<li class="qa"><a href="">windows结构tmPitchAndFamily中的pitch什么意思? </a><small>7人回答</small></li>
+			<li class="qa"><a href="">想用bootstrap+angular开发一后台管理系统，请问有人知道这方面的开源项目吗？</a><small>7人回答</small></li>
+			<li class="qa"><a href="">windows结构tmPitchAndFamily中的pitch什么意思? +angular开发一后台管理系统，请问有人知道这方面的开源项目吗？</a><small>7人回答</small></li>
+			<li class="qa"><a href="">想用bootstrap+angular开发一后台管理系统，请问有人知道这方面的开源项目吗？</a><small>7人回答|已解决</small></li>
+			<li class="qa"><a href="">想用bootstrap+angular开发一后台管理系统，请问有人知道这方面的开源项目吗？</a><small>7人回答</small></li>
+			<li class="qa"><a href="">想用bootstrap+angular开发一后台管理系统，请问有人知道这方面的开源项目吗？</a><small>7人回答</small></li>
+			<li class="qa"><a href="">想用bootstrap+angular开发一后台管理系统，请问有人知道这方面的开源项目吗？</a><small>7人回答</small></li>
+			<li class="qa"><a href="">想用bootstrap+windows结构tmPitchAndFamily中的pitch什么意思? </a><small>7人回答|已解决</small></li>
+		</ul>
 	</div>
+	</div>
+
+
 </div>
 
 

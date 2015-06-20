@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+//helps
+@import "helps/variables";
+@import "helps/functions";
+@import "helps/placeholders";
+@import "helps/mixins";
+
+@import "compass";
+
+.edit-qa-box{
+	.title{
+		font-size: 20px;
+		margin: 10px 0;
+	}
+	.row{
+		margin: 0;
+	}
+}
