@@ -33,6 +33,10 @@ header {
     line-height: 50px;
     margin: 0;
     padding: 0; }
+  header .main-text {
+    text-decoration: none; }
+    header .main-text:hover {
+      text-decoration: none; }
   header .logo {
     font-size: 30px;
     color: #000;
@@ -41,19 +45,54 @@ header {
     header .logo:hover {
       text-decoration: none; }
   header .form-group {
-    width: 85%; }
+    width: 100%; }
     header .form-group input.form-control {
       width: 100%; }
+  header .search-form > div {
+    position: relative;
+    padding-right: 30px;
+    font-size: 0;
+    border-radius: 4px;
+    border: 1px solid #e5e5e5; }
+  header .search-form .form-control {
+    font-size: 14px;
+    height: 30px;
+    border: 0;
+    border-radius: 0; }
+  header .search-form .btn {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    text-align: center;
+    line-height: 30px;
+    top: 0;
+    right: 0;
+    border: 0;
+    outline: 0;
+    box-shadow: 0;
+    border-radius: 0; }
+    header .search-form .btn:hover, header .search-form .btn:active {
+      border: 0;
+      outline: 0;
+      background: #fff;
+      color: #23527c; }
   header .row > div {
     padding: 0; }
   header .search {
     padding: 3px 0; }
+  header .navbar-nav {
+    margin: 0 0; }
   header .nav-tabs {
     border: 0; }
   header .nav-tabs > li > a {
     border: 0; }
   header .nav-tabs > li.active > a {
     border: 0; }
+  header .navbar-right {
+    margin: 0 -15px; }
+  header .dropdown > a {
+    padding: 15px 10px; }
 
 .sub-header {
   padding: 50px 0;

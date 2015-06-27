@@ -17,12 +17,6 @@
 /* TEXT SHADOW */
 /* TRANSFORM  */
 /* TRANSITION */
-.edit-qa-box .title {
-  font-size: 20px;
-  margin: 10px 0; }
-.edit-qa-box .row {
-  margin: 0; }
-
 .edit-box {
   position: relative; }
   .edit-box label[for="id_env"],
@@ -44,11 +38,8 @@
   margin: 0 0 10px;
   border-radius: 4px; }
 
-.op-btn {
-  padding: 20px 0; }
-
 .CodeMirror {
   border: 1px solid #e5e5e5;
   border-width: 1px 1px 0; }
 
-/*# sourceMappingURL=edit.css.map */
+/*# sourceMappingURL=draft.css.map */
