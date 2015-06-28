@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+//helps
+@import "helps/variables";
+@import "helps/functions";
+@import "helps/placeholders";
+@import "helps/mixins";
+
+@import "compass";
+
+
+
+//editor
+.editor-toolbar{
+	// border: 1px solid $border;
+}
+
+.CodeMirror{
+	border: 1px solid $border;
+	border-width: 1px 1px 0;
+}
+
+.editor-statusbar{
+
+}
