@@ -63,7 +63,8 @@
   font-size: 16px;
   font-weight: 400;
   margin: 6px 0;
-  color: #252525; }
+  color: #252525;
+  word-break: break-all; }
 .content .taglist {
   display: inline-block;
   list-style: none;
