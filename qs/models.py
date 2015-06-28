@@ -56,6 +56,12 @@ class Question(PostBase):
     is_solver = models.BooleanField(editable=False, blank=True, default=False)
     tags = models.ManyToManyField(Tag, blank=True, verbose_name=u'标签')
 
+    count_vote = models.IntegerField(default=0, editable=False, blank=True)
+
+    count_solution = models.IntegerField(default=0, editable=False, blank=True)
+
+    count_link = models.IntegerField(default=0, editable=False, blank=True)
+
     def save(self, *args, **kwargs):
         self.content_md = markdown.markdown(
             self.detailed,

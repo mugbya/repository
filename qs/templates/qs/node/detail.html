@@ -21,12 +21,11 @@
 <hr/>
 
 <blockquote>
-  <h3>环境: {{detail_qs.env}}</h3>
+  <h4>环境: {{detail_qs.env}}</h4>
 </blockquote>
 
 <p>
-  {{detail_qs.content_md | safe| default:" <i>正文无内容</i>
-"}}
+  {{detail_qs.content_md | safe| default:" <i>正文无内容</i>" }}
 </p>
 <br/>
 <h3>解决方法{{ count }}个</h3>
@@ -41,8 +40,7 @@
   {% endif %}
             {% endif %}
   <br/>
-  {{ solution.content_md | safe|default:" <i>正文无内容</i>
-  " }}
+  {{ solution.content_md | safe|default:" <i>正文无内容</i>" }}
   <hr/>
   {% endfor %}
 </p>
