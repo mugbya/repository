@@ -1,15 +1,21 @@
 {% extends "qs/base.html" %}
 
+
+{% load staticfiles%}
+{% block head %}
+<link rel="stylesheet" href=" {%static 'css/draft.css' %}">
+{% endblock %}
 {% block mainbody %}
 
     <form method="post" >
         {% csrf_token %}
-        {{ form.as_p }}
-
+        <div class="edit-box">
+        	{{ form.as_p }}
+        </div>
         <div class="pull-right">
-            <button type="submit" class="btn" name="discard">丢弃</button>
-            <button type="submit" class="btn" name="draft">保存到草稿</button>
-            <button type="submit" class="btn" name="publish">保存并发布</button>
+            <button type="submit" class="btn btn-default" name="discard">丢弃</button>
+            <button type="submit" class="btn btn-default" name="draft">保存到草稿</button>
+            <button type="submit" class="btn btn-default" name="publish">保存并发布</button>
         </div>
     </form>
 

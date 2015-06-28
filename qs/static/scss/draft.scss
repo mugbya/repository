@@ -8,15 +8,7 @@
 
 @import "compass";
 
-.edit-qa-box{
-	.title{
-		font-size: 20px;
-		margin: 10px 0;
-	}
-	.row{
-		margin: 0;
-	}
-}
+
 
 .edit-box{
 	position: relative;
@@ -47,10 +39,8 @@
 	border-radius: 4px;
 }
 
-.op-btn{
-	padding: 20px 0;
-}
 
+//editor
 .editor-toolbar{
 	// border: 1px solid $border;
 }
@@ -63,4 +53,3 @@
 .editor-statusbar{
 
 }
-
