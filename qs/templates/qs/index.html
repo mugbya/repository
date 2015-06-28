@@ -16,7 +16,8 @@
 			</ul>
 		</nav>
 		<div class="question-post-list">
-			{% for item in post_latest %}
+{% for item in post_latest %}
+
 			<div class="qp-item">
 				<div class="tag-box">
 				<!-- tag-red tag-gray tag-green -->
@@ -27,128 +28,7 @@
 					</div>
 					<div class="tag-item">
 						<span class="tag-default tag-red">
-							23 <small>回答</small>
-						</span>
-					</div>
-					<div class="tag-item">
-						<span class="tag-default">
-							100 <small>浏览</small>
-						</span>
-					</div>
-				</div>
-				<div class="content">
-					<div class="info">
-						<a class="name" href="">悲伤的泥流成河</a>
-						<a class="time" href="">2小时前回答</a>
-					</div>
-					<h2 class="title"><a href="">关于操作php 数组，进行相关计算的问题</a></h2>
-					<ul class="taglist">
-						<li class="tagpopup">
-							<a href="" class="tag tag-sm">PHP</a>
-						</li>
-						<li class="tagpopup">
-							<a href="" class="tag tag-sm">MYsql</a>
-						</li>
-						<li class="tagpopup">
-							<a href="" class="tag tag-sm">前端</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="qp-item">
-				<div class="tag-box">
-					<div class="tag-item">
-						<span class="tag-default">
-							34 <small>投票</small>
-						</span>
-					</div>
-					<div class="tag-item">
-						<span class="tag-default tag-green">
-							200 <small>回答</small>
-						</span>
-					</div>
-					<div class="tag-item">
-						<span class="tag-default">
-							80 <small>浏览</small>
-						</span>
-					</div>
-				</div>
-				<div class="content">
-					<div class="info">
-						<a class="name" href="">悲伤的泥流成河</a>
-						<a class="time" href="">2小时前回答</a>
-					</div>
-					<h2 class="title"><a href="">关于操作php 数组，进行相关计算的问题关于操作php 数组，进行相关计算的问题关于操作php dfa;dfjlasjdf;ljdf;lajdfkljad;fjlkdjflasjdfhgghhhhhhhhhfhladfkahdhfalfjhdfkjaldfaldjfhadjkfhaklj 数组，进行相关计算的问题</a></h2>
-					<ul class="taglist">
-						<li class="tagpopup">
-							<a href="" class="tag tag-sm">PHP</a>
-						</li>
-						<li class="tagpopup">
-							<a href="" class="tag tag-sm">MYsql</a>
-						</li>
-						<li class="tagpopup">
-							<a href="" class="tag tag-sm">前端</a>
-						</li>
-						<li class="tagpopup">
-							<a href="" class="tag tag-sm">PHP</a>
-						</li>
-						<li class="tagpopup">
-							<a href="" class="tag tag-sm">MYsql</a>
-						</li>
-						<li class="tagpopup">
-							<a href="" class="tag tag-sm">前端</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="qp-item">
-				<div class="tag-box">
-				<!-- tag-red tag-gray tag-green -->
-					<div class="tag-item">
-						<span class="tag-default">
-							2 <small>投票</small>
-						</span>
-					</div>
-					<div class="tag-item">
-						<span class="tag-default tag-red">
-							23 <small>回答</small>
-						</span>
-					</div>
-					<div class="tag-item">
-						<span class="tag-default">
-							100 <small>浏览</small>
-						</span>
-					</div>
-				</div>
-				<div class="content">
-					<div class="info">
-						<a class="name" href="">悲伤的泥流成河</a>
-						<a class="time" href="">2小时前回答</a>
-					</div>
-					<h2 class="title"><a href="">关于操作php 数组，进行相关计算的问题</a></h2>
-					<ul class="taglist">
-						<li class="tagpopup">
-							<a href="" class="tag tag-sm">PHP</a>
-						</li>
-						<li class="tagpopup">
-							<a href="" class="tag tag-sm">MYsql</a>
-						</li>
-						<li class="tagpopup">
-							<a href="" class="tag tag-sm">前端</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="qp-item">
-				<div class="tag-box">
-					<div class="tag-item">
-						<span class="tag-default">
-							34 <small>投票</small>
-						</span>
-					</div>
-					<div class="tag-item">
-						<span class="tag-default tag-green">
-							200 <small>回答</small>
+						{{ item.count_solution }}	 <small>回答</small>
 						</span>
 					</div>
 					<div class="tag-item">
