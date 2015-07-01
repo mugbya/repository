@@ -9,3 +9,5 @@ repository/local_settings.py
 */migrations/
 
 whoosh_index/
+
+test/
