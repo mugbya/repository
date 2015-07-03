@@ -4,10 +4,13 @@
 from .models import Question
 from haystack import indexes
 
-class PostIndex(indexes.SearchIndex, indexes.Indexable):
+class QuestionIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
+    # env = indexes.CharField(document=True)
     # 对title字段进行索引
     title = indexes.CharField(model_attr='title')
+    content_md = indexes.CharField(model_attr='env')
+
     def get_model(self):
         return Question
 

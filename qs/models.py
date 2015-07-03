@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.conf import settings
 import markdown
-
+import uuid
 
 #    python  manage.py syncdb
 #
@@ -34,6 +34,7 @@ class PostBase(models.Model):
 
 
 class Tag(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True, verbose_name=u'名称')
     description = models.CharField(max_length=200, blank=True, null=True, verbose_name=u'描述')
     count_post = models.IntegerField(default=0, editable=False, verbose_name=u'条数')
@@ -45,6 +46,7 @@ class Tag(models.Model):
         return self.name
 
 class Question(PostBase):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     env = models.CharField(max_length=200, verbose_name=u"环境")
     title = models.CharField(max_length=100, error_messages={
         'blank': "标题不能为空",
@@ -92,6 +94,7 @@ class Question(PostBase):
 
 
 class Solution(PostBase):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     question = models.ForeignKey(Question)
 
     content = models.TextField(error_messages={},)

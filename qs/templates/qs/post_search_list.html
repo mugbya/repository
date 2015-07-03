@@ -1,0 +1,17 @@
+{% extends "qs/base.html" %}
+
+{% block mainbody %}
+
+
+    {% if list_header %}
+        <div class="box">{{ list_header }}</div>
+    {% endif %}
+
+    {% for post in posts %}
+        <div class="post">
+            <h3><a href="{% url 'qs.views.detail' pk=post.pk %}">{{ post.title }}</a></h3>
+        </div>
+    {% endfor %}
+
+
+{% endblock %}

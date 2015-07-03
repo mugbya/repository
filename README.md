@@ -46,6 +46,12 @@
 
      python3 manage.py createsuperuser
 
+
+### 重建索引 （如果实现了搜索功能）
+
+    python manage.py rebuild_index
+
+
 ### 运行服务器
 
     python3 manage.py runserver 0.0.0.0:8000
