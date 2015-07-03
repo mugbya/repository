@@ -24,9 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2tnv$y&q-y-o-#amd5uqh@2+@7@+quuw--a1_emdim7#@v#i=5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -55,10 +53,6 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'repository.urls'
 
-# Template dir
-# TEMPLATE_DIRS = (
-#     os.path.join(BASE_DIR, 'templates/operations/'),
-# )
 
 TEMPLATES = [
     # {
@@ -104,6 +98,16 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'repository_test',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 
 
@@ -150,20 +154,11 @@ except ImportError:
     pass
 
 
-
-
-
-
-
-
-
-
-# error
-
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# ALLOWED_HOSTS = ['*']
-#
-# STATIC_ROOT = 'staticfiles'
-#
-# DEBUG = False
+ALLOWED_HOSTS = ['*']
+
+STATIC_ROOT = 'staticfiles'
+
+DEBUG = False
+
