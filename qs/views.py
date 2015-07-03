@@ -12,6 +12,8 @@ from django.contrib import auth
 
 from .forms import QuestionForm, SolutionForm
 
+from haystack.forms import SearchForm
+
 from .models import *
 
 
@@ -24,9 +26,6 @@ def index(request):
 
 def detail(request, pk):
     detail_qs = get_object_or_404(Question, pk=pk)
-
-
-
     solution = detail_qs.solution_set
     solution_list = solution.all()
     solution_count = solution.count()
@@ -158,3 +157,11 @@ def register(request):
         form = UserCreationForm()
     return render(request, "registration/register.html", {'form': form})
 
+
+def full_search(request):
+    """全局搜索"""
+    keywords = request.GET['q']
+    sform = SearchForm(request.GET)
+    posts = sform.search()
+    return render(request, 'qs/post_search_list.html',
+                  {'posts': posts, 'list_header': '关键字 \'{}\' 搜索结果'.format(keywords)})
