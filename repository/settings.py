@@ -130,6 +130,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+
 # full text search
 HAYSTACK_CONNECTIONS = {
     'default': {
@@ -157,8 +160,6 @@ except ImportError:
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ALLOWED_HOSTS = ['*']
-
-STATIC_ROOT = 'staticfiles'
 
 DEBUG = False
 
