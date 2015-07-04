@@ -6,50 +6,62 @@
 {% endblock %}
 {% block mainbody %}
 <h3>
+  <button class="itss-zan"><i class="fa fa-thumbs-up"></i>
+  100</button>
   <a href="{% url 'detail'  pk=detail_qs.pk|default:1%}">{{detail_qs.title}}</a>
 </h3>
-<p>
-  <a class="" href="">{{ detail_qs.author }}</a>
-  最后编辑时间：{{detail_qs.last_edited}}
-  {% if user.is_authenticated %}
-    <a class="" href="{% url 'edit_qs' pk=detail_qs.pk %}">修改</a>
+<div class="clearfix">
+  <div class="col-md-8">
+    <a class="" href="">{{ detail_qs.author }}</a> &nbsp;&nbsp;
+    最后编辑时间：{{detail_qs.last_edited}}
+    &nbsp;&nbsp;
+    {% if user.is_authenticated %}
+      <a class="" href="{% url 'edit_qs' pk=detail_qs.pk %}">修改</a>
       {% if user == detail_qs.author %}
-    <a class="" href="{% url 'del_qs' pk=detail_qs.pk %}">删除</a>
+      <a class="" href="{% url 'del_qs' pk=detail_qs.pk %}">删除</a>
+      {% endif %}
     {% endif %}
-    {% endif %}
-</p>
+  </div>
+  <div class="col-md-4 text-right">
+    1000&nbsp;<i class="fa fa-eye"></i>
+  </div>
+</div>
 <hr/>
 
 <blockquote>
   <h4>环境: {{detail_qs.env}}</h4>
 </blockquote>
 
-<p>
-  {{detail_qs.content_md | safe| default:" <i>正文无内容</i>" }}
-</p>
-<br/>
-<h3>解决方法{{ count }}个</h3>
-<hr>
-<p>
+<div class="itss-p-detail">
+   {{detail_qs.content_md | safe| default:" <i>正文无内容</i>" }}
+</div>
+
+<h3>解决方法{{count}}个</h3>
+
+<div class="itess-anwser-list">
   {% for solution in solutions %}
-  <span>{{ solution.author }} {{ solution.last_edited}}</span>
-  {% if user.is_authenticated %}
-  <a class="" href="{% url 'edit_solution' pk=solution.pk %}">修改</a>
-  {% if user == detail_qs.author %}
-  <a class="" href="{% url 'del_solution' pk=solution.pk %}">删除</a>
-  {% endif %}
-            {% endif %}
-  <br/>
-  {{ solution.content_md | safe|default:" <i>正文无内容</i>" }}
-  <hr/>
+  <div class="itss-anwser-item">
+    <button class="itss-zan"><i class="fa fa-thumbs-up"></i> 1k</button>
+    <h4>
+      <span>{{ solution.author }} &nbsp; {{ solution.last_edited}}</span>&nbsp;&nbsp;
+      {% if user.is_authenticated %}
+      <a class="" href="{% url 'edit_solution' pk=solution.pk %}">修改</a>
+      {% if user == detail_qs.author %}
+      <a class="" href="{% url 'del_solution' pk=solution.pk %}">删除</a>
+      {% endif %}
+      {% endif %}
+    </h4>
+    <div class="content">
+      {{ solution.content_md | safe|default:" <i>正文无内容</i>" }}
+    </div>
+  </div>
   {% endfor %}
-</p>
+</div>
 
 <h3>撰写答案</h3>
-<hr>
 <form method="post" action="{% url 'detail' pk=detail_qs.pk %}">
   {% csrf_token %}
-        {{ form.as_p }}
+  {{ form.as_p }}
   <div class="pull-right">
     <button type="submit" class="btn btn-default" name="publish">提交</button>
   </div>

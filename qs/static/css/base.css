@@ -106,4 +106,24 @@ header {
       font-size: 20px;
       vertical-align: bottom; }
 
+.itss-zan {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  outline: 0;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 500;
+  vertical-align: middle;
+  line-height: 14px;
+  color: #999;
+  background: #fff; }
+  .itss-zan .fa {
+    font-size: 20px; }
+  .itss-zan:active, .itss-zan.active {
+    color: #23527c; }
+
 /*# sourceMappingURL=base.css.map */
