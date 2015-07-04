@@ -1,4 +1,4 @@
-{% extends "qs/base.html" %}
+{% extends "partial/base.html" %}
 
 {% load staticfiles%}
 
@@ -16,11 +16,10 @@
 			</ul>
 		</nav>
 		<div class="question-post-list">
-{% for item in post_latest %}
-
+			{% for item in post_latest %}
 			<div class="qp-item">
 				<div class="tag-box">
-				<!-- tag-red tag-gray tag-green -->
+					<!-- tag-red tag-gray tag-green -->
 					<div class="tag-item">
 						<span class="tag-default">
 							2 <small>投票</small>
@@ -56,9 +55,7 @@
 					</ul>
 				</div>
 			</div>
-
 			{% endfor %}
-
 		</div>
 	</div>
 	<div class="col-md-4">
@@ -103,8 +100,6 @@
 		</ul>
 	</div>
 	</div>
-
-
 </div>
 
 

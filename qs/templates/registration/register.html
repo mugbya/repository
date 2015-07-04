@@ -1,7 +1,12 @@
-{% extends "registration/base.html" %}
+{% extends "partial/base.html" %}
+
+{% load staticfiles %}
+
+{% block head %}
+  <link rel="stylesheet" href=" {%static 'css/user.css' %}">
+{% endblock %}
 
 {% block mainbody %}
-
 
 <div class="register-box">
     <h2 class="text－center">创建账户</h2>

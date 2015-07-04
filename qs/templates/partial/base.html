@@ -1,5 +1,4 @@
 {% load staticfiles %}
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -36,7 +35,10 @@
   <!-- link itss style -->
 
   <link rel="stylesheet" href=" {%static 'css/base.css' %}">
-  
+  <script src="//cdn.jsdelivr.net/editor/0.1.0/editor.js"></script>
+  <script src="//cdn.jsdelivr.net/editor/0.1.0/marked.js"></script>
+<!--   // <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
+
   {% block head %}
 
     {% endblock %}
@@ -44,12 +46,10 @@
 </head>
 
 <body>
-
   <!-- include header -->
   {% include "partial/_header.html" %}
- 
   <!--container-question-->
-  <div class="container">
+  <div class="container itss-content">
     {% block mainbody %}
 
      {% endblock %}
@@ -67,14 +67,16 @@
   <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
   <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-
+<!--   // <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+  <script src="{%static 'js/base.js' %}"></script>
   <script>
     window.onload=function(){
-
       var editor = new Editor();
       editor.render();
     }
   </script>
+  {% block foot %}
+
+  {% endblock %}
 </body>
 </html>
