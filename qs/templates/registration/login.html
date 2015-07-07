@@ -1,9 +1,10 @@
-{% extends "registration/base.html" %}
+{% extends "partial/base.html" %}
 
+{% load staticfiles %}
 
 {% block head %}
+  <link rel="stylesheet" href=" {%static 'css/user.css' %}">
 {% endblock %}
-
 
 {% block mainbody %}
 <div class="login-box">

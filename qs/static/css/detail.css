@@ -21,4 +21,22 @@
   border: 1px solid #e5e5e5;
   border-width: 1px 1px 0; }
 
+.itss-p-detail {
+  position: relative;
+  padding: 30px 20px; }
+
+.itss-anwser-item {
+  position: relative;
+  padding: 10px 0 0 50px;
+  line-height: 1.5;
+  font-size: 14px; }
+  .itss-anwser-item > h4 a {
+    font-size: 14px; }
+  .itss-anwser-item .itss-zan {
+    position: absolute;
+    top: 10px;
+    left: 0; }
+  .itss-anwser-item .content {
+    border-bottom: 1px solid #e5e5e5; }
+
 /*# sourceMappingURL=detail.css.map */

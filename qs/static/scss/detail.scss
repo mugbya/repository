@@ -23,3 +23,33 @@
 .editor-statusbar{
 
 }
+.itss-p-detail{
+	position: relative;
+	padding: 30px 20px;
+}
+
+.itss-anwser-list{
+	
+}
+
+.itss-anwser-item{
+	position: relative;
+	padding: 10px 0 0 50px;
+	line-height: 1.5;
+	font-size: 14px;
+	&>h4{
+		a{
+			font-size: 14px;
+		}
+	}
+
+	.itss-zan{
+		position: absolute;
+		top: 10px;
+		left: 0;
+	}
+
+	.content{
+		border-bottom: 1px solid $border;
+	}
+}

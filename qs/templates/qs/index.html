@@ -1,4 +1,4 @@
-{% extends "qs/base.html" %}
+{% extends "partial/base.html" %}
 
 {% load staticfiles%}
 
@@ -17,19 +17,24 @@
 		</nav>
 		<div class="question-post-list">
 			{% for item in post_latest %}
-
 			<div class="qp-item">
 				<div class="tag-box">
-				<!-- tag-red tag-gray tag-green -->
+					<!-- tag-red tag-gray tag-green -->
 					<div class="tag-item">
 						<span class="tag-default">
 							2 <small>投票</small>
 						</span>
 					</div>
 					<div class="tag-item">
-						<span class="tag-default tag-red">
-						{{ item.count_solution }}	 <small>回答</small>
-						</span>
+						{% if item.count_solution == 0 %}
+							<span class="tag-default tag-red">
+									0 <small>回答</small>
+							</span>
+						{% else %}
+							<span class="tag-default tag-green">
+								{{ item.count_solution }}	 <small>回答</small>
+							</span>
+						{% endif %}
 					</div>
 					<div class="tag-item">
 						<span class="tag-default">
@@ -56,9 +61,7 @@
 					</ul>
 				</div>
 			</div>
-
 			{% endfor %}
-
 		</div>
 	</div>
 	<div class="col-md-4">
@@ -103,8 +106,6 @@
 		</ul>
 	</div>
 	</div>
-
-
 </div>
 
 

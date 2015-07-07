@@ -18,3 +18,24 @@
 //pages
 
 
+.itss-zan{
+	width: 40px;
+	height: 40px;
+	border: 1px solid $border;
+	outline: 0;
+	@include border-radius(4px);
+	overflow: hidden;
+	font-size: 14px;
+	font-weight: 500;
+	vertical-align: middle;
+	line-height: 14px;
+	color: $color;
+	background:$white;
+	.fa{
+		font-size: 20px;
+	}
+	&:active,
+	&.active{
+		color: $active;
+	}
+}
