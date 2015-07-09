@@ -12,13 +12,13 @@
 	<form method="post" action="settings">
 		 {% csrf_token %}
 
-            用户名 <input  name="username" placeholder="{{profile.user.username}}"> <hr>
+            用户名 <input  name="username" value="{{profile.user.username}}"> <hr>
             头像<img src="{{ profile.avatar_url }}" name="avatar"> <hr>
 
-			邮箱 <input name="email" type="email" placeholder="{{ email }}">
-             个人网站<input name="website" placeholder="{{ profile.website }}"> <hr>
+			邮箱 <input name="email" type="email" value="{{ email }}">
+             个人网站<input name="website" value="{{ profile.website }}"> <hr>
 
-             关于我 <textarea  name="about_me" placeholder="{{ profile.about_me }}"></textarea>
+             关于我 <textarea  name="about_me" value="{{ profile.about_me }}"></textarea>
 
 
 		<div class="pull-right op-btn">

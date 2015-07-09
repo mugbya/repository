@@ -32,10 +32,7 @@ def settings(request):
         profile.website = website
         user.save()
         profile.save()
-        form = ProfileForm(instance=profile)
-    else:
-        form = ProfileForm(instance=profile)
-    return render(request, 'user/settings.html', {'form': form, 'profile': profile, 'email': user.email})
+    return render(request, 'user/settings.html', {'profile': profile, 'email': user.email})
 
 def avatar(request):
     pass
