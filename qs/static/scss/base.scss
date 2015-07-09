@@ -20,22 +20,31 @@
 
 .itss-zan{
 	width: 40px;
-	height: 40px;
-	border: 1px solid $border;
-	outline: 0;
 	@include border-radius(4px);
 	overflow: hidden;
-	font-size: 14px;
-	font-weight: 500;
-	vertical-align: middle;
-	line-height: 14px;
-	color: $color;
 	background:$white;
-	.fa{
-		font-size: 20px;
+	button{
+		display: block;
+		margin: 0 auto;
+		color: $color;
+		background:transparent;
+		font-size: 60px;
+		line-height: 30px;
+		padding: 0;
+		border: 0;
+		bottom: 0;
+		outline: 0;
+		&:active,
+		&.active{
+			color: $active;
+		}
 	}
-	&:active,
-	&.active{
-		color: $active;
+	.count{
+		font-size: 20px;
+		font-weight: 500;
+		display: block;
+		height: 40px;
+		line-height: 40px;
+		text-align: center;
 	}
 }

@@ -23,18 +23,27 @@
 .editor-statusbar{
 
 }
+
+.itss-detail-title{
+	position: relative;
+	.itss-zan{
+		position: absolute;
+		top: -20px;
+		left: -60px;
+	}
+}
 .itss-p-detail{
 	position: relative;
 	padding: 30px 20px;
 }
 
 .itss-anwser-list{
-	
+
 }
 
 .itss-anwser-item{
 	position: relative;
-	padding: 10px 0 0 50px;
+	padding: 10px 0;
 	line-height: 1.5;
 	font-size: 14px;
 	&>h4{
@@ -42,14 +51,13 @@
 			font-size: 14px;
 		}
 	}
-
 	.itss-zan{
 		position: absolute;
-		top: 10px;
-		left: 0;
+		top: -10px;
+		left: -60px;
 	}
-
 	.content{
+		min-height: 80px;
 		border-bottom: 1px solid $border;
 	}
 }

@@ -5,8 +5,15 @@
 <link rel="stylesheet" href=" {%static 'css/detail.css' %}">
 {% endblock %}
 {% block mainbody %}
-<h3>
-  <!--<button class="itss-zan"><i class="fa fa-thumbs-up"></i>100</button>-->
+
+
+<h3 class="itss-detail-title">
+  <div class="itss-zan">
+    <button class="fa fa-caret-up down active"></button>
+    <span class="count">100</span>
+    <button class="fa fa-caret-down up"></button>
+  </div>
+
   <a href="{% url 'detail'  pk=detail_qs.pk|default:1%}">{{detail_qs.title}}</a>
 </h3>
 <div class="clearfix">
@@ -39,10 +46,14 @@
 
 <h3>解决方法{{count}}个</h3>
 
-<div class="itess-anwser-list">
+<div class="itss-anwser-list">
   {% for solution in solutions %}
   <div class="itss-anwser-item">
-    <button class="itss-zan"><i class="fa fa-thumbs-up"></i> 1k</button>
+    <div class="itss-zan">
+      <button class="fa fa-caret-up down"></button>
+      <span class="count">100</span>
+      <button class="fa fa-caret-down up"></button>
+    </div>
     <h4>
       <span>{{ solution.author }} &nbsp; {{ solution.last_edited}}</span>&nbsp;&nbsp;
       {% if user.is_authenticated %}

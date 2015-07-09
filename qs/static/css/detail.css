@@ -21,22 +21,30 @@
   border: 1px solid #e5e5e5;
   border-width: 1px 1px 0; }
 
+.itss-detail-title {
+  position: relative; }
+  .itss-detail-title .itss-zan {
+    position: absolute;
+    top: -20px;
+    left: -60px; }
+
 .itss-p-detail {
   position: relative;
   padding: 30px 20px; }
 
 .itss-anwser-item {
   position: relative;
-  padding: 10px 0 0 50px;
+  padding: 10px 0;
   line-height: 1.5;
   font-size: 14px; }
   .itss-anwser-item > h4 a {
     font-size: 14px; }
   .itss-anwser-item .itss-zan {
     position: absolute;
-    top: 10px;
-    left: 0; }
+    top: -10px;
+    left: -60px; }
   .itss-anwser-item .content {
+    min-height: 80px;
     border-bottom: 1px solid #e5e5e5; }
 
 /*# sourceMappingURL=detail.css.map */
