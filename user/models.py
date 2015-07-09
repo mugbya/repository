@@ -16,8 +16,9 @@ class Profile(models.Model):
 
     use_gravatar = models.BooleanField(default=True)
     location = models.CharField(max_length=20, blank=True, null=True)
-    avatar_url = models.URLField(blank=True, null=True)
+    avatar_url = models.URLField(default="http://www.gravatar.com/avatar/", blank=True, null=True)
     website = models.URLField(default='http://', blank=True, null=True)
+    about_me = models.TextField()
 
     def avatar(self):
         da = ''  # default avatar

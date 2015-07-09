@@ -16,7 +16,26 @@ def index(request, username):
     return render(request, 'user/index.html', {'profile': profile})
 
 def settings(request):
-    pass
+    user = request.user
+    profile = get_object_or_404(Profile, user=user)
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        website = request.POST['website']
+        about_me = request.POST['about_me']
+
+        ## 验证
+        user.username = username
+        user.email = email
+        profile.about_me = about_me
+
+        profile.website = website
+        user.save()
+        profile.save()
+        form = ProfileForm(instance=profile)
+    else:
+        form = ProfileForm(instance=profile)
+    return render(request, 'user/settings.html', {'form': form, 'profile': profile, 'email': user.email})
 
 def avatar(request):
     pass
@@ -29,7 +48,6 @@ def register(request):
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
             profile = Profile()
             profile.user = user
-            # profile.nickname = user.username
             profile.save()
             auth.login(request, user)
             return redirect('qs.views.index', )

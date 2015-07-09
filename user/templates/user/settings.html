@@ -1,0 +1,30 @@
+{% extends "partial/base.html" %}
+
+{% load staticfiles%}
+
+{% block head %}
+	 <link rel="stylesheet" href=" {% static 'css/index.css' %}">
+  {% endblock %}
+{% block mainbody %}
+
+    <h2>个人资料</h2> <hr>
+
+	<form method="post" action="settings">
+		 {% csrf_token %}
+
+            用户名 <input  name="username" placeholder="{{profile.user.username}}"> <hr>
+            头像<img src="{{ profile.avatar_url }}" name="avatar"> <hr>
+
+			邮箱 <input name="email" type="email" placeholder="{{ email }}">
+             个人网站<input name="website" placeholder="{{ profile.website }}"> <hr>
+
+             关于我 <textarea  name="about_me" placeholder="{{ profile.about_me }}"></textarea>
+
+
+		<div class="pull-right op-btn">
+
+			<button type="submit" class="btn btn-default" >保存</button>
+		</div>
+	</form>
+
+{% endblock %}
