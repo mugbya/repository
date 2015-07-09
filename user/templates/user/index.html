@@ -1,0 +1,16 @@
+{% extends "partial/base.html" %}
+
+{% load staticfiles%}
+
+{% block head %}
+	 <link rel="stylesheet" href=" {%static 'css/index.css' %}">
+  {% endblock %}
+{% block mainbody %}
+
+    用户名{{ profile.username }} <hr>
+    头像<img src="http://www.gravatar.com/avatar/">
+
+
+
+
+{% endblock %}

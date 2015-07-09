@@ -37,8 +37,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'qs',
+    'user',
     'haystack'
 )
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -72,7 +74,7 @@ TEMPLATES = [
     # },
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'qs/templates'), ],
+        'DIRS': [os.path.join(BASE_DIR, 'qs/templates'), os.path.join(BASE_DIR, 'user/templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -144,14 +146,16 @@ HAYSTACK_CONNECTIONS = {
 }
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'repository/templates'),
-    os.path.join(BASE_DIR, 'qs/templates'),
-)
+# TEMPLATE_DIRS = (
+#     os.path.join(BASE_DIR, 'user/templates'),
+#     os.path.join(BASE_DIR, 'qs/templates'),
+# )
 
 LOGIN_REDIRECT_URL = '/'
 
+ALLOWED_HOSTS = ['*']
 
+DEBUG = False
 
 try:
     from .local_settings import *
@@ -161,7 +165,5 @@ except ImportError:
 
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-ALLOWED_HOSTS = ['*']
 
-DEBUG = False
 

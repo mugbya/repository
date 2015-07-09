@@ -12,7 +12,7 @@
     <h2 class="text－center">创建账户</h2>
      <form class="form-signin" method="post" action="{% url 'register' %}">
       {% csrf_token %}
-      <div class="row">      
+      <div class="row">
         <label for="username">用户名:</label>
         <br>
         <input type="text" name="username" class="form-control">
@@ -26,20 +26,20 @@
       <input type="password" name="password1" class="form-control">
       <br>
     <p><strong>*</strong>请输入你自己觉得足够安全的密码</p>
-      </div> 
+      </div>
 
       <div class="row">
          <label for="password">确认密码:</label>
         <br>
         <input type="password" name="password2" class="form-control">
-        <br> 
+        <br>
             <p><strong>*</strong>再次确认密码</p>
       </div>
-      
+
       <div class="row">
           <button class="btn btn-default btn-block" type="submit">注 册</button>
       </div>
-    </form> 
+    </form>
 </div>
 
 

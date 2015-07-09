@@ -6,8 +6,7 @@
 {% endblock %}
 {% block mainbody %}
 <h3>
-  <button class="itss-zan"><i class="fa fa-thumbs-up"></i>
-  100</button>
+  <!--<button class="itss-zan"><i class="fa fa-thumbs-up"></i>100</button>-->
   <a href="{% url 'detail'  pk=detail_qs.pk|default:1%}">{{detail_qs.title}}</a>
 </h3>
 <div class="clearfix">
@@ -28,13 +27,15 @@
 </div>
 <hr/>
 
-<blockquote>
-  <h4>环境: {{detail_qs.env}}</h4>
-</blockquote>
+<a href="{% url 'post_vote' pk=detail_qs.pk %}" >投票</a>
 
-<div class="itss-p-detail">
-   {{detail_qs.content_md | safe| default:" <i>正文无内容</i>" }}
-</div>
+    <blockquote>
+      <h4>环境: {{detail_qs.env}}</h4>
+    </blockquote>
+
+    <div class="itss-p-detail">
+       {{detail_qs.content_md | safe| default:" <i>正文无内容</i>" }}
+    </div>
 
 <h3>解决方法{{count}}个</h3>
 

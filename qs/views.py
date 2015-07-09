@@ -2,13 +2,12 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404 ,render,redirect
 from django.views.generic import ListView, CreateView, FormView, TemplateView
-from django.contrib.auth import authenticate, login
+
 from django.forms.models import modelform_factory
 from django.forms.widgets import PasswordInput
 from django.utils.six import BytesIO
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib import auth
+
 
 from .forms import QuestionForm, SolutionForm
 
@@ -143,19 +142,22 @@ def draft_detail(request, pk):
         form = QuestionForm(instance=post)
     return render(request, 'qs/node/draft_detail.html', {'form': form})
 
+@login_required
+def post_vote(request, pk):
+    post = get_object_or_404(Question, pk=pk)
+    post.count_vote += 1
+    post.save()
 
 
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            new_user = form.save()
-            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
-            auth.login(request, user)
-            return redirect('qs.views.index', )
-    else:
-        form = UserCreationForm()
-    return render(request, "registration/register.html", {'form': form})
+    print(post.author)
+    user = get_object_or_404(User, username=post.author)
+    # user = get_object_or_404(User, username__contains=post.author)
+    # user.voted += 5
+    # user.save()
+    print(dir(user))
+    return redirect('qs.views.detail', pk=pk)
+
+
 
 
 def full_search(request):

@@ -3,6 +3,8 @@
 
 Django >= 1.8.2
 
+# psycopg2 >= 2.5.4
+
 markdown >= 2.6.2
 
 django-haystack >= 2.4.0
@@ -10,3 +12,5 @@ django-haystack >= 2.4.0
 whoosh >= 2.7.0
 
 jieba >= 0.36.2
+
+Pygments >= 1.6

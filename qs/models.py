@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.conf import settings
@@ -121,3 +122,9 @@ class Solution(PostBase):
 
     def __str__(self):
         return self.content
+
+# http://beginman.cn/django/2015/04/06/django-user/
+#
+# http://www.opscoder.info/extend_user.html
+#
+# http://onlypython.group.iteye.com/group/wiki/1519-expansion-django-user-model-by-non-profile-way

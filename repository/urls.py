@@ -16,14 +16,16 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from django.contrib.auth import views as auth_views # auth_views.login
-
+# from django.contrib.auth import views as auth_views # auth_views.login
+#
 admin.autodiscover()
 
 urlpatterns = [
     # 别多加$
     url(r'^', include('qs.urls')),
+    url(r'^user/', include('user.urls')),
     url(r'^admin/', include(admin.site.urls)),
+
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
 
