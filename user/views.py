@@ -12,9 +12,8 @@ def index(request, username):
 
     user = get_object_or_404(User, username__contains=username)
 
-    # profile = get_object_or_404(Profile, nickname__=username)
-    return render(request, 'user/index.html', {'profile': user})
-    # return redirect('qs.views.index')
+    profile = get_object_or_404(Profile, user=user)
+    return render(request, 'user/index.html', {'profile': profile})
 
 def settings(request):
     pass
@@ -27,8 +26,11 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             new_user = form.save()
-            print(new_user.username)
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+            profile = Profile()
+            profile.user = user
+            # profile.nickname = user.username
+            profile.save()
             auth.login(request, user)
             return redirect('qs.views.index', )
     else:

@@ -7,18 +7,17 @@ import hashlib
 
 class Profile(models.Model):
     user = models.OneToOneField(User)
-    nickname = models.CharField(max_length=12, blank=True, null=True)
 
     rank = models.IntegerField(default=0, editable=False, blank=True)
     voted = models.IntegerField(default=0, editable=False, blank=True)
 
-    answers = models.IntegerField()
-    questions = models.IntegerField()
+    answers = models.IntegerField(default=0, editable=False, blank=True)
+    questions = models.IntegerField(default=0, editable=False, blank=True)
 
     use_gravatar = models.BooleanField(default=True)
     location = models.CharField(max_length=20, blank=True, null=True)
     avatar_url = models.URLField(blank=True, null=True)
-    website = models.URLField(blank=True, null=True)
+    website = models.URLField(default='http://', blank=True, null=True)
 
     def avatar(self):
         da = ''  # default avatar
@@ -36,3 +35,6 @@ class Profile(models.Model):
             dic['middle'] = self.avatar_url
             dic['large'] = self.avatar_url
         return dic
+
+    def __str__(self):
+        return self.user.username
