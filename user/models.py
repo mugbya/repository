@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-import urllib
+from urllib.parse import urlencode
 import hashlib
 import markdown
 # Create your models here.
@@ -40,12 +40,13 @@ class Profile(models.Model):
         da = ''  # default avatar
         dic = {}
         if self.use_gravatar:
-            mail = self.user.email.lower()
+            mail = self.user.email.lower().encode('utf-8')
             gravatar_url = "http://www.gravatar.com/avatar/"
             base_url = gravatar_url + hashlib.md5(mail).hexdigest() + "?"
-            dic['small'] = base_url + urllib.urlencode({'d': da, 's': '40'})
-            dic['middle'] = base_url + urllib.urlencode({'d': da, 's': '48'})
-            dic['large'] = base_url + urllib.urlencode({'d': da, 's': '80'})
+            dic['small'] = base_url + urlencode({'d': da, 's': '40'})
+            dic['middle'] = base_url + urlencode({'d': da, 's': '48'})
+            dic['large'] = base_url + urlencode({'d': da, 's': '80'})
+            print(dic['middle'])
             return dic
         elif self.avatar_url:
             dic['small'] = self.avatar_url

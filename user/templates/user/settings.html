@@ -17,7 +17,10 @@
 		 {% csrf_token %}
 
             用户名 <input  name="username" value="{{profile.user.username}}"> <hr>
-            头像<img src="{{ profile.avatar_url }}" name="avatar"> <hr>
+            头像<img src="{{ profile.avatar_url }}" name="avatar">
+			<button type="button" >修改头像</button> <hr>
+
+
 
 			邮箱 <input name="email" type="email" value="{{ email }}"><hr>
              个人网站<input name="website" value="{{ profile.website }}"> <hr>
@@ -30,5 +33,7 @@
 			<button type="submit" class="btn btn-default" >保存</button>
 		</div>
 	</form>
+
+
 
 {% endblock %}

@@ -9,8 +9,8 @@ from django.core.files.storage import FileSystemStorage
 from django.core.validators import RegexValidator
 from django.contrib import messages
 
-from django.http import HttpResponseRedirect, HttpResponse
-from django.core.urlresolvers import reverse
+import urllib
+import hashlib
 
 
 from .models import Profile
@@ -45,7 +45,7 @@ def settings(request):
         except:
             return render(request, 'user/settings.html', {'error_messages': '用户名请不多于20个字符。只能用字母、数字和下划线'})
 
-        if User.objects.filter(username=username).exists():
+        if username != user.username and User.objects.filter(username=username).exists():
             return render(request, 'user/settings.html', {'error_messages': '用户名已经存在'})
 
         user.username = username
@@ -59,7 +59,17 @@ def settings(request):
     return render(request, 'user/settings.html', {'profile': profile, 'email': user.email})
 
 def avatar(request):
-    pass
+    print("进了")
+    da = ''  # default avatar
+    dic = {}
+    mail = request.user.email.lower()
+    gravatar_url = "http://www.gravatar.com/avatar/"
+    base_url = gravatar_url + hashlib.md5(mail).hexdigest() + "?"
+    dic['small'] = base_url + urllib.urlencode({'d': da, 's': '40'})
+    dic['middle'] = base_url + urllib.urlencode({'d': da, 's': '48'})
+    dic['large'] = base_url + urllib.urlencode({'d': da, 's': '80'})
+    print(dic['middle'])
+    return dic['middle']
 
 def register(request):
     if request.method == 'POST':
