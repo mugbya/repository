@@ -7,6 +7,10 @@
   {% endblock %}
 {% block mainbody %}
 
+	{% if error_messages != '' %}
+        {{ error_messages }}
+    {% endif %}
+
     <h2>个人资料</h2> <hr>
 
 	<form method="post" action="settings">
@@ -15,10 +19,10 @@
             用户名 <input  name="username" value="{{profile.user.username}}"> <hr>
             头像<img src="{{ profile.avatar_url }}" name="avatar"> <hr>
 
-			邮箱 <input name="email" type="email" value="{{ email }}">
+			邮箱 <input name="email" type="email" value="{{ email }}"><hr>
              个人网站<input name="website" value="{{ profile.website }}"> <hr>
 
-             关于我 <textarea  name="about_me" value="{{ profile.about_me }}"></textarea>
+             关于我 <textarea  name="about_me" >{{ profile.about_me }}</textarea>
 
 
 		<div class="pull-right op-btn">

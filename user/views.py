@@ -26,11 +26,10 @@ from .models import Profile
 alphanumeric = RegexValidator(r'^[0-9a-zA-Z\_]{1,20}$', 'Only alphanumeric characters and underscore are allowed.')
 
 def index(request, username):
-    print('oooo')
     user = get_object_or_404(User, username__contains=username)
 
     profile = get_object_or_404(Profile, user=user)
-    return render(request, 'user/index.html', {'profile': profile})
+    return render(request, 'user/index.html', {'profile': profile, 'email': user.email})
 
 def settings(request):
     user = request.user
@@ -41,7 +40,14 @@ def settings(request):
         website = request.POST['website']
         about_me = request.POST['about_me']
 
-        ## 验证
+        try:
+            alphanumeric(request.POST['username'])
+        except:
+            return render(request, 'user/settings.html', {'error_messages': '用户名请不多于20个字符。只能用字母、数字和下划线'})
+
+        if User.objects.filter(username=username).exists():
+            return render(request, 'user/settings.html', {'error_messages': '用户名已经存在'})
+
         user.username = username
         user.email = email
         profile.about_me = about_me
@@ -49,6 +55,7 @@ def settings(request):
         profile.website = website
         user.save()
         profile.save()
+        return render(request, 'user/index.html', {'profile': profile, 'email': user.email})
     return render(request, 'user/settings.html', {'profile': profile, 'email': user.email})
 
 def avatar(request):
@@ -56,7 +63,6 @@ def avatar(request):
 
 def register(request):
     if request.method == 'POST':
-        print(request.POST['username'])
         username = request.POST['username']
         password = request.POST['password1']
 

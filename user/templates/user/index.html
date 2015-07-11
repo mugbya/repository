@@ -8,13 +8,16 @@
 {% block mainbody %}
 
     用户名{{ profile.user.username }} <hr>
-    头像<img src="http://www.gravatar.com/avatar/"> {{ profile.avatar_url }}<hr>
+    头像<img src="{{ profile.avatar_url }}"> <hr>
+    邮箱 {{ email }}<hr>
     荣誉{{ profile.rank }} <hr>
     {{ profile.voted }} 多少次被赞  <hr>
-    {{ profile.website }} 个人网站 <hr>
+    个人网站 {{ profile.website }}  <hr>
 
     提问 {{ profile.questions }} <hr>
     回答 {{ profile.answers }} <hr>
+
+    个人介绍 ： {{ profile.content_md | safe|default:" <i>正文无内容</i>"  }}
 
 
 

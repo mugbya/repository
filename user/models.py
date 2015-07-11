@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import urllib
 import hashlib
+import markdown
 # Create your models here.
 
 
@@ -19,6 +20,21 @@ class Profile(models.Model):
     avatar_url = models.URLField(default="http://www.gravatar.com/avatar/", blank=True, null=True)
     website = models.URLField(default='http://', blank=True, null=True)
     about_me = models.TextField()
+    content_md = models.TextField(editable=False, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.content_md = markdown.markdown(
+            self.about_me,
+            safe_mode='escape',
+            output_format='html5',
+            extensions=[
+                'markdown.extensions.extra',
+                'markdown.extensions.sane_lists',
+                'markdown.extensions.codehilite(noclasses=True, linenums=False)',
+                'markdown.extensions.toc'
+            ]
+        )
+        super(Profile, self).save(*args, **kwargs)
 
     def avatar(self):
         da = ''  # default avatar
