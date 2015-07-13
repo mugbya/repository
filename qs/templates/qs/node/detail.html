@@ -9,8 +9,8 @@
 
 <h3 class="itss-detail-title">
   <div class="itss-zan">
-    <button class="fa fa-caret-up down active"></button>
-    <span class="count">100</span>
+    <button class="fa fa-caret-up down active" onclick="qs_like()"></button>
+    <span class="count">{{detail_qs.voted}}</span>
     <button class="fa fa-caret-down up"></button>
   </div>
 
@@ -34,7 +34,7 @@
 </div>
 <hr/>
 
-<a href="{% url 'post_vote' pk=detail_qs.pk %}" >投票</a>
+
 
     <blockquote>
       <h4>环境: {{detail_qs.env}}</h4>
@@ -51,7 +51,7 @@
   <div class="itss-anwser-item">
     <div class="itss-zan">
       <button class="fa fa-caret-up down"></button>
-      <span class="count">100</span>
+      <span class="count">{{ solution.voted }}</span>
       <button class="fa fa-caret-down up"></button>
     </div>
     <h4>

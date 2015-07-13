@@ -22,7 +22,7 @@ class PostBase(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     last_edited = models.DateTimeField(auto_now=True)
     published_date = models.DateTimeField(blank=True, null=True)
-
+    voted = models.IntegerField(default=0, editable=False, blank=True)
     content_md = models.TextField(editable=False, blank=True, null=True)
 
     def publish(self):
@@ -58,8 +58,6 @@ class Question(PostBase):
                                 verbose_name=u"详细内容")
     is_solver = models.BooleanField(editable=False, blank=True, default=False)
     tags = models.ManyToManyField(Tag, blank=True, verbose_name=u'标签')
-
-    count_vote = models.IntegerField(default=0, editable=False, blank=True)
 
     count_solution = models.IntegerField(default=0, editable=False, blank=True)
 
