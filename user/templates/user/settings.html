@@ -17,8 +17,13 @@
 		 {% csrf_token %}
 
             用户名 <input  name="username" value="{{profile.user.username}}"> <hr>
-            头像<img src="{{ profile.avatar_url }}" name="avatar">
-			<button type="button" >修改头像</button> <hr>
+			{% if profile.use_gravatar %}
+				 <img title="{{request.user.username}}" class="avatar-middle" src="{{request.user.profile.avatar.large }}">
+			{% else %}
+				<img src="{{ profile.avatar_url }}" name="avatar"> <hr>
+			{% endif%}
+			<!--<button type="button" >修改头像</button> <hr>-->
+
 
 
 
@@ -35,5 +40,6 @@
 	</form>
 
 
+		<!--<script src="{% static 'js/dropzone.js' %}"></script>-->
 
 {% endblock %}

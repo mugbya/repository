@@ -46,7 +46,6 @@ class Profile(models.Model):
             dic['small'] = base_url + urlencode({'d': da, 's': '40'})
             dic['middle'] = base_url + urlencode({'d': da, 's': '48'})
             dic['large'] = base_url + urlencode({'d': da, 's': '80'})
-            print(dic['middle'])
             return dic
         elif self.avatar_url:
             dic['small'] = self.avatar_url
