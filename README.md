@@ -15,6 +15,9 @@
 
 #### 关联关系CRUD
 
+#### OAuth2.0
+
+- [Django实现简单OAuth2.0认证服务](http://bozpy.sinaapp.com/blog/27)
 
 ### 未解
 

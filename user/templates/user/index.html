@@ -8,7 +8,6 @@
 {% block mainbody %}
 
     用户名{{ profile.user.username }} <hr>
-    <!--头像<img src="{{ profile.avatar_url }}"> <hr>-->
     {% if profile.use_gravatar %}
          <a class="col-xs-2"><img title="{{request.user.username}}" class="avatar-middle" src="{{request.user.profile.avatar.large }}"></a>
     {% else %}

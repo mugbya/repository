@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.conf.urls.static import static
+from django.conf import settings
 
-# from django.contrib.auth import views as auth_views # auth_views.login
-#
-admin.autodiscover()
+# admin.autodiscover()
 
 urlpatterns = [
     # 别多加$
@@ -29,4 +29,4 @@ urlpatterns = [
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

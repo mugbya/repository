@@ -9,19 +9,21 @@ from django.core.files.storage import FileSystemStorage
 from django.core.validators import RegexValidator
 from django.contrib import messages
 
-import urllib
-import hashlib
-
+import os
+from PIL import Image
 
 from .models import Profile
 
 
 # Create your views here.
 
-# storage = FileSystemStorage(
-#     location=conf.UPLOAD_PATH,
-#     base_url='/static/upload/'
-# )
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+UPLOAD_PATH = os.path.join(BASE_DIR, 'media/upload')
+
+storage = FileSystemStorage(
+    location=UPLOAD_PATH,
+    base_url='/media/upload/'
+)
 
 alphanumeric = RegexValidator(r'^[0-9a-zA-Z\_]{1,20}$', 'Only alphanumeric characters and underscore are allowed.')
 
@@ -58,18 +60,30 @@ def settings(request):
         return render(request, 'user/index.html', {'profile': profile, 'email': user.email})
     return render(request, 'user/settings.html', {'profile': profile, 'email': user.email})
 
-def avatar(request):
-    print("进了")
-    da = ''  # default avatar
-    dic = {}
-    mail = request.user.email.lower()
-    gravatar_url = "http://www.gravatar.com/avatar/"
-    base_url = gravatar_url + hashlib.md5(mail).hexdigest() + "?"
-    dic['small'] = base_url + urllib.urlencode({'d': da, 's': '40'})
-    dic['middle'] = base_url + urllib.urlencode({'d': da, 's': '48'})
-    dic['large'] = base_url + urllib.urlencode({'d': da, 's': '80'})
-    print(dic['middle'])
-    return dic['middle']
+def uploadavatar_upload(request):
+    print('进入')
+    u = request.user
+    if request.method == 'POST':
+        f = request.FILES.get('uploadavatarfile', None)
+        if f:
+            extension = os.path.splitext(f.name)[-1]
+            if (extension not in ['.jpg', '.png', '.gif']) or ('image' not in f.content_type):
+                # return error(request, _('file type not permitted'))
+                print("文件类型不对")
+            im = Image.open(f)
+            im.thumbnail((120,120))
+            name = storage.get_available_name(str(u.id)) + '.png'
+            print(name)
+            url = storage.url(name)
+            print(url)
+            request.user.profile.avatar_url = url
+            im.save('%s/%s' % (storage.location, name), 'PNG')
+        u.profile.use_gravatar = False
+        u.profile.save()
+
+        print(f)
+    print("....")
+    return redirect('qs.views.index', )
 
 def register(request):
     if request.method == 'POST':

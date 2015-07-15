@@ -13,19 +13,11 @@
 
     <h2>个人资料</h2> <hr>
 
+<!-- 在左边 -->
 	<form method="post" action="settings">
 		 {% csrf_token %}
 
             用户名 <input  name="username" value="{{profile.user.username}}"> <hr>
-			{% if profile.use_gravatar %}
-				 <img title="{{request.user.username}}" class="avatar-middle" src="{{request.user.profile.avatar.large }}">
-			{% else %}
-				<img src="{{ profile.avatar_url }}" name="avatar"> <hr>
-			{% endif%}
-			<!--<button type="button" >修改头像</button> <hr>-->
-
-
-
 
 			邮箱 <input name="email" type="email" value="{{ email }}"><hr>
              个人网站<input name="website" value="{{ profile.website }}"> <hr>
@@ -40,6 +32,22 @@
 	</form>
 
 
-		<!--<script src="{% static 'js/dropzone.js' %}"></script>-->
+			{% if profile.use_gravatar %}
+				 <img title="{{request.user.username}}" class="avatar-middle" src="{{request.user.profile.avatar.large }}">
+			{% else %}
+				<img src="{{ profile.avatar_url }}" name="avatar"> <hr>
+			{% endif%}
+
+
+<!-- 在右边 -->
+        <form  action="{% url 'uploadavatar_upload' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+                <!--<button>{{ CHOOSE_IMAGE }}</button>-->
+                <input type="file"  name="uploadavatarfile" />
+
+
+                <button type="submit" class="btn btn-default" name="publish">提交</button>
+        </form>
 
 {% endblock %}

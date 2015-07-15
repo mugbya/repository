@@ -9,7 +9,7 @@ urlpatterns = [
 
     url(r'^settings$', views.settings, name='settings'),
 
-    url(r'^avatar$', views.avatar, name='avatar'),
+    url(r'^uploadavatar_upload$', views.uploadavatar_upload, name='uploadavatar_upload'),
 
     url(r'^(?P<username>[A-Za-z0-9\_]+)$', views.index, name='user_index'),
 ]
