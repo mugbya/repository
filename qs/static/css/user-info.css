@@ -1,0 +1,108 @@
+body {
+  //background-color: #F3F3F3;
+}
+.profile-header {
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  -moz-border-radius: 3px 3px 0 0;
+  -webkit-border-radius: 3px;
+  border-radius: 3px 3px 0 0;
+  background:#eee;
+  margin :0px -15px;
+
+}
+
+.avatar-128 {
+  width: 128px;
+  height: 128px;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+  padding: 2px;
+}
+
+.profile-links{
+    margin: 20px 0 0;
+    padding:5px 0;
+    list-style: none;
+}
+.profile-links li{
+    padding:5px 0;
+     border-bottom:1px dashed  #ddd;
+
+}
+.profile{
+  border: 1px solid #eee;
+}
+
+.list-content{
+    padding-top:10px;
+}
+
+.list-content .media{
+    border-bottom:1px solid #eee;
+    padding:10px;
+}
+
+.list-content .media-object{
+width:36px;
+height:36px;
+}
+
+.editor-toolbar,.CodeMirror{
+    border:1px solid #ddd;
+}
+
+.edit-handimage{
+
+}
+
+.nav.nav-tabs{
+   padding-left:10px;
+}
+
+.edit-profile{
+
+}
+
+
+.tabs-left {
+    margin-top: 3rem;
+}
+.tabs-left .nav-tabs {
+    float: left;
+    border-bottom: 0;
+    width:160px;
+    padding-top:10px;
+}
+.tabs-left .nav-tabs li {
+    float: none !important;
+    margin: 0 !important;
+    width ; 160px !important;
+}
+.tabs-left .nav-tabs li a {
+    margin-right: 0 !important;
+    border: 0 !important;
+    background-color: #e8edf0;
+    border-radius: 0 !important;
+}
+.tabs-left li.active {
+    border-left: 1px solid #337ab7 !important;
+}
+.tabs-left .nav-tabs li a:hover {
+    background: #f7f7f7 !important;
+    border: 0 !important;
+}
+
+.tabs-left .nav-tabs > li.active > a,
+.tabs-left .nav-tabs > li.active > a:hover,
+.tabs-left .nav-tabs > li.active > a:focus {
+    border: 0 !important;
+     background: #f7f7f7 !important;
+}
+.tabs-left .tab-content {
+    margin-left: 160px;
+     background: #f7f7f7 !important;
+     padding:20px;
+     min-height:600px;
+}
