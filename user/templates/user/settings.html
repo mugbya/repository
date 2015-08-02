@@ -4,50 +4,93 @@
 
 {% block head %}
 	 <link rel="stylesheet" href=" {% static 'css/index.css' %}">
-  {% endblock %}
+	 <link rel="stylesheet" href=" {% static 'css/user-info.css' %}">
+{% endblock %}
 {% block mainbody %}
 
 	{% if error_messages != '' %}
         {{ error_messages }}
     {% endif %}
 
-    <h2>个人资料</h2> <hr>
-
-<!-- 在左边 -->
-	<form method="post" action="settings">
-		 {% csrf_token %}
-
-            用户名 <input  name="username" value="{{profile.user.username}}"> <hr>
-
-			邮箱 <input name="email" type="email" value="{{ email }}"><hr>
-             个人网站<input name="website" value="{{ profile.website }}"> <hr>
-
-             关于我 <textarea  name="about_me" >{{ profile.about_me }}</textarea>
 
 
-		<div class="pull-right op-btn">
+   <div class="row">
+	   <div class="col-md-8">
 
-			<button type="submit" class="btn btn-default" >保存</button>
-		</div>
-	</form>
+		   <!-- 在左边 -->
+		   <form  class="form-horizontal" method="post" action="settings">
+			   <fieldset>
+				    <legend class="">个人资料</legend>
+				 {% csrf_token %}
+					 <div class="form-group">
+						<label  class="col-sm-2 control-label">用户名</label>
+						<div class="col-sm-10">
+							<input  name="username" value="{{profile.user.username}}" class="form-control" placeholder="请输入用户名">
+						</div>
+					 </div>
+
+				    <div class="form-group">
+						<label  class="col-sm-2 control-label">邮箱</label>
+						<div class="col-sm-10">
+							<input  name="email" value="{{ email }}" class="form-control" placeholder="邮箱">
+						</div>
+					 </div>
+
+				    <div class="form-group">
+						<label  class="col-sm-2 control-label">个人网站</label>
+						<div class="col-sm-10">
+							<input  name="website" value="{{ profile.website }}" class="form-control" placeholder="个人网站地址">
+						</div>
+					 </div>
+
+					<div class="form-group">
+						<label  class="col-sm-2 control-label">关于我</label>
+						<div class="col-sm-10">
+							<textarea  name="about_me" placeholder="多少写一点吧..." >{{ profile.about_me }}</textarea>
+						</div>
+					 </div>
+
+					<div class="control-group">
+					    <div class="col-sm-10 col-sm-offset-2">
+							<button type="submit" class="btn btn-success" >保存资料</button>
+						</div>
+					</div>
 
 
-			{% if profile.use_gravatar %}
-				 <img title="{{request.user.username}}" class="avatar-middle" src="{{request.user.profile.avatar.large }}">
-			{% else %}
-				<img src="{{ profile.avatar_url }}" name="avatar"> <hr>
-			{% endif%}
+
+			   </fieldset>
+			</form>
 
 
-<!-- 在右边 -->
-        <form  action="{% url 'uploadavatar_upload' %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
+	   </div>
+	   <div class="col-md-4">
 
-                <!--<button>{{ CHOOSE_IMAGE }}</button>-->
-                <input type="file"  name="uploadavatarfile" />
+		   <div class="edit-handimage">
+			    {% if profile.use_gravatar %}
+					 <img title="{{request.user.username}}" class="avatar-128" src="{{request.user.profile.avatar.large }}">
+				{% else %}
+					<img src="{{ profile.avatar_url }}" name="avatar" class="avatar-128"> <hr>
+				{% endif%}
 
 
-                <button type="submit" class="btn btn-default" name="publish">提交</button>
-        </form>
+				<!-- 在右边 -->
+				<form  action="{% url 'uploadavatar_upload' %}" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+
+						<!--<button>{{ CHOOSE_IMAGE }}</button>-->
+						<input type="file"  name="uploadavatarfile" />
+
+
+						<button type="submit" class="btn btn-default" name="publish">上传头像</button>
+				</form>
+		   </div>
+
+	   </div>
+   </div>
+
+
+
+
+
 
 {% endblock %}
