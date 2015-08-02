@@ -39,9 +39,9 @@
                     <li>邮箱：{{ email }}</li>
                     <li>提问：{{ profile.questions }}</li>
                     <li>回答：{{ profile.answers }}</li>
-                    <li>个人介绍：<div style="padding:10px;">{{ profile.content_md | safe|default:" <i>正文无内容</i>"  }}</div></li>
                  </ul>
-
+                个人简介：
+                <div style="padding:10px;width:100%">{{ profile.content_md | safe|default:" <i>正文无内容</i>"  }}</div>
             </div>
         </div>
         <div class="col-md-9">

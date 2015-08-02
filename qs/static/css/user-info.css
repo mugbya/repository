@@ -28,8 +28,11 @@ body {
 }
 .profile-links li{
     padding:5px 0;
-     border-bottom:1px dashed  #ddd;
-
+    border-bottom:1px dashed  #ddd;
+     white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.profile-links a{
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 .profile{
   border: 1px solid #eee;
