@@ -24,6 +24,7 @@ urlpatterns = [
     # 别多加$
     url(r'^', include('qs.urls')),
     url(r'^user/', include('user.urls')),
+    url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),

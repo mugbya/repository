@@ -4,8 +4,6 @@ from django.conf.urls import url
 
 from . import views
 
-
-
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^qs/new$', views.new_qs, name='new_qs'),
@@ -20,7 +18,6 @@ urlpatterns = [
     url(r'^user/draft$', views.draft_list, name='draft_list'),
     url(r'^qs/(?P<pk>[A-Fa-f0-9]{8}-([A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12})/draft$', views.draft_detail, name='draft_detail'),
 
-    # url(r'^accounts/register/$', views.register, name='register'),
 
     url(r'^search$', views.full_search, name='full_search')
 

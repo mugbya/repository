@@ -7,22 +7,27 @@
   {% endblock %}
 {% block mainbody %}
 
-    用户名{{ profile.user.username }} <hr>
-    {% if profile.use_gravatar %}
-         <a class="col-xs-2"><img title="{{request.user.username}}" class="avatar-middle" src="{{request.user.profile.avatar.large }}"></a>
-    {% else %}
-        <img src="{{ profile.avatar_url }}"> <hr>
-    {% endif%}
 
-    邮箱 {{ email }}<hr>
-    荣誉{{ profile.rank }} <hr>
-    {{ profile.voted }} 多少次被赞  <hr>
-    个人网站 {{ profile.website }}  <hr>
 
-    提问 {{ profile.questions }} <hr>
-    回答 {{ profile.answers }} <hr>
+        用户名{{ profile.user.username }} <hr>
+        {% if profile.use_gravatar %}
+             <a class="col-xs-2"><img title="{{request.user.username}}" class="avatar-middle" src="{{request.user.profile.avatar.large }}"></a>
+        {% else %}
+            <img src="{{ profile.avatar_url }}"> <hr>
+        {% endif%}
 
-    个人介绍 ： {{ profile.content_md | safe|default:" <i>正文无内容</i>"  }}
+        邮箱 {{ email }}<hr>
+        荣誉{{ profile.rank }} <hr>
+        {{ profile.voted }} 多少次被赞  <hr>
+        个人网站 {{ profile.website }}  <hr>
+
+        提问 {{ profile.questions }} <hr>
+        回答 {{ profile.answers }} <hr>
+
+        个人介绍 ： {{ profile.content_md | safe|default:" <i>正文无内容</i>"  }}
+
+
+
 
 
 {% endblock %}

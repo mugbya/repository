@@ -61,7 +61,6 @@ def settings(request):
     return render(request, 'user/settings.html', {'profile': profile, 'email': user.email})
 
 def uploadavatar_upload(request):
-    print('进入')
     u = request.user
     if request.method == 'POST':
         f = request.FILES.get('uploadavatarfile', None)
@@ -73,16 +72,13 @@ def uploadavatar_upload(request):
             im = Image.open(f)
             im.thumbnail((120,120))
             name = storage.get_available_name(str(u.id)) + '.png'
-            print(name)
             url = storage.url(name)
-            print(url)
             request.user.profile.avatar_url = url
             im.save('%s/%s' % (storage.location, name), 'PNG')
         u.profile.use_gravatar = False
         u.profile.save()
 
         print(f)
-    print("....")
     return redirect('qs.views.index', )
 
 def register(request):
