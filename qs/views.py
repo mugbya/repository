@@ -163,7 +163,10 @@ def post_vote(request, pk):
 def full_search(request):
     """全局搜索"""
     keywords = request.GET['q']
-    sform = SearchForm(request.GET)
-    posts = sform.search()
-    return render(request, 'qs/post_search_list.html',
-                  {'posts': posts, 'list_header': '关键字 \'{}\' 搜索结果'.format(keywords)})
+    if keywords:
+        sform = SearchForm(request.GET)
+        posts = sform.search()
+        return render(request, 'qs/post_search_list.html',
+                      {'posts': posts, 'list_header': '关键字 \'{}\' 搜索结果'.format(keywords)})
+    else:
+        return redirect('qs.views.index')
