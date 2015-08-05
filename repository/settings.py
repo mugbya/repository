@@ -156,9 +156,11 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 LOGIN_REDIRECT_URL = '/'
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
-DEBUG = False
+# DEBUG = False
+DEBUG = True
 
 try:
     from .local_settings import *

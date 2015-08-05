@@ -4,27 +4,233 @@
 
 {% block head %}
 	 <link rel="stylesheet" href=" {%static 'css/index.css' %}">
+     <link rel="stylesheet" href=" {%static 'css/user-info.css' %}">
   {% endblock %}
 {% block mainbody %}
 
 
 
-        用户名{{ profile.user.username }} <hr>
-        {% if profile.use_gravatar %}
-             <a class="col-xs-2"><img title="{{request.user.username}}" class="avatar-middle" src="{{request.user.profile.avatar.large }}"></a>
-        {% else %}
-            <img src="{{ profile.avatar_url }}"> <hr>
-        {% endif%}
 
-        邮箱 {{ email }}<hr>
-        荣誉{{ profile.rank }} <hr>
-        {{ profile.voted }} 多少次被赞  <hr>
-        个人网站 {{ profile.website }}  <hr>
+        <!--用户名{{ profile.user.username }} <hr>-->
+        <!--{% if profile.use_gravatar %}-->
+             <!--<a class="col-xs-2"><img title="{{request.user.username}}" class="avatar-middle" src="{{request.user.profile.avatar.large }}"></a>-->
+        <!--{% else %}-->
+            <!--<img src="{{ profile.avatar_url }}"> <hr>-->
+        <!--{% endif%}-->
 
-        提问 {{ profile.questions }} <hr>
-        回答 {{ profile.answers }} <hr>
+        <!--邮箱 {{ email }}<hr>-->
+        <!--荣誉{{ profile.rank }} <hr>-->
+        <!--{{ profile.voted }} 多少次被赞  <hr>-->
+        <!--个人网站 {{ profile.website }}  <hr>-->
 
-        个人介绍 ： {{ profile.content_md | safe|default:" <i>正文无内容</i>"  }}
+    <div class="row">
+
+        <div class="col-md-3 profile " id="mydiv">
+             <div class="profile-header media">
+                 <a class="pull-left">
+                 {% if profile.use_gravatar %}
+                    <img title="{{request.user.username}}" class="media-object avatar-128" src="{{request.user.profile.avatar.large }}">
+                 {% else %}
+                    <img class="media-object avatar-128" src="{{ profile.avatar_url }}">
+                 {% endif%}
+                 </a>
+                 <div class="media-body">
+                       <p></p>
+                       <p></p>
+                        <h4 class="media-heading">{{ profile.user.username }}</h4>
+                        <div class="smaill">
+                            <span><i class="fa fa-star-o"></i> {{ profile.rank }}</span>
+                            <span><i class="fa fa-thumbs-o-up"></i> {{ profile.voted }}</span>
+                        </div>
+
+                 </div>
+
+             </div>
+
+            <div>
+                <ul class=" profile-links">
+                    <!--<li>居住城市：成都</li>-->
+                    <li>个人网站：<a href="{{ profile.website }}" target="_blank">{{ profile.website }}</a></li>
+                    <li>邮箱：{{ email }}</li>
+                    <li>提问：{{ profile.questions }}</li>
+                    <li>回答：{{ profile.answers }}</li>
+                 </ul>
+                个人简介：
+                <div style="padding:10px;width:100%">{{ profile.content_md | safe|default:" <i>正文无内容</i>"  }}</div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div>
+
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">我的提问</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">我的文章</a></li>
+                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">我的关注</a></li>
+                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">草稿</a></li>
+                  </ul>
+
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        <div class="list-content">
+                            <ul class="media-list">
+                              <li class="media">
+                                <div class="media-left">
+                                  <a href="#">
+                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
+                                  </a>
+                                </div>
+                                <div class="media-body">
+                                  <h4 class="media-heading">Media heading</h4>
+                                   哈哈哈
+                                </div>
+                              </li>
+                                 <li class="media">
+                                <div class="media-left">
+                                  <a href="#">
+                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
+                                  </a>
+                                </div>
+                                <div class="media-body">
+                                  <h4 class="media-heading">Media heading</h4>
+                                   哈哈哈
+                                </div>
+                              </li>
+                                 <li class="media">
+                                <div class="media-left">
+                                  <a href="#">
+                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
+                                  </a>
+                                </div>
+                                <div class="media-body">
+                                  <h4 class="media-heading">Media heading</h4>
+                                   哈哈哈
+                                </div>
+                              </li>
+                                 <li class="media">
+                                <div class="media-left">
+                                  <a href="#">
+                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
+                                  </a>
+                                </div>
+                                <div class="media-body">
+                                  <h4 class="media-heading">Media heading</h4>
+                                   哈哈哈
+                                </div>
+                              </li>
+                                 <li class="media">
+                                <div class="media-left">
+                                  <a href="#">
+                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
+                                  </a>
+                                </div>
+                                <div class="media-body">
+                                  <h4 class="media-heading">Media heading</h4>
+                                   哈哈哈
+                                </div>
+                              </li>
+                                 <li class="media">
+                                <div class="media-left">
+                                  <a href="#">
+                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
+                                  </a>
+                                </div>
+                                <div class="media-body">
+                                  <h4 class="media-heading">Media heading</h4>
+                                   哈哈哈
+                                </div>
+                              </li>
+                                 <li class="media">
+                                <div class="media-left">
+                                  <a href="#">
+                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
+                                  </a>
+                                </div>
+                                <div class="media-body">
+                                  <h4 class="media-heading">Media heading</h4>
+                                   哈哈哈
+                                </div>
+                              </li>
+                                 <li class="media">
+                                <div class="media-left">
+                                  <a href="#">
+                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
+                                  </a>
+                                </div>
+                                <div class="media-body">
+                                  <h4 class="media-heading">Media heading</h4>
+                                   哈哈哈
+                                </div>
+                              </li>
+                                 <li class="media">
+                                <div class="media-left">
+                                  <a href="#">
+                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
+                                  </a>
+                                </div>
+                                <div class="media-body">
+                                  <h4 class="media-heading">Media heading</h4>
+                                   哈哈哈
+                                </div>
+                              </li>
+                                 <li class="media">
+                                <div class="media-left">
+                                  <a href="#">
+                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
+                                  </a>
+                                </div>
+                                <div class="media-body">
+                                  <h4 class="media-heading">Media heading</h4>
+                                   哈哈哈
+                                </div>
+                              </li>
+                                 <li class="media">
+                                <div class="media-left">
+                                  <a href="#">
+                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
+                                  </a>
+                                </div>
+                                <div class="media-body">
+                                  <h4 class="media-heading">Media heading</h4>
+                                   哈哈哈
+                                </div>
+                              </li>
+                                 <li class="media">
+                                <div class="media-left">
+                                  <a href="#">
+                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
+                                  </a>
+                                </div>
+                                <div class="media-body">
+                                  <h4 class="media-heading">Media heading</h4>
+                                   哈哈哈
+                                </div>
+                              </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="profile">
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="messages">
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="settings">
+
+                    </div>
+                  </div>
+
+            </div>
+        </div>
+    </div>
+
+
+        <!--提问 {{ profile.questions }} <hr>-->
+        <!--回答 {{ profile.answers }} <hr>-->
+
+        <!--个人介绍 ： {{ profile.content_md | safe|default:" <i>正文无内容</i>"  }}-->
 
 
 
