@@ -64,7 +64,8 @@
 
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">我的提问</a></li>
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">我的提问 ({{questions | length }})</a></li>
+                    <li role="presentation"><a href="#solution" aria-controls="solution" role="tab" data-toggle="tab">我的回答 ({{solutions | length }})</a></li>
                     <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">我的文章</a></li>
                     <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">我的关注</a></li>
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">草稿</a></li>
@@ -72,145 +73,42 @@
 
                   <!-- Tab panes -->
                   <div class="tab-content">
+                      <!-- 我的提问 -->
                     <div role="tabpanel" class="tab-pane active" id="home">
                         <div class="list-content">
                             <ul class="media-list">
-                              <li class="media">
-                                <div class="media-left">
-                                  <a href="#">
-                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
-                                  </a>
-                                </div>
-                                <div class="media-body">
-                                  <h4 class="media-heading">Media heading</h4>
-                                   哈哈哈
-                                </div>
-                              </li>
-                                 <li class="media">
-                                <div class="media-left">
-                                  <a href="#">
-                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
-                                  </a>
-                                </div>
-                                <div class="media-body">
-                                  <h4 class="media-heading">Media heading</h4>
-                                   哈哈哈
-                                </div>
-                              </li>
-                                 <li class="media">
-                                <div class="media-left">
-                                  <a href="#">
-                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
-                                  </a>
-                                </div>
-                                <div class="media-body">
-                                  <h4 class="media-heading">Media heading</h4>
-                                   哈哈哈
-                                </div>
-                              </li>
-                                 <li class="media">
-                                <div class="media-left">
-                                  <a href="#">
-                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
-                                  </a>
-                                </div>
-                                <div class="media-body">
-                                  <h4 class="media-heading">Media heading</h4>
-                                   哈哈哈
-                                </div>
-                              </li>
-                                 <li class="media">
-                                <div class="media-left">
-                                  <a href="#">
-                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
-                                  </a>
-                                </div>
-                                <div class="media-body">
-                                  <h4 class="media-heading">Media heading</h4>
-                                   哈哈哈
-                                </div>
-                              </li>
-                                 <li class="media">
-                                <div class="media-left">
-                                  <a href="#">
-                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
-                                  </a>
-                                </div>
-                                <div class="media-body">
-                                  <h4 class="media-heading">Media heading</h4>
-                                   哈哈哈
-                                </div>
-                              </li>
-                                 <li class="media">
-                                <div class="media-left">
-                                  <a href="#">
-                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
-                                  </a>
-                                </div>
-                                <div class="media-body">
-                                  <h4 class="media-heading">Media heading</h4>
-                                   哈哈哈
-                                </div>
-                              </li>
-                                 <li class="media">
-                                <div class="media-left">
-                                  <a href="#">
-                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
-                                  </a>
-                                </div>
-                                <div class="media-body">
-                                  <h4 class="media-heading">Media heading</h4>
-                                   哈哈哈
-                                </div>
-                              </li>
-                                 <li class="media">
-                                <div class="media-left">
-                                  <a href="#">
-                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
-                                  </a>
-                                </div>
-                                <div class="media-body">
-                                  <h4 class="media-heading">Media heading</h4>
-                                   哈哈哈
-                                </div>
-                              </li>
-                                 <li class="media">
-                                <div class="media-left">
-                                  <a href="#">
-                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
-                                  </a>
-                                </div>
-                                <div class="media-body">
-                                  <h4 class="media-heading">Media heading</h4>
-                                   哈哈哈
-                                </div>
-                              </li>
-                                 <li class="media">
-                                <div class="media-left">
-                                  <a href="#">
-                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
-                                  </a>
-                                </div>
-                                <div class="media-body">
-                                  <h4 class="media-heading">Media heading</h4>
-                                   哈哈哈
-                                </div>
-                              </li>
-                                 <li class="media">
-                                <div class="media-left">
-                                  <a href="#">
-                                    <!--<img class="media-object" src="{{ profile.avatar_url }}" alt="{{ profile.avatar_url }}">-->
-                                  </a>
-                                </div>
-                                <div class="media-body">
-                                  <h4 class="media-heading">Media heading</h4>
-                                   哈哈哈
-                                </div>
-                              </li>
+                                {% for question in questions %}
+                                  <li class="media">
+                                    <div class="media-left">
+                                    </div>
+                                    <div class="media-body">
+                                      <h5 class="media-heading">{{ question.published_date }}</h5>
+                                      <a href="{% url 'detail'  pk=question.pk|default:1%}"><h4 class="media-heading">{{ question }}</h4></a>
+                                    </div>
+                                  </li>
+                                {% endfor %}
                             </ul>
                         </div>
-
                     </div>
+                      <!-- 我的回答 -->
+                    <div role="tabpanel" class="tab-pane" id="solution">
+                        <div class="list-content">
+                            <ul class="media-list">
+                                {% for solution in solutions %}
+                                  <li class="media">
+                                    <div class="media-left">
+                                    </div>
+                                    <div class="media-body">
+                                      <h5 class="media-heading">{{ solution.created }}</h5>
+                                      <a href="{% url 'detail'  pk=solution.question.pk|default:1%}"><h4 class="media-heading">{{ solution.question }}</h4></a>
+                                      <h5>{{ solution | truncatewords:"5" }}</h5>
+                                    </div>
+                                  </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                      
                     <div role="tabpanel" class="tab-pane" id="profile">
 
                     </div>

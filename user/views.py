@@ -13,6 +13,7 @@ import os
 from PIL import Image
 
 from .models import Profile
+from qs.models import Question,Solution
 
 
 # Create your views here.
@@ -28,10 +29,16 @@ storage = FileSystemStorage(
 alphanumeric = RegexValidator(r'^[0-9a-zA-Z\_]{1,20}$', 'Only alphanumeric characters and underscore are allowed.')
 
 def index(request, username):
-    user = get_object_or_404(User, username__contains=username)
+    user = get_object_or_404(User, username=username)
 
     profile = get_object_or_404(Profile, user=user)
-    return render(request, 'user/index.html', {'profile': profile, 'email': user.email})
+    questions = Question.objects.filter(author=user.id)
+    print(questions)
+    solutions = Solution.objects.filter(author=user.id)
+    return render(request, 'user/index.html', {'profile': profile,
+                                               'email': user.email,
+                                               'questions': questions,
+                                               'solutions': solutions})
 
 def settings(request):
     user = request.user
