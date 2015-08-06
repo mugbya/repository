@@ -11,7 +11,7 @@ urlpatterns = [
 
     url(r'^uploadavatar_upload$', views.uploadavatar_upload, name='uploadavatar_upload'),
 
-    url(r'^(?P<username>[A-Za-z0-9\_]+)$', views.index, name='user_index'),
+    url(r'^(?P<username>[A-Za-z0-9\_]+)$', views.userIndex, name='user_index'),
 ]
 
 

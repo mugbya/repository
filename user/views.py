@@ -1,9 +1,10 @@
 from django.shortcuts import render
+from django.core.urlresolvers import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import auth
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404 ,render,redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.core.files.storage import FileSystemStorage
 
 from django.core.validators import RegexValidator
@@ -28,7 +29,7 @@ storage = FileSystemStorage(
 
 alphanumeric = RegexValidator(r'^[0-9a-zA-Z\_]{1,20}$', 'Only alphanumeric characters and underscore are allowed.')
 
-def index(request, username):
+def userIndex(request, username):
     user = get_object_or_404(User, username=username)
 
     profile = get_object_or_404(Profile, user=user)
@@ -63,7 +64,10 @@ def settings(request):
         profile.website = website
         user.save()
         profile.save()
-        return render(request, 'user/index.html', {'profile': profile, 'email': user.email})
+        # return render(request, 'user/index.html', {'profile': profile, 'email': user.email})
+        # return redirect(reverse('user.views.index'), pk=user.username)
+        # return redirect('userIndex', pk=user.username)
+        return redirect('user.views.userIndex', username=user.username)
     return render(request, 'user/settings.html', {'profile': profile, 'email': user.email})
 
 def uploadavatar_upload(request):

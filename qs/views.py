@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404 ,render,redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import ListView, CreateView, FormView, TemplateView
 
 from django.forms.models import modelform_factory
