@@ -33,7 +33,6 @@ def index(request, username):
 
     profile = get_object_or_404(Profile, user=user)
     questions = Question.objects.filter(author=user.id)
-    print(questions)
     solutions = Solution.objects.filter(author=user.id)
     return render(request, 'user/index.html', {'profile': profile,
                                                'email': user.email,
@@ -68,9 +67,11 @@ def settings(request):
     return render(request, 'user/settings.html', {'profile': profile, 'email': user.email})
 
 def uploadavatar_upload(request):
+    print("进入上传图片逻辑")
     u = request.user
     if request.method == 'POST':
-        f = request.FILES.get('uploadavatarfile', None)
+        # f = request.FILES.get('uploadavatarfile', None)
+        f = request.FILES['file']
         if f:
             extension = os.path.splitext(f.name)[-1]
             if (extension not in ['.jpg', '.png', '.gif']) or ('image' not in f.content_type):
