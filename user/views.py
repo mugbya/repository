@@ -7,15 +7,14 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.files.storage import FileSystemStorage
 
-from django.core.validators import RegexValidator
-from django.contrib import messages
-
 import os
 from PIL import Image
 
 from .models import Profile
-from qs.models import Question,Solution
-from .forms import ChangepwdForm
+from qs.models import Question, Solution
+from .forms import ChangepwdForm, RegisterForm
+from django.views.generic.edit import FormView
+from django.core.urlresolvers import reverse_lazy
 
 # Create your views here.
 
@@ -27,7 +26,7 @@ storage = FileSystemStorage(
     base_url='/media/upload/'
 )
 
-alphanumeric = RegexValidator(r'^[0-9a-zA-Z\_]{1,20}$', 'Only alphanumeric characters and underscore are allowed.')
+
 
 def userIndex(request, username):
     user = get_object_or_404(User, username=username)
@@ -49,10 +48,10 @@ def settings(request):
         website = request.POST['website']
         about_me = request.POST['about_me']
 
-        try:
-            alphanumeric(request.POST['username'])
-        except:
-            return render(request, 'user/settings.html', {'error_messages': '用户名请不多于20个字符。只能用字母、数字和下划线'})
+        # try:
+        #     alphanumeric(request.POST['username'])
+        # except:
+        #     return render(request, 'user/settings.html', {'error_messages': '用户名请不多于20个字符。只能用字母、数字和下划线'})
 
         if username != user.username and User.objects.filter(username=username).exists():
             return render(request, 'user/settings.html', {'error_messages': '用户名已经存在'})
@@ -102,27 +101,15 @@ def uploadavatar_upload(request):
         u.profile.save()
     return redirect('qs.views.index', )
 
-def register(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password1']
+class RegisterView(FormView):
+    template_name = "registration/register.html"
+    form_class = RegisterForm
+    success_url = reverse_lazy('index')
 
-        try:
-            alphanumeric(request.POST['username'])
-        except:
-            return render(request, 'registration/register.html', {'error_messages': '用户名请不多于20个字符。只能用字母、数字和下划线'})
-
-        if User.objects.filter(username=username).exists():
-            return render(request, 'registration/register.html', {'error_messages': '用户名已经存在'})
-
-        user = User.objects.create_user(username, None, password)
+    def form_valid(self, form):
+        form.save()
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
-        login(request, user)
-        profile = Profile()
-        profile.user = user
-        profile.save()
-
-        return redirect('qs.views.index', )
-
-    return render(request, "registration/register.html")
-
+        login(self.request, user)
+        return super(RegisterView, self).form_valid(form)

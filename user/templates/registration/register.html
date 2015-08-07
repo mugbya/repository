@@ -3,49 +3,61 @@
 {% load staticfiles %}
 
 {% block head %}
-  <link rel="stylesheet" href=" {%static 'css/user.css' %}">
+<link rel="stylesheet" href=" {%static 'css/user.css' %}">
 {% endblock %}
 
 {% block mainbody %}
 
 <div class="register-box">
-    {% if error_messages %}
-        {{ error_messages }}
-    {% endif%}
-    <h2 class="text－center">创建账户</h2>
-     <form class="form-signin" method="post" action="{% url 'register' %}">
-      {% csrf_token %}
 
-      <div class="row">
-        <label for="username">用户名:</label>
-        <br>
-        <input type="text" name="username" class="form-control">
-        <br>
-        <p><strong>*</strong>不多于20个字符。只能用字母、数字和下划线</p>
-      </div>
+    <form class="" method="post" action="{% url 'register' %}">
+        {% csrf_token %}
 
-      <div class="row">
-      <label for="password">密 码:</label>
-      <br>
-      <input type="password" name="password1" class="form-control">
-      <br>
-    <p><strong>*</strong>请输入你自己觉得足够安全的密码(最好大于8位)</p>
-      </div>
+        <div class="row {% if form.username.errors %} has-error {% endif %} ">
+            <label for="username">用户名:</label>
+            {% if form.username.errors %}
+            <span class="text-danger pull-right">{{ form.username.errors }}</span>
+            {% endif %}
+            {{ form.username }}
+            <br>
+            <p><strong>*</strong>不多于20个字符。只能用字母、数字和下划线</p>
+            <br>
+        </div>
 
-      <!--<div class="row">-->
-         <!--<label for="password">确认密码:</label>-->
+        <div class="row">
+            <label for="email">Email:</label>
+            {% if form.email.errors %}
+            <span class="text-danger pull-right">{{ form.email.errors }}</span>
+            {% endif %}
+            {{ form.email }}
+            <br>
+            <p><strong>*</strong>邮箱用于找回密码,请输入您的可用邮箱。</p>
+            <br>
+        </div>
+
+        <div class="row">
+            <label for="password">密 码:</label>
+            {% if form.password.errors %}
+            <span class="text-danger pull-right">{{ form.password.errors }}</span>
+            {% endif %}
+            {{ form.password }}
+            <br>
+            <p><strong>*</strong>请输入你自己觉得足够安全的密码(最好大于8位)</p>
+        </div>
+
+        <!--<div class="row">-->
+        <!--<label for="password">确认密码:</label>-->
         <!--<br>-->
         <!--<input type="password" name="password2" class="form-control">-->
         <!--<br>-->
-            <!--<p><strong>*</strong>再次确认密码</p>-->
-      <!--</div>-->
+        <!--<p><strong>*</strong>再次确认密码</p>-->
+        <!--</div>-->
 
-      <div class="row">
-          <button class="btn btn-default btn-block" type="submit">注 册</button>
-      </div>
+        <div class="row">
+            <button class="btn btn-default btn-block" type="submit">注 册</button>
+        </div>
     </form>
 </div>
-
 
 
 {% endblock %}

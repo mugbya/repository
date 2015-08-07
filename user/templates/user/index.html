@@ -90,7 +90,7 @@
                             </ul>
                         </div>
                     </div>
-                      <!-- 我的回答 -->
+                      <!-- 我的回答  truncatewords:"5" -->
                     <div role="tabpanel" class="tab-pane" id="solution">
                         <div class="list-content">
                             <ul class="media-list">
@@ -101,7 +101,7 @@
                                     <div class="media-body">
                                       <h5 class="media-heading">{{ solution.created }}</h5>
                                       <a href="{% url 'detail'  pk=solution.question.pk|default:1%}"><h4 class="media-heading">{{ solution.question }}</h4></a>
-                                      <h5>{{ solution | truncatewords:"5" }}</h5>
+                                      <h5>{{ solution | truncatechars_html:10 }}</h5>
                                     </div>
                                   </li>
                                 {% endfor %}

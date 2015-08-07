@@ -17,13 +17,15 @@
     <form class="form-signin" method="post" action="{% url 'django.contrib.auth.views.login' %}">
       {% csrf_token %}
       <div class="row">
-        <label for="username">用户名/Email:</label>
+        <label for="username">用户名:</label>
         <br>
         <input type="text" name="username" class="form-control">
         <br>
       </div>
+
       <div class="row">
         <label for="password">密 码:</label>
+        <a href="{% url 'password_reset' %}" tabindex="-1">（忘了密码？）</a>
         <br>
         <input type="password" name="password" class="form-control">
         <br>
@@ -34,7 +36,8 @@
           <label>记住登录</label>
         </div>
         <div class="col-md-6 text-right">
-          <a href="">忘记密码</a>
+          <!--<a href="">忘记密码</a>-->
+
         </div>
       </div>
       <button class="btn btn-default btn-block" type="submit">登 录</button>
