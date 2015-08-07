@@ -15,7 +15,7 @@ from PIL import Image
 
 from .models import Profile
 from qs.models import Question,Solution
-
+from .forms import ChangepwdForm
 
 # Create your views here.
 
@@ -70,8 +70,19 @@ def settings(request):
         return redirect('user.views.userIndex', username=user.username)
     return render(request, 'user/settings.html', {'profile': profile, 'email': user.email})
 
+def resetpwd(request):
+    user = request.user
+    if request.POST:
+        form = ChangepwdForm(request.POST)
+        if form.is_valid():
+            passpwd1 = request.POST['passpwd1']
+            user.set_password(passpwd1)
+            user.save()
+            user = authenticate(username=user.username, password=passpwd1)
+            login(request, user)
+    return redirect('user.views.settings')
+
 def uploadavatar_upload(request):
-    print("进入上传图片逻辑")
     u = request.user
     if request.method == 'POST':
         # f = request.FILES.get('uploadavatarfile', None)
@@ -89,8 +100,6 @@ def uploadavatar_upload(request):
             im.save('%s/%s' % (storage.location, name), 'PNG')
         u.profile.use_gravatar = False
         u.profile.save()
-
-        print(f)
     return redirect('qs.views.index', )
 
 def register(request):
