@@ -1287,3 +1287,8 @@ li {
   color: #a23607;
   font-weight: bold;
 }
+
+
+.password-reset {
+    width: 35%;
+}
