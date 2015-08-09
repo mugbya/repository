@@ -16,7 +16,7 @@
 			</ul>
 		</nav>
 		<div class="question-post-list">
-			{% for item in post_latest %}
+			{% for item in object_list %}
 			<div class="qp-item">
 				<div class="tag-box">
 					<!-- tag-red tag-gray tag-green -->
@@ -48,22 +48,41 @@
 						<a class="time" href="">{{ item.created }}</a>
 					</div>
 					<h2 class="title"><a href="{% url 'detail'  pk=item.pk|default:1%}">{{item.title}}</a></h2>
-					<ul class="taglist">
-						<li class="tagpopup">
-							<a href="" class="tag tag-sm">PHP</a>
-						</li>
-						<li class="tagpopup">
-							<a href="" class="tag tag-sm">MYsql</a>
-						</li>
-						<li class="tagpopup">
-							<a href="" class="tag tag-sm">前端</a>
-						</li>
-					</ul>
+					<!--<ul class="taglist">-->
+						<!--<li class="tagpopup">-->
+							<!--<a href="" class="tag tag-sm">PHP</a>-->
+						<!--</li>-->
+						<!--<li class="tagpopup">-->
+							<!--<a href="" class="tag tag-sm">MYsql</a>-->
+						<!--</li>-->
+						<!--<li class="tagpopup">-->
+							<!--<a href="" class="tag tag-sm">前端</a>-->
+						<!--</li>-->
+					<!--</ul>-->
 				</div>
 			</div>
 			{% endfor %}
+
+		  <nav>
+			<ul class="pager">
+			  <li class="current">{{ object_list.number  }} / {{ object_list.paginator.num_pages  }}</li>
+			  {% if object_list.has_previous %}
+			  <li class="previous"><a href="?page={{ object_list.previous_page_number  }}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+			  {% else %}
+			  <li class="previous disabled"><a href=""><span aria-hidden="true">&larr;</span> 上一页</a></li>
+			  {% endif %}
+			  {% if object_list.has_next %}
+			  <li class="next"><a href="?page={{ object_list.next_page_number  }}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+			  {% else %}
+			  <li class="next disabled"><a href="">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+			  {% endif %}
+			</ul>
+		  </nav>
+
 		</div>
 	</div>
+
+
 	<div class="col-md-4">
 		<div class="sidebar-box">
 				<h2 class="title">标签云</h2>

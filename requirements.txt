@@ -14,3 +14,6 @@ whoosh >= 2.7.0
 jieba >= 0.36.2
 
 Pygments >= 1.6
+
+
+pillow

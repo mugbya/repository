@@ -7,20 +7,32 @@ from django.forms.models import modelform_factory
 from django.forms.widgets import PasswordInput
 from django.utils.six import BytesIO
 from django.contrib.auth.decorators import login_required
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .forms import QuestionForm, SolutionForm
 
 from haystack.forms import SearchForm
 
 from .models import *
+from django.core.urlresolvers import reverse_lazy
 
 
+class IndexView(ListView):
+    template_name = 'qs/index.html'
 
-def index(request):
-    # question_list = Question.objects.all()
-    question_list = Question.objects.filter(published_date__isnull=False).order_by('-published_date')
-    return render(request, 'qs/index.html', {'post_latest': question_list[:10]})
+    def get_queryset(self, **kwargs):
+        question_list = Question.objects.filter(published_date__isnull=False).order_by('-published_date')[:100]
+        paginator = Paginator(question_list, 2)
+        page = self.request.GET.get('page')
+        try:
+            object_list = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            object_list = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            object_list = paginator.page(paginator.num_pages)
+        return object_list
 
 
 def detail(request, pk):
@@ -59,11 +71,13 @@ def new_qs(request):
     if request.method == "POST":
         form = QuestionForm(request.POST)
         if form.is_valid():
+            form.clean()
             post = form.save(commit=False)
             post.author = request.user
             if 'publish' in request.POST:
                 post.publish()
-                return redirect('qs.views.index')
+                # return redirect('qs.views.index')
+                return redirect(reverse_lazy('index'))
             else:
                 post.save()
                 return redirect('qs.views.draft_list')
