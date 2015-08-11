@@ -11,9 +11,11 @@
 
 #### Views使用
 
+##### 类通用试图
+
 - [如何正确使用 CBVs (Class-based views)](http://www.weiguda.com/blog/11/)
-
-
+- [Classy Class-Based Views](http://ccbv.co.uk/)
+- [Class-based generic views 基于类的通用视图](http://django-14-tkliuxing.readthedocs.org/en/latest/topics/class-based-views.html)
 
 #### OAuth2.0
 
