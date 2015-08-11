@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
-from django.views.generic import ListView, CreateView, FormView, TemplateView
+from django.views.generic import ListView, CreateView, FormView, TemplateView, DetailView
 
 from django.forms.models import modelform_factory
 from django.forms.widgets import PasswordInput
@@ -15,23 +15,16 @@ from haystack.forms import SearchForm
 
 from .models import *
 from django.core.urlresolvers import reverse_lazy
+from repository.settings import PAGE_NUM
 
 
 class IndexView(ListView):
     template_name = 'qs/index.html'
+    paginate_by = PAGE_NUM
+    context_object_name = 'object_list'
 
-    def get_queryset(self, **kwargs):
-        question_list = Question.objects.filter(published_date__isnull=False).order_by('-published_date')[:100]
-        paginator = Paginator(question_list, 2)
-        page = self.request.GET.get('page')
-        try:
-            object_list = paginator.page(page)
-        except PageNotAnInteger:
-            # If page is not an integer, deliver first page.
-            object_list = paginator.page(1)
-        except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
-            object_list = paginator.page(paginator.num_pages)
+    def get_queryset(self):
+        object_list = Question.objects.filter(published_date__isnull=False).order_by('-published_date')[:100]
         return object_list
 
 

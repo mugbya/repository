@@ -155,6 +155,9 @@ ALLOWED_HOSTS = []
 DEBUG = True
 
 
+#分页配置#######################################
+PAGE_NUM = 10
+
 #email配置#########################################
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.163.com'                       #SMTP地址 例如: smtp.163.com

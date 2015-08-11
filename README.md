@@ -13,7 +13,7 @@
 
 - [如何正确使用 CBVs (Class-based views)](http://www.weiguda.com/blog/11/)
 
-#### 关联关系CRUD
+
 
 #### OAuth2.0
 
@@ -21,7 +21,6 @@
 
 ### 未解
 
-- django redirect httpresponseredirect
 
 - [用Django保存一对多和多对多关系](http://onepub.tumblr.com/post/17750580320/django)
 
