@@ -39,7 +39,8 @@ INSTALLED_APPS = (
     'qs',
     'blog',
     'user',
-    'haystack'
+    'oauth',
+    'haystack',
 )
 
 
