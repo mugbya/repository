@@ -17,3 +17,5 @@ Pygments >= 1.6
 
 
 pillow
+
+requests

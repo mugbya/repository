@@ -74,19 +74,20 @@ class GithubOauthView(RedirectView):
             # else:
             #     redirect('bind', {'type': 'github'})
         except:
-            list
+            dict
             print("进入异常")
-            render(self.request, 'user/bind.html', {'oo' : "ssss"})
+
             self.url = 'http://127.0.0.1:8000/user/bind'
             # messages.success(self.request, "GitHub")
             # messages.success(self.request, link_github)
             # messages.success(self.request, email)
             # messages.success(self.request, username)
-            # messages.success(self.request,{'type': 'GitHub',
-            #                   'link': link_github,
-            #                   'email': email,
-            #                   'username': username
-            #                   })
+            self.request.session['type'] = 'GitHub'
+            self.request.session['link'] = link_github
+            self.request.session['email'] = email
+            self.request.session['username'] = username
+
+
             # messages.add_message(self.request, 'SUCCESS', {'type': 'GitHub',
             #                   'link': link_github,
             #                   'email': email,

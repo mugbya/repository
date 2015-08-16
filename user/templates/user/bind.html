@@ -1,17 +1,22 @@
+
+
+<link rel="stylesheet" href="//static.segmentfault.com/build/global/css/global.64b34ab2.css"/>
+<link rel="stylesheet" href="//static.segmentfault.com/build/login/css/login_all.8a4a8926.css"/>
+<link rel="stylesheet" href="//static.segmentfault.com/build/global/css/responsive.61fdda2e.css"/>
+
+
 <div class="col-md-6 col-md-offset-3 bg-white login-wrap">
     <h1 class="h4 text-center text-muted login-title">完善资料</h1>
 
     <p class="title-description">
         您正在使用 <span class="icon-sn-github"></span>
-        <a href="" target="_blank">账号</a>
+        <a href="{{ request.session.link }}" target="_blank">{{ request.session.type }}账号</a>
     </p>
-
-{{ oo }}
-
 
 
     <div>
         <ul class="nav nav-tabs" role="tablist">
+
             <li role="presentation" class="active"><a href="#tab1"
                                                       aria-controls="tab1" role="tab"
                                                       data-toggle="tab">绑定新账号</a></li>
@@ -21,8 +26,7 @@
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active"
-                 id="tab1">
+            <div role="tabpanel" class="tab-pane active" id="tab1">
                 <form id="bindForm1" role="form">
                     <div class="form-group mt10">
                         <label for="mail" class="required">Email</label>
@@ -42,9 +46,8 @@
                     </div>
                 </form>
             </div>
-            <div role="tabpanel" class="tab-pane"
-                 id="tab2">
-                <form id="bindForm2" method="POST" action="/api/user/bind/exist" role="form">
+            <div role="tabpanel" class="tab-pane" id="tab2">
+                <form id="bindForm2" method="POST" action="" role="form">
                     <div class="form-group mt10">
                         <label for="mail" class="required">Email</label>
                         <input type="email" class="form-control" name="mail" value="" required
