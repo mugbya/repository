@@ -7,14 +7,8 @@ from .models import Profile
 
 alphanumeric = RegexValidator(r'^[0-9a-zA-Z\_]{1,20}$')
 
-class RegisterForm(forms.Form):
-    username = forms.CharField(
-        label=u'昵称',
-        help_text=u'昵称可用于登录，不能包含空格和@字符。',
-        max_length=20,
-        initial='',
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
-        )
+
+class BaseRegisterForm(forms.Form):
     email = forms.EmailField(
         label=u'邮箱',
         help_text=u'邮箱可用于登录，最重要的是需要邮箱来找回密码，所以请输入您的可用邮箱。',
@@ -22,21 +16,13 @@ class RegisterForm(forms.Form):
         initial='',
         widget=forms.TextInput(attrs={'class': 'form-control'}),
         )
-
-    password = forms.CharField(
-        label=u'密码',
-        help_text=u'密码只有长度要求，长度为 6 ~ 18 。',
-        min_length=6,
-        max_length=18,
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+    username = forms.CharField(
+        label=u'昵称',
+        help_text=u'昵称可用于登录，不能包含空格和@字符。',
+        max_length=20,
+        initial='',
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
         )
-
-    # confirm_password = forms.CharField(
-    #     label=u'确认密码',
-    #     min_length=6,
-    #     max_length=18,
-    #     widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-    #     )
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -56,13 +42,15 @@ class RegisterForm(forms.Form):
             raise forms.ValidationError(u'此邮箱已经注册，请重新输入')
         return email
 
-    # def clean(self):
-    #     cleaned_data = super(RegisterForm, self).clean()
-    #     password = cleaned_data.get('password')
-    #     confirm_password = cleaned_data.get('confirm_password')
-    #     if password and confirm_password:
-    #         if password != confirm_password:
-    #             raise forms.ValidationError(u'两次密码输入不一致，请重新输入')
+
+class RegisterForm(BaseRegisterForm):
+    password = forms.CharField(
+        label=u'密码',
+        help_text=u'密码只有长度要求，长度为 6 ~ 18 。',
+        min_length=6,
+        max_length=18,
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        )
 
     def save(self):
         username = self.cleaned_data['username']
@@ -103,3 +91,4 @@ class ChangepwdForm(forms.Form):
         else:
             cleaned_data = super(ChangepwdForm, self).clean()
         return cleaned_data
+

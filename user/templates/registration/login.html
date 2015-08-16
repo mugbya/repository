@@ -34,12 +34,16 @@
         <div class="col-md-6">
           <input type="checkbox" value="remember-me">
           <label>记住登录</label>
-          <label><a href="{% url 'github_oauth' %}">github</label>
+
+
 
         </div>
         <div class="col-md-6 text-right">
           <!--<a href="">忘记密码</a>-->
-
+          <!-- 其他登录方式 -->
+              <a href="https://github.com/login/oauth/authorize?client_id=dd90d6225d6bb60bf7a5&redirect_uri=http://127.0.0.1:8000/oauth/github&state=11111111" title="GitHub 登录">
+                <img src="/static/img/github_login_logo_s.png">
+              </a>
         </div>
       </div>
       <button class="btn btn-default btn-block" type="submit">登 录</button>

@@ -3,10 +3,12 @@
 from django.conf.urls import url
 
 from . import views
-from .views import RegisterView
+from .views import RegisterView, BindView
 
 urlpatterns = [
     url(r'^register$', RegisterView.as_view(), name='register'),
+
+    url(r'^bind', BindView.as_view(), name='bind'),
 
     url(r'^settings$', views.settings, name='settings'),
 

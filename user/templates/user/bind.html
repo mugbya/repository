@@ -1,0 +1,77 @@
+<div class="col-md-6 col-md-offset-3 bg-white login-wrap">
+    <h1 class="h4 text-center text-muted login-title">完善资料</h1>
+
+    <p class="title-description">
+        您正在使用 <span class="icon-sn-github"></span>
+        <a href="" target="_blank">账号</a>
+    </p>
+
+{{ oo }}
+
+
+
+    <div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#tab1"
+                                                      aria-controls="tab1" role="tab"
+                                                      data-toggle="tab">绑定新账号</a></li>
+            <li role="presentation"><a href="#tab2"
+                                       aria-controls="tab2" role="tab"
+                                       data-toggle="tab">绑定已有账号</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active"
+                 id="tab1">
+                <form id="bindForm1" role="form">
+                    <div class="form-group mt10">
+                        <label for="mail" class="required">Email</label>
+                        <input type="email" class="form-control" name="mail" value="" required
+                               placeholder="hello@segmentfault.com">
+                    </div>
+                    <div class="form-group nameInput">
+                        <label for="name" class="required">用户名</label>
+                        <input type="text" class="form-control" name="name" value="yuzhouxigua32" required
+                               placeholder="字母、数字等，用户名唯一">
+                    </div>
+                    <div class="form-group policy">
+                        <span class="left">同意并接受 <a target="_blank" href="/tos">《服务条款》</a></span>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block btn-lg">确定</button>
+                    </div>
+                </form>
+            </div>
+            <div role="tabpanel" class="tab-pane"
+                 id="tab2">
+                <form id="bindForm2" method="POST" action="/api/user/bind/exist" role="form">
+                    <div class="form-group mt10">
+                        <label for="mail" class="required">Email</label>
+                        <input type="email" class="form-control" name="mail" value="" required
+                               placeholder="hello@segmentfault.com">
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input name="havePassword" id="havePassword" type="checkbox">我知道密码
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group passwordInput hidden">
+                        <label for="name">密码</label>
+                        <input type="password" name="password"
+                               maxlength="32" placeholder="字母、数字等"
+                               class="form-control" value="" disabled="disabled"/>
+                    </div>
+                    <div class="form-group policy">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block
+                              btn-lg">确定
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

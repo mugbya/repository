@@ -12,8 +12,9 @@ from PIL import Image
 
 from .models import Profile
 from qs.models import Question, Solution
-from .forms import ChangepwdForm, RegisterForm
+from .forms import BaseRegisterForm, ChangepwdForm, RegisterForm
 from django.views.generic.edit import FormView
+from django.views.generic import TemplateView
 from django.core.urlresolvers import reverse_lazy
 
 # Create your views here.
@@ -113,3 +114,14 @@ class RegisterView(FormView):
         user = authenticate(username=username, password=password)
         login(self.request, user)
         return super(RegisterView, self).form_valid(form)
+
+
+class BindView(FormView):
+    template_name = 'user/bind.html'
+    form_class = BaseRegisterForm
+    success_url = reverse_lazy('index')
+
+    def form_valid(self, form):
+        # self.request.get
+        return super(BindView, self).form_valid(form)
+
