@@ -3,12 +3,14 @@
 from django.conf.urls import url
 
 from . import views
-from .views import RegisterView, BindView
+from .views import RegisterView, BindNewUserView, BindView
 
 urlpatterns = [
     url(r'^register$', RegisterView.as_view(), name='register'),
 
-    url(r'^bind', BindView.as_view(), name='bind'),
+    url(r'^bind$', BindView.as_view(), name='bind'),
+
+    url(r'^bindnew$', BindNewUserView.as_view(), name='bind_new'),
 
     url(r'^settings$', views.settings, name='settings'),
 

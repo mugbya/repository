@@ -11,12 +11,20 @@ import os
 from PIL import Image
 
 from .models import Profile
+from oauth.views import  oauth_type
+from oauth.models import Oauth
 from qs.models import Question, Solution
-from .forms import BaseRegisterForm, ChangepwdForm, RegisterForm
+from .forms import BaseRegisterForm, ChangepwdForm, RegisterForm, EmailForm
 from django.views.generic.edit import FormView
 from django.views.generic import TemplateView
 from django.core.urlresolvers import reverse_lazy
 
+from repository.local_settings import EMAIL_HOST_USER
+
+from django.contrib.auth.tokens import default_token_generator
+
+
+from django.contrib import messages
 # Create your views here.
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -118,10 +126,53 @@ class RegisterView(FormView):
 
 class BindView(FormView):
     template_name = 'user/bind.html'
+    success_url = reverse_lazy('index')
+    form_class = EmailForm
+
+    def form_valid(self, form):
+        email = form.cleaned_data['mail']
+        type = form.cleaned_data['type']
+        username = self.request.session['username']
+        link = self.request.session['link']
+
+        opts = {
+            # 'use_https': request.is_secure(),
+            'token_generator': default_token_generator,
+            'from_email': EMAIL_HOST_USER,
+            # 'email_template_name': email_template_name,
+            # 'subject_template_name': subject_template_name,
+            'username': username,
+            'typename': oauth_type[type],
+            'link': link,
+            # 'html_email_template_name': html_email_template_name,
+        }
+        print("发送邮件-----------")
+        form.save(**opts)
+
+        messages.success(self.request, "一封确认邮件已经发送至" + email + "，请根据提示完成绑定")
+        return super(BindView, self).form_valid(form)
+
+
+class BindNewUserView(FormView):
+    template_name = 'user/bind.html'
     form_class = BaseRegisterForm
     success_url = reverse_lazy('index')
 
     def form_valid(self, form):
-        # self.request.get
-        return super(BindView, self).form_valid(form)
+        username = form.cleaned_data['username']
+        email = form.cleaned_data['email']
+        link = self.request.session['link']
+        type = self.request.session['type']
+
+        user = User.objects.create_user(username, email)
+        user.save()
+        profile = Profile(user=user)
+        profile.save()
+
+        oauth = Oauth(type_oauth=type, link_oauth=link, user=user)
+        oauth.save()
+
+        user.backend = 'django.contrib.auth.backends.ModelBackend'
+        login(self.request, user)
+        return super(BindNewUserView, self).form_valid(form)
 

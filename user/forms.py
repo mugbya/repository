@@ -2,11 +2,64 @@ __author__ = 'mugbya'
 from django import forms
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+from django.core.mail import EmailMultiAlternatives
+
 
 from .models import Profile
+from oauth.models import Oauth
 
 alphanumeric = RegexValidator(r'^[0-9a-zA-Z\_]{1,20}$')
+oauth_type = {1: 'Github', 2:'微博'}
 
+class EmailForm(forms.Form):
+    type = forms.IntegerField()
+
+    mail = forms.EmailField(
+        max_length=50,
+        initial='',
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        )
+
+    def clean_mail(self):
+        mail = self.cleaned_data['mail']
+        type = self.cleaned_data['type']
+        user = User.objects.filter(email=mail)[0]
+        oauth = Oauth.objects.filter(user_id=user.id, type_oauth=type)
+        if oauth:
+            raise forms.ValidationError(u'此邮箱已经绑定' + oauth_type[type])
+        return mail
+
+    def send_mail(self, context, from_email, to_email):
+        """
+        Sends a django.core.mail.EmailMultiAlternatives to `to_email`.
+        """
+        subject = "第三方帐户绑定 Repository 问答社区"
+        # Email subject *must not* contain newlines
+        # subject = ''.join(subject.splitlines())
+        # body = loader.render_to_string(email_template_name, context)
+
+        email_message = EmailMultiAlternatives(subject, '', from_email, [to_email])
+        html_content = context['username'] + u' 您好，您用<a href="' +\
+                       context['link'] + u'" target="_blank">' + \
+                       context['typename'] + u'</a>绑定了本站账号请在1 小时内点击此链接以完成绑定'
+
+        email_message.attach_alternative(html_content, 'text/html')
+        # if html_email_template_name is not None:
+        #     html_email = loader.render_to_string(html_email_template_name, context)
+        #     email_message.attach_alternative(html_email, 'text/html')
+        print("发送完---------")
+        email_message.send()
+
+    def save(self, token_generator=None, from_email=None, username=None, typename=None, link=None):
+        email = self.cleaned_data['mail']
+        context = {
+            'email': email,
+            'username': username,
+            'token': token_generator,
+            'typename': typename,
+            'link': link,
+        }
+        self.send_mail(context, from_email, email)
 
 class BaseRegisterForm(forms.Form):
     email = forms.EmailField(
@@ -16,6 +69,7 @@ class BaseRegisterForm(forms.Form):
         initial='',
         widget=forms.TextInput(attrs={'class': 'form-control'}),
         )
+
     username = forms.CharField(
         label=u'昵称',
         help_text=u'昵称可用于登录，不能包含空格和@字符。',
@@ -42,6 +96,15 @@ class BaseRegisterForm(forms.Form):
             raise forms.ValidationError(u'此邮箱已经注册，请重新输入')
         return email
 
+    # def save(self):
+    #     username = self.cleaned_data['username']
+    #     email = self.cleaned_data['email']
+    #
+    #     user = User.objects.create_user(username, email)
+    #     user.save()
+    #     profile = Profile()
+    #     profile.user = user
+    #     profile.save()
 
 class RegisterForm(BaseRegisterForm):
     password = forms.CharField(

@@ -1,20 +1,24 @@
 
 import requests
 from user.models import Profile
-
+from oauth.models import Oauth
 # from requests.conf import settings
 from django.contrib.auth.models import User
 from django.views.generic.base import RedirectView
 from django.contrib.auth import authenticate, login
 from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib import messages
 
+from django.core.urlresolvers import reverse_lazy, reverse
 
 import traceback
 
 # GITHUB_CLIENTID = settings.GITHUB_CLIENTID
 # GITHUB_CLIENTSECRET = settings.GITHUB_CLIENTSECRET
 # GITHUB_CALLBACK = settings.GITHUB_CALLBACK
+
+
+TYPE_GitHub = 1
+oauth_type = {1: 'Github', 2: 'Weibo'}
 
 GITHUB_AUTHORIZE_URL = 'https://github.com/login/oauth/authorize'
 GITHUB_CLIENTID = 'dd90d6225d6bb60bf7a5'
@@ -58,9 +62,9 @@ class GithubOauthView(RedirectView):
         link_github = data['html_url']
 
         try:
-            profile = Profile.objects.get(link_github = link_github )
-            self.url = 'http://127.0.0.1:8000'
-            user = User.objects.get(id=profile.user_id)
+            oauth = Oauth.objects.get(link_oauth = link_github )
+            self.url = reverse('index')
+            user = User.objects.get(id=oauth.user_id)
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(self.request, user)
             # user = User.objects.get(email=email)
@@ -74,45 +78,13 @@ class GithubOauthView(RedirectView):
             # else:
             #     redirect('bind', {'type': 'github'})
         except:
-            dict
-            print("进入异常")
+            self.url = reverse('bind')
 
-            self.url = 'http://127.0.0.1:8000/user/bind'
-            # messages.success(self.request, "GitHub")
-            # messages.success(self.request, link_github)
-            # messages.success(self.request, email)
-            # messages.success(self.request, username)
-            self.request.session['type'] = 'GitHub'
+            self.request.session['typename'] = 'GitHub'
+            self.request.session['type'] = TYPE_GitHub
             self.request.session['link'] = link_github
             self.request.session['email'] = email
             self.request.session['username'] = username
-
-
-            # messages.add_message(self.request, 'SUCCESS', {'type': 'GitHub',
-            #                   'link': link_github,
-            #                   'email': email,
-            #                   'username': username
-            #                   })
-            # redirect('bind')
-
-
-                             # {'type': 'GitHub',
-                             #  'link': link_github,
-                             #  'email': email,
-                             #  'username': username
-                             #  }
-            # user = User.objects.create_user(username, email, password)
-            # user.save()
-            # profile = Profile()
-            # profile.user = user
-            # profile.save()
-            # self.url = 'http://127.0.0.1:8000/user/bind'
-        # print("密码： " + user.password)
-        # # user = authenticate(username=username, password='aaaaaa')
-        # user.backend = 'django.contrib.auth.backends.ModelBackend'
-        # login(self.request, user)
-
-
 
     def get_redirect_url(self, *args, **kwargs):
         try:

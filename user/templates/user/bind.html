@@ -1,8 +1,15 @@
+{% extends "partial/assets.html" %}
 
+
+{% block head %}
 
 <link rel="stylesheet" href="//static.segmentfault.com/build/global/css/global.64b34ab2.css"/>
 <link rel="stylesheet" href="//static.segmentfault.com/build/login/css/login_all.8a4a8926.css"/>
 <link rel="stylesheet" href="//static.segmentfault.com/build/global/css/responsive.61fdda2e.css"/>
+
+{% endblock %}
+
+{% block mainbody %}
 
 
 <div class="col-md-6 col-md-offset-3 bg-white login-wrap">
@@ -10,7 +17,7 @@
 
     <p class="title-description">
         您正在使用 <span class="icon-sn-github"></span>
-        <a href="{{ request.session.link }}" target="_blank">{{ request.session.type }}账号</a>
+        <a href="{{ request.session.link }}" target="_blank">{{ request.session.typename }}账号</a>
     </p>
 
 
@@ -27,54 +34,78 @@
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="tab1">
-                <form id="bindForm1" role="form">
-                    <div class="form-group mt10">
-                        <label for="mail" class="required">Email</label>
-                        <input type="email" class="form-control" name="mail" value="" required
-                               placeholder="hello@segmentfault.com">
-                    </div>
-                    <div class="form-group nameInput">
-                        <label for="name" class="required">用户名</label>
-                        <input type="text" class="form-control" name="name" value="yuzhouxigua32" required
-                               placeholder="字母、数字等，用户名唯一">
-                    </div>
-                    <div class="form-group policy">
-                        <span class="left">同意并接受 <a target="_blank" href="/tos">《服务条款》</a></span>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary btn-block btn-lg">确定</button>
-                    </div>
+               <form action="{% url 'bind_new' %}" method="post">
+                    <fieldset>
+                        {% csrf_token %}
+
+                        <div class="form-group nameInput">
+                            <label for="name" class="required">用户名</label>
+                            {% if form.username.errors %}
+                            <span class="text-danger pull-right">{{ form.username.errors }}</span>
+                            {% endif %}
+                            <input type="text" class="form-control" name="username"
+                                   value="{{ request.session.username }}" required
+                                   placeholder="字母、数字等，用户名唯一">
+                        </div>
+
+                        <div class="form-group mt10">
+                            <label for="email" class="required">Email</label>
+                            {% if form.email.errors %}
+                            <span class="text-danger pull-right">{{ form.email.errors }}</span>
+                            {% endif %}
+                            <input type="email" class="form-control" name="email" value="{{ request.session.email }}"
+                                   required
+                                   placeholder="{{ request.session.email }}">
+                        </div>
+
+                        <div class="form-group policy">
+                            <!--<span class="left">同意并接受 <a target="_blank" href="/tos">《服务条款》</a></span>-->
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block btn-lg">确定</button>
+                        </div>
+                    </fieldset>
                 </form>
             </div>
             <div role="tabpanel" class="tab-pane" id="tab2">
-                <form id="bindForm2" method="POST" action="" role="form">
-                    <div class="form-group mt10">
-                        <label for="mail" class="required">Email</label>
-                        <input type="email" class="form-control" name="mail" value="" required
-                               placeholder="hello@segmentfault.com">
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input name="havePassword" id="havePassword" type="checkbox">我知道密码
-                            </label>
+                <form method="post" action="{% url 'bind' %}">
+                    <fieldset>
+                        {% csrf_token %}
+                        <div class="form-group mt10">
+                            <input type="hidden"  name="type" value="{{ request.session.type }}">
+
+                            <label for="mail" class="required">Email</label>
+                            {% if form.mail.errors %}
+                            <span class="text-danger pull-right">{{ form.mail.errors }}</span>
+                            {% endif %}
+                            <input type="email" class="form-control" name="mail" value="" required
+                                   placeholder="{{ request.session.mail }}">
                         </div>
-                    </div>
-                    <div class="form-group passwordInput hidden">
-                        <label for="name">密码</label>
-                        <input type="password" name="password"
-                               maxlength="32" placeholder="字母、数字等"
-                               class="form-control" value="" disabled="disabled"/>
-                    </div>
-                    <div class="form-group policy">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary btn-block
-                              btn-lg">确定
-                        </button>
-                    </div>
+                        <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="checkbox">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input name="havePassword" id="havePassword" type="checkbox">我知道密码&ndash;&gt;-->
+                        <!--&lt;!&ndash;</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="form-group passwordInput hidden">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label for="name">密码</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input type="password" name="password"&ndash;&gt;-->
+                        <!--&lt;!&ndash;maxlength="32" placeholder="字母、数字等"&ndash;&gt;-->
+                        <!--&lt;!&ndash;class="form-control" value="" disabled="disabled"/>&ndash;&gt;-->
+                        <!--</div>-->
+                        <div class="form-group policy">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block btn-lg">确定</button>
+                        </div>
+                    </fieldset>
                 </form>
             </div>
         </div>
     </div>
+
+
 </div>
+
+{% endblock %}

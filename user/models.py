@@ -23,16 +23,6 @@ class Profile(models.Model):
     about_me = models.TextField()
     content_md = models.TextField(editable=False, blank=True, null=True)
 
-    use_github = models.BooleanField(default=False)
-    use_google = models.BooleanField(default=False)
-    use_weibo = models.BooleanField(default=False)
-    use_qq = models.BooleanField(default=False)
-
-    link_github = models.URLField(blank=True, null=True)
-    link_google = models.URLField(blank=True, null=True)
-    link_weibo = models.URLField(blank=True, null=True)
-    link_qq = models.URLField(blank=True, null=True)
-
     def save(self, *args, **kwargs):
         self.content_md = markdown.markdown(
             self.about_me,
