@@ -58,10 +58,10 @@
                             {% endif%}
                         </fieldset>
 
-                    <!-- 上传头像 -->
-                    <form action="{% url 'uploadavatar_upload' %}" class="dropzone" id="demo-upload">
-                        {% csrf_token %}
-                    </form>
+                        <!-- 上传头像 -->
+                        <form action="{% url 'uploadavatar_upload' %}" class="dropzone" id="demo-upload">
+                            {% csrf_token %}
+                        </form>
 
 
                     </div>
@@ -128,7 +128,7 @@
                                     <label class="col-sm-2 control-label">新密码</label>
 
                                     <div class="col-sm-10">
-                                        <input name="passpwd1" type="password"  class="form-control">
+                                        <input name="passpwd1" type="password" class="form-control">
                                     </div>
                                 </div>
 
@@ -136,7 +136,7 @@
                                     <label class="col-sm-2 control-label">再次输入密码</label>
 
                                     <div class="col-sm-10">
-                                        <input name="passpwd2" type="password"  class="form-control">
+                                        <input name="passpwd2" type="password" class="form-control">
                                     </div>
                                 </div>
 
@@ -150,7 +150,9 @@
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="settings">
+                    <div class="oauth">
 
+                    </div>
                 </div>
             </div>
 

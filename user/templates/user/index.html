@@ -39,6 +39,10 @@
                        <p></p>
                         <h4 class="media-heading">{{ profile.user.username }}</h4>
                         <div class="smaill">
+                            <div class="oauth">
+                                 {% include 'user/widget/oauth.html' %}
+                            </div>
+
                             <span><i class="fa fa-star-o"></i> {{ profile.rank }}</span>
                             <span><i class="fa fa-thumbs-o-up"></i> {{ profile.voted }}</span>
                         </div>

@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.files.storage import FileSystemStorage
 
-import os
+import os, time
 from PIL import Image
 
 from .models import Profile
@@ -21,8 +21,8 @@ from django.core.urlresolvers import reverse_lazy
 
 from repository.local_settings import EMAIL_HOST_USER
 
-from django.contrib.auth.tokens import default_token_generator
-
+from .util import generator_token
+import traceback
 
 from django.contrib import messages
 # Create your views here.
@@ -36,21 +36,23 @@ storage = FileSystemStorage(
 )
 
 
-
 def userIndex(request, username):
     user = get_object_or_404(User, username=username)
 
     profile = get_object_or_404(Profile, user=user)
+    oauth_list = Oauth.objects.filter(user_id=user.id)
     questions = Question.objects.filter(author=user.id)
     solutions = Solution.objects.filter(author=user.id)
     return render(request, 'user/index.html', {'profile': profile,
                                                'email': user.email,
                                                'questions': questions,
-                                               'solutions': solutions})
+                                               'solutions': solutions,
+                                               'oauth_list': oauth_list})
 
 def settings(request):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
+    oauth_list = Oauth.objects.filter(user_id=user.id)
     if request.method == 'POST':
         username = request.POST['username']
         email = request.POST['email']
@@ -76,7 +78,9 @@ def settings(request):
         # return redirect(reverse('user.views.index'), pk=user.username)
         # return redirect('userIndex', pk=user.username)
         return redirect('user.views.userIndex', username=user.username)
-    return render(request, 'user/settings.html', {'profile': profile, 'email': user.email})
+    return render(request, 'user/settings.html', {'profile': profile,
+                                                  'email': user.email,
+                                                  'oauth_list': oauth_list})
 
 def resetpwd(request):
     user = request.user
@@ -125,6 +129,9 @@ class RegisterView(FormView):
 
 
 class BindView(FormView):
+    '''
+    绑定已有账户（发送邮件信息）
+    '''
     template_name = 'user/bind.html'
     success_url = reverse_lazy('index')
     form_class = EmailForm
@@ -134,19 +141,18 @@ class BindView(FormView):
         type = form.cleaned_data['type']
         username = self.request.session['username']
         link = self.request.session['link']
+        token = generator_token()
+        self.request.session['token'] = token
+        self.request.session['time'] = time.time()
 
         opts = {
-            # 'use_https': request.is_secure(),
-            'token_generator': default_token_generator,
+            'token': token,
             'from_email': EMAIL_HOST_USER,
-            # 'email_template_name': email_template_name,
-            # 'subject_template_name': subject_template_name,
             'username': username,
             'typename': oauth_type[type],
             'link': link,
-            # 'html_email_template_name': html_email_template_name,
+            'html_email_template_name': 'user/email/bind_oauth.html',
         }
-        print("发送邮件-----------")
         form.save(**opts)
 
         messages.success(self.request, "一封确认邮件已经发送至" + email + "，请根据提示完成绑定")
@@ -154,6 +160,9 @@ class BindView(FormView):
 
 
 class BindNewUserView(FormView):
+    '''
+    绑定成为新用户
+    '''
     template_name = 'user/bind.html'
     form_class = BaseRegisterForm
     success_url = reverse_lazy('index')
@@ -175,4 +184,41 @@ class BindNewUserView(FormView):
         user.backend = 'django.contrib.auth.backends.ModelBackend'
         login(self.request, user)
         return super(BindNewUserView, self).form_valid(form)
+
+
+def bindConfirm(request, token):
+    '''
+    绑定第三方信息，
+    :param request:
+    :param token:
+    :return:
+    '''
+    try:
+        time1 = request.session.pop('time')
+        token_session = request.session.pop('token')
+        email = request.session.pop('email')
+        type = request.session.pop('type')
+        link = request.session.pop('link')
+        print("token_session: " + token_session)
+        interval = time.time() - time1
+        if interval > 3600 or token != token_session:
+             messages.error(request, "链接错误或者已经失效")
+             return redirect('index', )
+    except:
+        traceback.print_exc()
+        messages.error(request, "链接错误或者已经失效")
+        return redirect('index', )
+
+    user = User.objects.filter(email=email)[0]
+
+    oauth = Oauth(type_oauth=type, link_oauth=link, user=user)
+    oauth.save()
+
+    user.backend = 'django.contrib.auth.backends.ModelBackend'
+    login(request, user)
+
+    return redirect('user.views.userIndex', username=user.username)
+
+
+
 

@@ -1,0 +1,8 @@
+{% for oauth in oauth_list%}
+    {% if oauth.type_oauth = 1 %}
+        <a href="{{oauth.link_oauth}}" target="_blank"> <img src="/static/img/github_login_logo_s.png"> </a>
+    {% elif oauth.type_oauth = 2%}
+    {% elif oauth.type_oauth = 3%}
+    {% elif oauth.type_oauth = 4%}
+    {% endif %}
+{% endfor %}

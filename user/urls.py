@@ -8,6 +8,8 @@ from .views import RegisterView, BindNewUserView, BindView
 urlpatterns = [
     url(r'^register$', RegisterView.as_view(), name='register'),
 
+    url(r'^confirm/(?P<token>[0-9A-Za-z]{19})$', views.bindConfirm, name='bind_confirm'),
+
     url(r'^bind$', BindView.as_view(), name='bind'),
 
     url(r'^bindnew$', BindNewUserView.as_view(), name='bind_new'),

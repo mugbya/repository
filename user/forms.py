@@ -3,13 +3,16 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.core.mail import EmailMultiAlternatives
-
+from django.template import loader
 
 from .models import Profile
 from oauth.models import Oauth
 
+
+
 alphanumeric = RegexValidator(r'^[0-9a-zA-Z\_]{1,20}$')
 oauth_type = {1: 'Github', 2:'微博'}
+
 
 class EmailForm(forms.Form):
     type = forms.IntegerField()
@@ -23,43 +26,40 @@ class EmailForm(forms.Form):
     def clean_mail(self):
         mail = self.cleaned_data['mail']
         type = self.cleaned_data['type']
-        user = User.objects.filter(email=mail)[0]
+        try:
+            user = User.objects.filter(email=mail)[0]
+        except:
+            raise forms.ValidationError(u'此邮箱不存在')
         oauth = Oauth.objects.filter(user_id=user.id, type_oauth=type)
         if oauth:
             raise forms.ValidationError(u'此邮箱已经绑定' + oauth_type[type])
         return mail
 
-    def send_mail(self, context, from_email, to_email):
+    def send_mail(self, context, from_email, to_email, html_email_template_name=None):
         """
         Sends a django.core.mail.EmailMultiAlternatives to `to_email`.
         """
         subject = "第三方帐户绑定 Repository 问答社区"
-        # Email subject *must not* contain newlines
-        # subject = ''.join(subject.splitlines())
-        # body = loader.render_to_string(email_template_name, context)
-
         email_message = EmailMultiAlternatives(subject, '', from_email, [to_email])
-        html_content = context['username'] + u' 您好，您用<a href="' +\
-                       context['link'] + u'" target="_blank">' + \
-                       context['typename'] + u'</a>绑定了本站账号请在1 小时内点击此链接以完成绑定'
+        print(context['token'])
 
-        email_message.attach_alternative(html_content, 'text/html')
-        # if html_email_template_name is not None:
-        #     html_email = loader.render_to_string(html_email_template_name, context)
-        #     email_message.attach_alternative(html_email, 'text/html')
-        print("发送完---------")
+        if html_email_template_name is not None:
+            html_email = loader.render_to_string(html_email_template_name, context)
+            email_message.attach_alternative(html_email, 'text/html')
         email_message.send()
 
-    def save(self, token_generator=None, from_email=None, username=None, typename=None, link=None):
+    def save(self, token=None, from_email=None, username=None,
+             typename=None, link=None, html_email_template_name=None):
         email = self.cleaned_data['mail']
         context = {
             'email': email,
             'username': username,
-            'token': token_generator,
             'typename': typename,
             'link': link,
+            'token': token,
         }
-        self.send_mail(context, from_email, email)
+        self.send_mail(context, from_email, email, html_email_template_name)
+
 
 class BaseRegisterForm(forms.Form):
     email = forms.EmailField(
