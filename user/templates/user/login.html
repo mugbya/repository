@@ -14,7 +14,7 @@
         你的用户名或密码输入错误
       {% endif %}
     </p>
-    <form class="form-signin" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+    <form class="form-signin" method="post" action="{% url 'login_' %}">
       {% csrf_token %}
       <div class="row">
         <label for="username">用户名:</label>
@@ -41,9 +41,18 @@
         <div class="col-md-6 text-right">
           <!--<a href="">忘记密码</a>-->
           <!-- 其他登录方式 -->
-              <a href="https://github.com/login/oauth/authorize?client_id=dd90d6225d6bb60bf7a5&redirect_uri=http://127.0.0.1:8000/oauth/github&state=11111111" title="GitHub 登录">
+          <div class="oauth">
+              <a href="https://github.com/login/oauth/authorize?client_id=dd90d6225d6bb60bf7a5&redirect_uri=http://127.0.0.1:8000/oauth/github&state={{state}}" title="GitHub 登录">
                 <img src="/static/img/github_login_logo_s.png">
               </a>
+
+              <!--<a href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101240199&redirect_uri=http://repository.pub/oauth/qq&state={{state}}" title="QQ登录">-->
+                <!--<img src="/static/img/qq.png">-->
+              <!--</a>-->
+              <a href="https://api.weibo.com/oauth2/authorize?client_id=3040636693&redirect_uri=http://127.0.0.1:8000/oauth/weibo&state={{state}}" title="新浪微博登录">
+                <img src="/static/img/weibo.png">
+              </a>
+          </div>
         </div>
       </div>
       <button class="btn btn-default btn-block" type="submit">登 录</button>

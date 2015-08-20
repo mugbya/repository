@@ -7,11 +7,11 @@ from django.template import loader
 
 from .models import Profile
 from oauth.models import Oauth
+from oauth.views import oauth_type
 
 
 
 alphanumeric = RegexValidator(r'^[0-9a-zA-Z\_]{1,20}$')
-oauth_type = {1: 'Github', 2:'微博'}
 
 
 class EmailForm(forms.Form):
@@ -41,7 +41,6 @@ class EmailForm(forms.Form):
         """
         subject = "第三方帐户绑定 Repository 问答社区"
         email_message = EmailMultiAlternatives(subject, '', from_email, [to_email])
-        print(context['token'])
 
         if html_email_template_name is not None:
             html_email = loader.render_to_string(html_email_template_name, context)
@@ -96,15 +95,6 @@ class BaseRegisterForm(forms.Form):
             raise forms.ValidationError(u'此邮箱已经注册，请重新输入')
         return email
 
-    # def save(self):
-    #     username = self.cleaned_data['username']
-    #     email = self.cleaned_data['email']
-    #
-    #     user = User.objects.create_user(username, email)
-    #     user.save()
-    #     profile = Profile()
-    #     profile.user = user
-    #     profile.save()
 
 class RegisterForm(BaseRegisterForm):
     password = forms.CharField(
@@ -121,9 +111,9 @@ class RegisterForm(BaseRegisterForm):
         password = self.cleaned_data['password']
         user = User.objects.create_user(username, email, password)
         user.save()
-        profile = Profile()
-        profile.user = user
+        profile = Profile(user=user)
         profile.save()
+
 
 class ChangepwdForm(forms.Form):
     passpwd1 = forms.CharField(

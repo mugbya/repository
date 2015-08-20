@@ -10,6 +10,7 @@ from django.core.files.storage import FileSystemStorage
 import os, time
 from PIL import Image
 
+from django.contrib.auth.forms import AuthenticationForm
 from .models import Profile
 from oauth.views import  oauth_type
 from oauth.models import Oauth
@@ -23,7 +24,6 @@ from repository.local_settings import EMAIL_HOST_USER
 
 from .util import generator_token
 import traceback
-
 from django.contrib import messages
 # Create your views here.
 
@@ -34,6 +34,30 @@ storage = FileSystemStorage(
     location=UPLOAD_PATH,
     base_url='/media/upload/'
 )
+
+
+class LoginForm(FormView):
+    template_name = 'user/login.html'
+    success_url = reverse_lazy('index')
+    form_class = AuthenticationForm
+
+    def get_context_data(self, **kwargs):
+        '''
+        处理oauth 的 state
+        '''
+        context = super(LoginForm, self).get_context_data(**kwargs)
+        state = generator_token()
+        context['state'] = state
+        self.request.session['state'] = state
+        return context
+
+
+    def form_valid(self, form):
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
+        return super(LoginForm, self).form_valid(form)
 
 
 def userIndex(request, username):
@@ -144,6 +168,7 @@ class BindView(FormView):
         token = generator_token()
         self.request.session['token'] = token
         self.request.session['time'] = time.time()
+        self.request.session['email'] = email
 
         opts = {
             'token': token,
@@ -170,11 +195,12 @@ class BindNewUserView(FormView):
     def form_valid(self, form):
         username = form.cleaned_data['username']
         email = form.cleaned_data['email']
-        link = self.request.session['link']
-        type = self.request.session['type']
+        link = self.request.session.pop('link')
+        type = self.request.session.pop('type')
 
         user = User.objects.create_user(username, email)
         user.save()
+
         profile = Profile(user=user)
         profile.save()
 
@@ -199,13 +225,11 @@ def bindConfirm(request, token):
         email = request.session.pop('email')
         type = request.session.pop('type')
         link = request.session.pop('link')
-        print("token_session: " + token_session)
         interval = time.time() - time1
         if interval > 3600 or token != token_session:
              messages.error(request, "链接错误或者已经失效")
              return redirect('index', )
     except:
-        traceback.print_exc()
         messages.error(request, "链接错误或者已经失效")
         return redirect('index', )
 

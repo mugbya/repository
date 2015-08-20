@@ -3,9 +3,12 @@
 from django.conf.urls import url
 
 from . import views
-from .views import RegisterView, BindNewUserView, BindView
+from .views import RegisterView, BindNewUserView, BindView, LoginForm
 
 urlpatterns = [
+
+    url(r'^login$', LoginForm.as_view(), name='login_'),
+
     url(r'^register$', RegisterView.as_view(), name='register'),
 
     url(r'^confirm/(?P<token>[0-9A-Za-z]{19})$', views.bindConfirm, name='bind_confirm'),
