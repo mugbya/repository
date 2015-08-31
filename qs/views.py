@@ -176,4 +176,4 @@ def full_search(request):
         return render(request, 'qs/post_search_list.html',
                       {'posts': posts, 'list_header': '关键字 \'{}\' 搜索结果'.format(keywords)})
     else:
-        return redirect('qs.views.index')
+        return redirect('index')
