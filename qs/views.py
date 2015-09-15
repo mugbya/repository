@@ -90,7 +90,8 @@ def edit_qs(request, pk):
             post.published_date = None
             if 'publish' in request.POST:
                 post.publish()
-                return redirect('qs.views.index')
+                # return redirect('qs.views.index')
+                return redirect(reverse_lazy('index'))
             else:
                 post.save()
                 return redirect('qs.views.draft_list')
