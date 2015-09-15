@@ -27,6 +27,13 @@ class IndexView(ListView):
         object_list = Question.objects.filter(published_date__isnull=False).order_by('-published_date')[:100]
         return object_list
 
+##bug
+##
+## 增加回答时，如果没有登录就回答有500错误
+## 删除回答时，并未对计数进行处理
+##
+
+
 
 def detail(request, pk):
     detail_qs = get_object_or_404(Question, pk=pk)
@@ -34,6 +41,8 @@ def detail(request, pk):
     solution_list = solution.all()
     solution_count = solution.count()
     if request.method == "POST":
+        if not request.user.is_authenticated():
+            return redirect(reverse_lazy('login_'))
         form = SolutionForm(request.POST, instance=Solution())
         if form.is_valid():
             solution = form.save(commit=False)
