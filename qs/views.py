@@ -27,13 +27,6 @@ class IndexView(ListView):
         object_list = Question.objects.filter(published_date__isnull=False).order_by('-published_date')[:100]
         return object_list
 
-##bug
-##
-## 增加回答时，如果没有登录就回答有500错误
-## 删除回答时，并未对计数进行处理
-##
-
-
 
 def detail(request, pk):
     detail_qs = get_object_or_404(Question, pk=pk)
@@ -127,6 +120,8 @@ def edit_solution(request, pk):
 def del_solution(request, pk):
     solution = get_object_or_404(Solution, pk=pk)
     question = solution.question
+    question.count_solution -= 1
+    question.save()
     solution.delete()
     return redirect('qs.views.detail', pk=question.pk)
 
