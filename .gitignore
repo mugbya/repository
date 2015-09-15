@@ -10,5 +10,5 @@ repository/local_settings.py
 
 whoosh_index/
 
-
+*/tests.py
 
