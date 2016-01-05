@@ -12,3 +12,6 @@ whoosh_index/
 
 user/tests.py
 
+__pycache__/
+
+repository/*.pyc
