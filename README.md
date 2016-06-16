@@ -26,7 +26,15 @@
 
 ### 建立数据模型
 
+version 1.8
+
     python3  manage.py syncdb
+
+version 1.9
+
+    python3 manage.py makemigrations app
+    python3 manage.py migrate
+
 
 ### 创建系统管理者（首次不用执行）
 

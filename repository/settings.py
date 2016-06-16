@@ -26,7 +26,6 @@ SECRET_KEY = '2tnv$y&q-y-o-#amd5uqh@2+@7@+quuw--a1_emdim7#@v#i=5'
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -37,7 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'qs',
-    'blog',
+    # 'blog',
     'user',
     'oauth',
     'haystack',
@@ -86,18 +85,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'repository_test',
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
 
 
 # Internationalization

@@ -1,7 +1,7 @@
 
 # Install with: `sudo pip install -r requirements.txt`
 
-Django >= 1.8
+Django >= 1.9
 
 # psycopg2 >= 2.5.4
 

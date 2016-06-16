@@ -134,7 +134,7 @@ def uploadavatar_upload(request):
             url = storage.url(name)
             request.user.profile.avatar_url = url
             im.save('%s/%s' % (storage.location, name), 'PNG')
-        u.profile.use_gravatar = False
+        u.profile.is_use_gravatar = False
         u.profile.save()
     return redirect('qs.views.index', )
 

@@ -8,16 +8,13 @@ from django.conf import settings
 import markdown
 import uuid
 
-#    python  manage.py syncdb
-#
-# Create your models here.
-#   Your models have changes that are not yet reflected in a migration, and so won't be applied.
-#   Run 'python manage.py makemigrations' to make new migrations,
-#       and then re-run ' python manage.py migrate' to apply them.
-#
-
+# python3 manage.py makemigrations qs
+# python3 manage.py migrate
 
 class PostBase(models.Model):
+    '''
+    问答基类
+    '''
     author = models.ForeignKey(User, null=True,  on_delete=models.SET_NULL)
     created = models.DateTimeField(auto_now_add=True)
     last_edited = models.DateTimeField(auto_now=True)
@@ -45,6 +42,7 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Question(PostBase):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -94,7 +92,7 @@ class Question(PostBase):
 
 class Solution(PostBase):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
     content = models.TextField(error_messages={},)
 
