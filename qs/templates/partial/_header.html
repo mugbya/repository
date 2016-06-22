@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-md-7">
                         <!-- search -->
-                        <form class="navbar-form search-form" action="{% url 'qs.views.full_search' %}" method="get">
+                        <form class="navbar-form search-form" action="{% url 'qs:full_search' %}" method="get">
                             <div>
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Search" name="q">
@@ -45,7 +45,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         {% if user.is_authenticated %}
-                        <a href="{% url 'new_qs' %}">新增知识</a>
+                        <a href="{% url 'qs:new_qs' %}">新增知识</a>
                         {% endif %}
                     </li>
                     <li class="dropdown">
@@ -55,22 +55,22 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                   <a href="{% url 'user_index' username=user.username %}">我的主页</a>
+                                   <a href="{% url 'user:user_index' username=user.username %}">我的主页</a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'draft_list' %}">我的草稿</a>
+                                    <a href="{% url 'qs:draft_list' %}">我的草稿</a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'settings' %}">帐号设置</a>
+                                    <a href="{% url 'user:settings' %}">帐号设置</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="{% url 'django.contrib.auth.views.logout'%}">退出</a>
+                                    <a href="{% url 'user:logout'%}">退出</a>
                                 </li>
                             </ul>
                         {% else %}
-                            <li><a href="{% url 'login_' %}">登录</a></li>
-                            <li><a href="{% url 'register'  %}">注册</a></li>
+                            <li><a href="{% url 'user:login' %}">登录</a></li>
+                            <li><a href="{% url 'user:register'  %}">注册</a></li>
                         {% endif %}
                     </li>
                 </ul>

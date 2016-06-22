@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import auth
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.files.storage import FileSystemStorage
@@ -38,7 +38,7 @@ storage = FileSystemStorage(
 
 class LoginForm(FormView):
     template_name = 'user/login.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('qs:index')
     form_class = AuthenticationForm
 
     def get_context_data(self, **kwargs):
@@ -63,7 +63,7 @@ class LoginForm(FormView):
 def userIndex(request, username):
     user = get_object_or_404(User, username=username)
 
-    profile = get_object_or_404(Profile, user=user)
+    profile = user.profile
     oauth_list = Oauth.objects.filter(user_id=user.id)
     questions = Question.objects.filter(author=user.id)
     solutions = Solution.objects.filter(author=user.id)
@@ -137,6 +137,7 @@ def uploadavatar_upload(request):
         u.profile.is_use_gravatar = False
         u.profile.save()
     return redirect('qs.views.index', )
+
 
 class RegisterView(FormView):
     template_name = "registration/register.html"
@@ -244,5 +245,8 @@ def bindConfirm(request, token):
     return redirect('user.views.userIndex', username=user.username)
 
 
-
-
+# @login_required
+def logout_view(request):
+    logout(request)
+    # return HttpResponseRedirect(reverse("qs:index"))
+    return redirect('qs:index')

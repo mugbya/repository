@@ -18,12 +18,10 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 
-# admin.autodiscover()
-
 urlpatterns = [
     # 别多加$
-    url(r'^', include('qs.urls')),
-    url(r'^user/', include('user.urls')),
+    url(r'^', include('qs.urls', namespace='qs')),
+    url(r'^user/', include('user.urls', namespace='user')),
     url(r'^oauth/', include('oauth.urls')),
 
     url(r'^blog/', include('blog.urls')),

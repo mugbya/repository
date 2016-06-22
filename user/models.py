@@ -24,6 +24,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=20, blank=True, null=True)
     avatar_url = models.URLField(default="http://www.gravatar.com/avatar/", blank=True, null=True)
     website = models.URLField(default='http://', blank=True, null=True)
+    picture = models.ImageField(max_length=255, upload_to='uploads/forum/avatars/', blank=True, null=True)  #头像
 
     content_md = models.TextField(editable=False, blank=True, null=True)
 

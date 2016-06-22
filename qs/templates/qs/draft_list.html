@@ -6,7 +6,7 @@
     {% for item in posts %}
 
 
-        <h3 class="title transition"><a href="{% url 'draft_detail'  pk=item.pk|default:1%}">{{item.title}}</a></h3>
+        <h3 class="title transition"><a href="{% url 'qs:draft_detail'  pk=item.pk|default:1%}">{{item.title}}</a></h3>
 
     {% endfor %}
 
