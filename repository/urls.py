@@ -21,6 +21,7 @@ from django.conf import settings
 urlpatterns = [
     # 别多加$
     url(r'^', include('qs.urls', namespace='qs')),
+    url(r'^blog/', include('blog.urls', namespace='blog')),
     url(r'^user/', include('user.urls', namespace='user')),
     url(r'^oauth/', include('oauth.urls')),
 

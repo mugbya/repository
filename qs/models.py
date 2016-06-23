@@ -11,6 +11,7 @@ import uuid
 # python3 manage.py makemigrations qs
 # python3 manage.py migrate
 
+
 class PostBase(models.Model):
     '''
     问答基类
