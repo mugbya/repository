@@ -25,10 +25,10 @@
                         <nav>
                             <ul class="nav navbar-nav">
                                 <li class="active">
-                                    <a href="">问答</a>
+                                    <a href="{% url 'qs:index' %}">问答</a>
                                 </li>
                                 <li>
-                                    <a href="#">文章</a>
+                                    <a href="{% url 'blog:index' %}">文章</a>
                                 </li>
                                 <li>
                                     <a href="#">活动</a>
@@ -43,9 +43,20 @@
             </div>
             <div class="col-md-3">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
+                    <li class="dropdown">
                         {% if user.is_authenticated %}
-                        <a href="{% url 'qs:new_qs' %}">新增知识</a>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#"> 撰写 <strong class="caret"></strong>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{% url 'qs:new_qs' %}">新增知识</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'blog:new_blog' %}">写博客</a>
+                                </li>
+
+                            </ul>
+
                         {% endif %}
                     </li>
                     <li class="dropdown">

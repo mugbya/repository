@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="post">
+{% csrf_token %}
+		<div class="pull-right op-btn">
+			<button type="submit" class="btn btn-default" name="private">私有</button>
+			<button type="submit" class="btn btn-default" name="publish">公开</button>
+		</div>
+</form>
+
+</body>
+</html>
