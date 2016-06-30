@@ -28,6 +28,45 @@ class IndexView(ListView):
         return object_list
 
 
+class CreateQuestionView(CreateView):
+    template_name = 'qs/edit.html'
+    form_class = QuestionForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.author = self.request.user
+        if 'publish' in self.request.POST:
+            post.publish()
+        else:
+            post.save()
+            return redirect('qs:draft_list')
+        return super(CreateQuestionView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        return super(CreateQuestionView, self).form_invalid(form)
+
+
+@login_required()
+def new_qs(request):
+    if request.method == "POST":
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            form.clean()
+            post = form.save(commit=False)
+            post.author = request.user
+            if 'publish' in request.POST:
+                post.publish()
+                # return redirect('qs.views.index')
+                return redirect(reverse_lazy('qs:index'))
+            else:
+                post.save()
+                return redirect('qs.views.draft_list')
+    else:
+        form = QuestionForm()
+    return render(request, 'qs/edit.html', {'form': form})
+
+
 def detail(request, pk):
     detail_qs = get_object_or_404(Question, pk=pk)
     solution = detail_qs.solution_set
@@ -61,24 +100,7 @@ def del_qs(request,pk):
     question.delete()
     return redirect('qs.views.index')
 
-@login_required()
-def new_qs(request):
-    if request.method == "POST":
-        form = QuestionForm(request.POST)
-        if form.is_valid():
-            form.clean()
-            post = form.save(commit=False)
-            post.author = request.user
-            if 'publish' in request.POST:
-                post.publish()
-                # return redirect('qs.views.index')
-                return redirect(reverse_lazy('index'))
-            else:
-                post.save()
-                return redirect('qs.views.draft_list')
-    else:
-        form = QuestionForm()
-    return render(request, 'qs/edit.html', {'form': form})
+
 
 @login_required
 def edit_qs(request, pk):
