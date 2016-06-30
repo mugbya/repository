@@ -19,6 +19,9 @@ from repository.settings import PAGE_NUM
 
 
 class IndexView(ListView):
+    '''
+    all blog
+    '''
     template_name = 'qs/index.html'
     paginate_by = PAGE_NUM
     context_object_name = 'object_list'
@@ -40,7 +43,7 @@ class CreateQuestionView(CreateView):
             post.publish()
         else:
             post.save()
-            return redirect('qs:draft_list')
+            return redirect('blog:draft_list')
         return super(CreateQuestionView, self).form_valid(form)
 
     def form_invalid(self, form):

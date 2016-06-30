@@ -1,18 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "partial/form_base.html" %}
 
-<form method="post">
-{% csrf_token %}
+{% load staticfiles%}
+
+
+
+{% block head %}
+<link rel="stylesheet" href=" {%static 'css/edit.css' %}">
+{% endblock %}
+
+{% block header_title %}
+写文章
+{% endblock %}
+
+{% block mainbody %}
+<div class="edit-qa-box">
+
+	<form method="post">
+		 {% csrf_token %}
+		<div class="edit-box">
+			 {{ form.as_p }}
+		</div>
+
 		<div class="pull-right op-btn">
 			<button type="submit" class="btn btn-default" name="private">私有</button>
 			<button type="submit" class="btn btn-default" name="publish">公开</button>
 		</div>
-</form>
-
-</body>
-</html>
+	</form>
+</div>
+{% endblock %}

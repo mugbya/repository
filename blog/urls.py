@@ -10,7 +10,8 @@ urlpatterns = [
     url(r'^(?P<pk>[A-Fa-f0-9]{8}-([A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12})$', views.DetailView.as_view(), name='detail'),
 
 
-    url(r'^new$', views.new_blog, name='new_blog'),
+    # url(r'^new$', views.new_blog, name='new_blog'),
+    url(r'^new$', views.CreateView.as_view(), name='new_blog'),
 
     # # url(r'^settings$', views.settings, name='settings'),
     # #

@@ -8,5 +8,81 @@
 
 
 {% block mainbody %}
+<div class="row">
+    <div class="col-md-8">
+        <nav>
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active"><a href="#">今日十大</a></li>
+                <!--<li role="presentation"><a href="#">热门的</a></li>-->
+                <!--<li role="presentation"><a href="#">未回答</a></li>-->
+            </ul>
+        </nav>
+        <div class="question-post-list">
+            {% for item in object_list %}
+            <div class="qp-item">
+                <div class="tag-box">
+                    <!-- tag-red tag-gray tag-green -->
+                    <div class="tag-item">
+						<span class="tag-default">
+							2 <small>投票</small>
+						</span>
+                    </div>
+                    <div class="tag-item">
+                        {% if item.count_solution == 0 %}
+							<span class="tag-default tag-red">
+									0 <small>回答</small>
+							</span>
+                        {% else %}
+							<span class="tag-default tag-green">
+								{{ item.count_solution }}	 <small>回答</small>
+							</span>
+                        {% endif %}
+                    </div>
+                    <div class="tag-item">
+						<span class="tag-default">
+							{{ item.count_link }}  <small>浏览</small>
+						</span>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="info">
+                        <a class="name" href="">{{ item.author }}</a>
+                        <a class="time" href="">{{ item.created }}</a>
+                    </div>
+                    <h2 class="title"><a href="{% url 'qs:detail'  pk=item.pk|default:1%}">{{item.title}}</a></h2>
+                    <!--<ul class="taglist">-->
+                    <!--<li class="tagpopup">-->
+                    <!--<a href="" class="tag tag-sm">PHP</a>-->
+                    <!--</li>-->
+                    <!--<li class="tagpopup">-->
+                    <!--<a href="" class="tag tag-sm">MYsql</a>-->
+                    <!--</li>-->
+                    <!--<li class="tagpopup">-->
+                    <!--<a href="" class="tag tag-sm">前端</a>-->
+                    <!--</li>-->
+                    <!--</ul>-->
+                </div>
+            </div>
+            {% endfor %}
 
+            <!--分页 -->
+            {% if page_obj%}
+                {% include "./qs/include/pagination.html" %}
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="col-md-4">
+        <div class="sidebar-box">
+            <!-- 标签云 -->
+            {% include "./partial/tags.html" %}
+        </div>
+
+        <div class="sidebar-box">
+            <!--  最新问答  -->
+            {% include "./partial/news.html" %}
+        </div>
+    </div>
+</div>
 {% endblock %}
