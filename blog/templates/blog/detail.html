@@ -1,10 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "partial/base.html" %}
 
-</body>
-</html>
+{% load staticfiles %}
+{% block head %}
+    <link rel="stylesheet" href=" {% static 'css/detail.css' %}">
+{% endblock %}
+
+
+{% block mainbody %}
+
+
+    <h3 class="itss-detail-title">
+
+        <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+
+    </h3>
+
+    <div class="clearfix"> 
+        <div class="col-md-8"> 
+            <a class="" href="">{{ object.author }}</a> &nbsp;&nbsp; 最后编辑时间：{{ object.last_edited }}  &nbsp;&nbsp; 
+            {% if user.is_authenticated %} 
+                <a class="" href="{% url 'blog:edit' pk=object.pk %}">修改</a> 
+                {% if user == object.author %} 
+                    <a class="" href="{% url 'blog:del' pk=object.pk %}">删除</a> 
+                {% endif %}
+                 
+            {% endif %} 
+        </div>
+         
+        <div class="col-md-4 text-right">  1000&nbsp;<i class="fa fa-eye"></i> </div>
+         
+    </div> 
+    <hr/>
+
+    {% if not object.is_active %}
+        <p class="alert alert-warning mt10">
+            <strong>这篇文章已被删除</strong>
+        </p>
+    {% endif %}
+
+{% endblock %}

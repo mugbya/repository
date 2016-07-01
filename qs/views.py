@@ -20,7 +20,7 @@ from repository.settings import PAGE_NUM
 
 class IndexView(ListView):
     '''
-    all blog
+    all QS
     '''
     template_name = 'qs/index.html'
     paginate_by = PAGE_NUM

@@ -18,6 +18,7 @@ class PostBase(models.Model):
     published_date = models.DateTimeField(blank=True, null=True)
     voted = models.IntegerField(default=0, editable=False, blank=True)
     content_md = models.TextField(editable=False, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
 
     def publish(self):
         self.published_date = timezone.now()
@@ -62,20 +63,6 @@ class Comment(PostBase):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
 
     content = models.TextField(error_messages={},)
-
-    def save(self, *args, **kwargs):
-        self.content_md = markdown.markdown(
-            self.content,
-            safe_mode='escape',
-            output_format='html5',
-            extensions=[
-                'markdown.extensions.extra',
-                'markdown.extensions.sane_lists',
-                'markdown.extensions.codehilite(noclasses=True, linenums=False)',
-                'markdown.extensions.toc'
-            ]
-        )
-        super(Comment, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         if getattr(self.blog, 'pk', None):
