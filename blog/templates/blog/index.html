@@ -12,9 +12,9 @@
     <div class="col-md-8">
         <nav>
             <ul class="nav nav-tabs">
-                <li role="presentation" class="active"><a href="#">今日十大</a></li>
-                <!--<li role="presentation"><a href="#">热门的</a></li>-->
-                <!--<li role="presentation"><a href="#">未回答</a></li>-->
+
+                <li role="presentation" {% if index_active  %} class="active" {% endif %}><a href="{% url 'blog:index' %}">今日十大</a></li>
+                <li role="presentation" {% if newest_active  %} class="active" {% endif %}><a href="{% url 'blog:newest' %}">全部的</a></li>
             </ul>
         </nav>
         <div class="question-post-list">

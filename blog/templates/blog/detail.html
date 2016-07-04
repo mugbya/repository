@@ -2,40 +2,76 @@
 
 {% load staticfiles %}
 {% block head %}
-    <link rel="stylesheet" href=" {% static 'css/detail.css' %}">
+    <link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-5773827a/global/css/responsive.css"/>
+    <link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-5773827a/global/css/global.css"/>
+    <link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-5773827a/blog/css/blog.css"/>
+
+
+{#    <link rel="stylesheet" href=" {% static 'css/sf_global.css' %}">#}
+{#    <link rel="stylesheet" href=" {% static 'css/sf_blog.css' %}">#}
 {% endblock %}
 
 
 {% block mainbody %}
 
+    <div class="wrap">
+       <div class="post-topheader custom-">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 col-sm-8 col-xs-12">
+                        <span class="post-topheader__title--icon-symbol">文</span>
 
-    <h3 class="itss-detail-title">
+                        <div class="post-topheader__info" data-username="xiadd" data-userslug="xiadd"
+                             data-useravatar="https://sfault-avatar.b0.upaiyun.com/243/495/2434957400-56a776d731752_big64">
 
-        <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+                            <h1 class="h3 post-topheader__info--title" id="articleTitle" data-id="1190000005861026">
 
-    </h3>
+                                <a class="h3 post-topheader__info--title" href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+                            </h1>
 
-    <div class="clearfix"> 
-        <div class="col-md-8"> 
-            <a class="" href="">{{ object.author }}</a> &nbsp;&nbsp; 最后编辑时间：{{ object.last_edited }}  &nbsp;&nbsp; 
-            {% if user.is_authenticated %} 
-                <a class="" href="{% url 'blog:edit' pk=object.pk %}">修改</a> 
-                {% if user == object.author %} 
-                    <a class="" href="{% url 'blog:del' pk=object.pk %}">删除</a> 
-                {% endif %}
-                 
-            {% endif %} 
+                            <ul class="taglist--inline inline-block article__title--tag mr10">
+                                <li class="tagPopup mb5"><a class="tag" href="" data-toggle="popover"
+                                                            data-img="https://sfault-avatar.b0.upaiyun.com/740/312/74031254-1040000000089918_huge256"
+                                                            data-placement="top" data-original-title="node.js"
+                                                            data-id="1040000000089918">node.js</a></li>
+                                <li class="tagPopup mb5"><a class="tag" href="" data-toggle="popover"
+                                                            data-img="https://sfault-avatar.b0.upaiyun.com/195/823/1958237468-1040000000089436_huge256"
+                                                            data-placement="top" data-original-title="javascript"
+                                                            data-id="1040000000089436">javascript</a></li>
+                                <li class="tagPopup mb5"><a class="tag"
+                                                            href=""
+                                                            data-toggle="popover" data-img="" data-placement="top"
+                                                            data-original-title="微信开发"
+                                                            data-id="1040000000659227">微信开发</a></li>
+                            </ul>
+
+                            <div class="article__author">
+                                <a href="{% url 'user:user_index' username=user.username %}" class="mr5 "><strong>{{ object.author }}</strong></a>
+                                {{ object.last_edited }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 hidden-xs">
+                        <ul class="post-topheader__side list-unstyled">
+                            <li>
+
+                                <button type="button" value="click" class="btn btn-success btn-sm" id="blog_sideLike">推荐</button>
+                                <strong id="sideLiked">{{ object.voted }}</strong> 推荐
+                            </li>
+                            <li>
+                                <button type="button" id="sideBookmark" class="btn btn-default btn-sm"
+                                        data-id="1190000005861026" data-type="article">收藏
+                                </button>
+{#                                <strong id="sideBookmarked">{{ object.voted }}</strong> 收藏，<strong class="no-stress">112</strong> 浏览#}
+                            </li>
+                        </ul>
+                    </div>
+
+
+
+                </div>
+            </div>
         </div>
-         
-        <div class="col-md-4 text-right">  1000&nbsp;<i class="fa fa-eye"></i> </div>
-         
-    </div> 
-    <hr/>
-
-    {% if not object.is_active %}
-        <p class="alert alert-warning mt10">
-            <strong>这篇文章已被删除</strong>
-        </p>
-    {% endif %}
+    </div>
 
 {% endblock %}
