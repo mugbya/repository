@@ -17,13 +17,14 @@ $('#blog_sideLike').click(function() {
             //'csrfmiddlewaretoken': '{{ csrf_token }}',
         },
         success: function (data) {
-            $('#blog_sideLike').val(data['status']);
+            //$('#blog_sideLike').val(data['status']);
             $('#sideLiked')[0].innerHTML = data['voted'];
-            if('click' == data['status']){
-                $('#blog_sideLike')[0].innerHTML = '推荐';
-            }else{
-                $('#blog_sideLike')[0].innerHTML = '已推荐';
-            }
+            $('#blog_sideLike')[0].innerHTML = data['status'];
+            //if('click' == data['status']){
+            //    $('#blog_sideLike')[0].innerHTML = '推荐';
+            //}else{
+            //    $('#blog_sideLike')[0].innerHTML = '已推荐';
+            //}
         }
     });
 });

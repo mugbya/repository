@@ -58,8 +58,8 @@ ROOT_URLCONF = 'repository.urls'
 
 # 改变默认登录地址（验证失败后跳到登录接口）
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-# LOGIN_URL = 'user:login'
-LOGIN_URL = '/user/login'
+LOGIN_URL = 'user:login'
+# LOGIN_URL = '/user/login'
 
 TEMPLATES = [
     {

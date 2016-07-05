@@ -46,7 +46,7 @@
                             </ul>
 
                             <div class="article__author">
-                                <a href="{% url 'user:user_index' username=user.username %}" class="mr5 "><strong>{{ object.author }}</strong></a>
+                                <a href="{% url 'user:user_index' username=object.author.username %}" class="mr5 "><strong>{{ object.author }}</strong></a>
                                 {{ object.last_edited }}
                             </div>
                         </div>
@@ -54,9 +54,8 @@
                     <div class="col-md-3 col-sm-4 hidden-xs">
                         <ul class="post-topheader__side list-unstyled">
                             <li>
-
-                                <button type="button" value="click" class="btn btn-success btn-sm" id="blog_sideLike">推荐</button>
-                                <strong id="sideLiked">{{ object.voted }}</strong> 推荐
+                                <button type="button"  class="btn btn-success btn-sm" id="blog_sideLike">{{ voted_status }}</button>
+                                <strong id="sideLiked">{{ voted }}</strong> 推荐
                             </li>
                             <li>
                                 <button type="button" id="sideBookmark" class="btn btn-default btn-sm"

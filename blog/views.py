@@ -1,12 +1,12 @@
 from django.shortcuts import get_list_or_404, get_object_or_404, render, redirect
 from django.views.decorators.csrf import csrf_exempt
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.utils.decorators import method_decorator
 
-from .models import Blog
+from .models import Blog, Recommend, Favorite
 from .forms import BlogForm
 from repository.settings import PAGE_NUM
 
@@ -23,7 +23,6 @@ logger = logging.getLogger(__name__)
 #         except Exception as e:
 #             logger.error(u'[BaseMixin]加载基本信息出错')
 #         return context
-
 
 
 class IndexView(generic.ListView):
@@ -70,6 +69,15 @@ class DetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
+        recommend_list = Recommend.objects.filter(blog=self.object, status=True)
+
+        voted_status = '推荐'
+        recommend = Recommend.objects.get_or_none(blog=self.object, user=self.request.user)
+        if recommend and recommend.status:
+            voted_status = '已推荐'
+
+        context['voted_status'] = voted_status
+        context['voted'] = len(recommend_list)
         context['object'] = self.object
         return context
 
@@ -134,20 +142,24 @@ class DeleteView(generic.DeleteView):
 def voted(request):
     # http://www.ziqiangxuetang.com/django/django-ajax.html
     # http://stackoverflow.com/questions/6506897/csrf-token-missing-or-incorrect-while-post-parameter-via-ajax-in-django
-    try:
-        import json
-    except ImportError:
-        import simplejson
-    status = 'click'
+    status = '推荐'
     if request.is_ajax():
         id = request.POST['id'][request.POST['id'].find('/blog/',)+6:-1]
         blog = get_object_or_404(Blog, pk=id)
+        recommend = Recommend.objects.get(blog=blog, user=request.user)
         if 'click' == request.POST['content']:
-            blog.voted += 1
-            status = 'clicked'
+            status = '已推荐'
+            # 用户可能测试频繁操作推荐功能,故此不能重复创建与删除,而是应该创建一次,其后操作更改状态即可
+            if recommend:
+                recommend.status = True
+            else:
+                recommend = Recommend(blog=blog, user=request.user, status=True)
         else:
-            blog.voted -= 1
-        blog.save()
-        data = json.dumps({'status': status, 'voted': blog.voted}, ensure_ascii=False)
-        return HttpResponse(data)
+            if recommend:
+                recommend.status = False
+        recommend.save()
+
+        recommend_list = Recommend.objects.filter(blog=blog, status=True)
+
+        return JsonResponse({'status': status, 'voted': len(recommend_list)})
 

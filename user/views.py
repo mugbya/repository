@@ -51,7 +51,6 @@ class LoginForm(FormView):
         self.request.session['state'] = state
         return context
 
-
     def form_valid(self, form):
         username = form.cleaned_data.get('username')
         password = form.cleaned_data.get('password')
