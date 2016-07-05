@@ -6,13 +6,18 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 import uuid
 import markdown
+from django.db.models.query import QuerySet
+
+
+# python3 manage.py makemigrations blog
+# python3 manage.py migrate
 
 
 class PostBase(models.Model):
     '''
     基类
     '''
-    author = models.ForeignKey(User, null=True,  on_delete=models.SET_NULL)
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     created = models.DateTimeField(auto_now_add=True)
     last_edited = models.DateTimeField(auto_now=True)
     published_date = models.DateTimeField(blank=True, null=True)
@@ -62,7 +67,7 @@ class Comment(PostBase):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
 
-    content = models.TextField(error_messages={},)
+    content = models.TextField(error_messages={}, )
 
     def get_absolute_url(self):
         if getattr(self.blog, 'pk', None):
@@ -73,3 +78,47 @@ class Comment(PostBase):
     def __str__(self):
         return self.content
 
+
+#相关文档: https://segmentfault.com/a/1190000005875158
+class QuerySetManager(models.Manager):
+    def get_query_set(self):
+        return self.model.QuerySet(self.model, using=self._db)
+
+    def __getattr__(self, attr, *args):
+        return getattr(self.get_query_set(), attr, *args)
+
+
+class Recommend(models.Model):
+    '''
+    推荐功能
+    '''
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.BooleanField(default=False)  # 推荐状态
+
+    objects = QuerySetManager()
+
+    class QuerySet(QuerySet):
+
+        def get_or_none(self, *args, **kwargs):
+            """
+            Performs the query and returns a single object matching the given
+            keyword arguments.
+            """
+            clone = self.filter(*args, **kwargs)
+            if self.query.can_filter() and not self.query.distinct_fields:
+                clone = clone.order_by()
+            num = len(clone)
+            if num == 1:
+                return clone._result_cache[0]
+            if not num:
+                return None
+
+
+class Favorite(models.Model):
+    '''
+    收藏夹功能
+    '''
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.BooleanField(default=False)  # 收藏状态
