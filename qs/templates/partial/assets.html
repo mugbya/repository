@@ -7,22 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 
-    <meta property="wb:webmaster" content="53e6f5d6e4d9dd15" />
-    <meta property="qc:admins" content="705520271073147216052" />
+    <meta property="wb:webmaster" content="53e6f5d6e4d9dd15"/>
+    <meta property="qc:admins" content="705520271073147216052"/>
     <title> Repository</title>
 
 
-    <link href=" {%static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href=" {% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- link fonticon -->
-    <link href=" {%static 'css/font-awesome.min.css' %}" rel="stylesheet">
-    <link href=" {%static 'css/layoutit.css' %}" rel="stylesheet">
-    <link href=" {%static 'css/docs.min.css' %}" rel="stylesheet">
+    <link href=" {% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href=" {% static 'css/layoutit.css' %}" rel="stylesheet">
+    <link href=" {% static 'css/docs.min.css' %}" rel="stylesheet">
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/editor/0.1.0/editor.css">
 
     <!-- link itss style -->
-    <link rel="stylesheet" href=" {%static 'css/base.css' %}">
+    <link rel="stylesheet" href=" {% static 'css/base.css' %}">
 
 
     {% block head %}
@@ -33,9 +33,9 @@
 
 <body>
 <!-- include header -->
-    {% block header %}
+{% block header %}
 
-    {% endblock %}
+{% endblock %}
 
 
 
@@ -63,13 +63,35 @@
 <script src="//cdn.jsdelivr.net/editor/0.1.0/editor.js"></script>
 <script src="//cdn.jsdelivr.net/editor/0.1.0/marked.js"></script>
 
-    <script src="{% static 'js/blog.js' %}"></script>
+{#    <script src="{% static 'js/blog.js' %}"></script>#}
 
 <script>
-    window.onload=function(){
-      var editor = new Editor();
-      editor.render();
+    window.onload = function () {
+        var editor = new Editor();
+        editor.render();
     }
+
+    $('#blog_sideLike').click(function () {
+        //url = "{% url 'blog:voted' %}";
+        url = '/blog/voted/';
+        // is_click = $('#blog_sideLike').val();
+        is_click = $('#blog_sideLike')[0].innerHTML;
+        $.ajax({
+            url: url,
+            method: 'POST', // or another (GET), whatever you need
+            dataType: 'json',
+            data: {
+                'id': window.location.href,
+                'content': is_click,
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+            },
+            success: function (data) {
+                $('#sideLiked')[0].innerHTML = data['voted'];
+                $('#blog_sideLike')[0].innerHTML = data['status'];
+
+            }
+        });
+    });
 
 </script>
 {% block foot %}

@@ -14,8 +14,7 @@ urlpatterns = [
     url(r'^(?P<pk>[A-Fa-f0-9]{8}-([A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12})/del/$', views.DeleteView.as_view(), name='del'),
 
     # ajax
-    url(r'^voted/$', views.voted, name='voted'),
-    # url(r'^voted/$', views.voted, name='voted'),
+    url(r'^voted/$', views.VotedView.as_view(), name='voted'),
 
     # # url(r'^settings$', views.settings, name='settings'),
     # #

@@ -139,30 +139,41 @@ class DeleteView(generic.DeleteView):
         return obj
 
 
-@csrf_exempt
-@login_required()
-def voted(request):
-    # http://www.ziqiangxuetang.com/django/django-ajax.html
-    # http://stackoverflow.com/questions/6506897/csrf-token-missing-or-incorrect-while-post-parameter-via-ajax-in-django
-    status = '推荐'
-    if request.is_ajax():
-        id = request.POST['id'][request.POST['id'].find('/blog/',)+6:-1]
-        blog = get_object_or_404(Blog, pk=id)
-        if not request.user.is_anonymous():
-            recommend = Recommend.objects.get_or_none(blog=blog, user=request.user)
-        if 'click' == request.POST['content']:
-            status = '已推荐'
-            # 用户可能测试频繁操作推荐功能,故此不能重复创建与删除,而是应该创建一次,其后操作更改状态即可
-            if recommend:
-                recommend.status = True
+# @method_decorator(login_required, name='dispatch')
+class VotedView(generic.View):
+
+    def post(self, request, *args, **kwargs):
+        '''
+        有关ajax 相关的处理请参看 www.ziqiangxuetang.com 跟下面具体的链接
+        http: // www.ziqiangxuetang.com / django / django - ajax.html
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        '''
+        status = '推荐'
+        id = request.POST['id'][request.POST['id'].find('/blog/', ) + 6:-1]
+        if request.user.is_anonymous():
+            return redirect('/user/login/?next=%s' % '/blog/'+id+'/')
+
+        if request.is_ajax():
+            blog = get_object_or_404(Blog, pk=id)
+            if not request.user.is_anonymous():
+                recommend = Recommend.objects.get_or_none(blog=blog, user=request.user)
+            if '推荐' == request.POST['content']:
+                status = '已推荐'
+                # 用户可能测试频繁操作推荐功能,故此不能重复创建与删除,而是应该创建一次,其后操作更改状态即可
+                if recommend:
+                    recommend.status = True
+                else:
+                    recommend = Recommend(blog=blog, user=request.user, status=True)
             else:
-                recommend = Recommend(blog=blog, user=request.user, status=True)
-        else:
-            if recommend:
-                recommend.status = False
-        recommend.save()
+                if recommend:
+                    recommend.status = False
+            recommend.save()
 
-        recommend_list = Recommend.objects.filter(blog=blog, status=True)
+            recommend_list = Recommend.objects.filter(blog=blog, status=True)
 
-        return JsonResponse({'status': status, 'voted': len(recommend_list)})
+            return JsonResponse({'status': status, 'voted': len(recommend_list)})
+
 

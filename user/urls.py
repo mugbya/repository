@@ -7,11 +7,11 @@ from .views import RegisterView, BindNewUserView, BindView, LoginForm
 
 urlpatterns = [
 
-    url(r'^login$', LoginForm.as_view(), name='login'),
+    url(r'^login/$', LoginForm.as_view(), name='login'),
 
     url(r'^logout/$', views.logout_view, name="logout"),
 
-    url(r'^register$', RegisterView.as_view(), name='register'),
+    url(r'^register/$', RegisterView.as_view(), name='register'),
     #
     # url(r'^confirm/(?P<token>[0-9A-Za-z]{19})$', views.bindConfirm, name='bind_confirm'),
     #
@@ -19,7 +19,7 @@ urlpatterns = [
     #
     # url(r'^bindnew$', BindNewUserView.as_view(), name='bind_new'),
     #
-    url(r'^settings$', views.settings, name='settings'),
+    url(r'^settings/$', views.settings, name='settings'),
     #
     # url(r'^resetpwd$', views.resetpwd, name='resetpwd'),
     #

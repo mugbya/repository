@@ -10,7 +10,7 @@
 
 <div class="register-box">
 
-    <form class="" method="post" action="{% url 'register' %}">
+    <form class="" method="post" action="{% url 'user:register' %}">
         {% csrf_token %}
 
         <div class="row {% if form.username.errors %} has-error {% endif %} ">
