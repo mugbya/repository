@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import Http404, HttpResponse, JsonResponse
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.views import generic
 from django.utils.decorators import method_decorator
 
@@ -72,9 +73,10 @@ class DetailView(generic.DetailView):
         recommend_list = Recommend.objects.filter(blog=self.object, status=True)
 
         voted_status = '推荐'
-        recommend = Recommend.objects.get_or_none(blog=self.object, user=self.request.user)
-        if recommend and recommend.status:
-            voted_status = '已推荐'
+        if not self.request.user.is_anonymous():
+            recommend = Recommend.objects.get_or_none(blog=self.object, user=self.request.user)
+            if recommend and recommend.status:
+                voted_status = '已推荐'
 
         context['voted_status'] = voted_status
         context['voted'] = len(recommend_list)
@@ -146,7 +148,8 @@ def voted(request):
     if request.is_ajax():
         id = request.POST['id'][request.POST['id'].find('/blog/',)+6:-1]
         blog = get_object_or_404(Blog, pk=id)
-        recommend = Recommend.objects.get(blog=blog, user=request.user)
+        if not request.user.is_anonymous():
+            recommend = Recommend.objects.get_or_none(blog=blog, user=request.user)
         if 'click' == request.POST['content']:
             status = '已推荐'
             # 用户可能测试频繁操作推荐功能,故此不能重复创建与删除,而是应该创建一次,其后操作更改状态即可

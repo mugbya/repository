@@ -3,6 +3,7 @@
  */
 
 
+
 $('#blog_sideLike').click(function() {
     //url = "{% url 'blog:voted' %}";
     url = '/blog/voted/';
@@ -17,14 +18,9 @@ $('#blog_sideLike').click(function() {
             //'csrfmiddlewaretoken': '{{ csrf_token }}',
         },
         success: function (data) {
-            //$('#blog_sideLike').val(data['status']);
             $('#sideLiked')[0].innerHTML = data['voted'];
             $('#blog_sideLike')[0].innerHTML = data['status'];
-            //if('click' == data['status']){
-            //    $('#blog_sideLike')[0].innerHTML = '推荐';
-            //}else{
-            //    $('#blog_sideLike')[0].innerHTML = '已推荐';
-            //}
+
         }
     });
 });
