@@ -41,6 +41,17 @@ class LoginForm(FormView):
     success_url = reverse_lazy('qs:index')
     form_class = AuthenticationForm
 
+    def get_success_url(self):
+        '''
+        如果有next 值,怎跳转到next指向的值
+        :return:
+        '''
+        next_url = self.request.POST.get('next', None)
+        if next_url:
+            return "%s" % (next_url)
+        else:
+            return reverse('qs:index')
+
     def get_context_data(self, **kwargs):
         '''
         处理oauth 的 state
@@ -48,6 +59,8 @@ class LoginForm(FormView):
         context = super(LoginForm, self).get_context_data(**kwargs)
         state = generator_token()
         context['state'] = state
+        next_str = self.request.environ['QUERY_STRING']
+        context['next'] = next_str[next_str.find('next=')+5: -1]  # 处理next 值
         self.request.session['state'] = state
         return context
 

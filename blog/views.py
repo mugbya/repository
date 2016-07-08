@@ -139,7 +139,6 @@ class DeleteView(generic.DeleteView):
         return obj
 
 
-# @method_decorator(login_required, name='dispatch')
 class VotedView(generic.View):
 
     def post(self, request, *args, **kwargs):
@@ -154,7 +153,11 @@ class VotedView(generic.View):
         status = '推荐'
         id = request.POST['id'][request.POST['id'].find('/blog/', ) + 6:-1]
         if request.user.is_anonymous():
-            return redirect('/user/login/?next=%s' % '/blog/'+id+'/')
+            '''
+            如果身份验证失败,在前端去跳转
+            '''
+            # return redirect('/user/login/?next=%s' % '/blog/'+id+'/')
+            return JsonResponse({'fail': True, 'id': id})
 
         if request.is_ajax():
             blog = get_object_or_404(Blog, pk=id)
@@ -174,6 +177,4 @@ class VotedView(generic.View):
 
             recommend_list = Recommend.objects.filter(blog=blog, status=True)
 
-            return JsonResponse({'status': status, 'voted': len(recommend_list)})
-
-
+            return JsonResponse({'status': status, 'voted': len(recommend_list), 'fail': False})

@@ -86,8 +86,12 @@
                 'csrfmiddlewaretoken': '{{ csrf_token }}',
             },
             success: function (data) {
-                $('#sideLiked')[0].innerHTML = data['voted'];
-                $('#blog_sideLike')[0].innerHTML = data['status'];
+                if(data['fail']){
+                    window.location.href = '/user/login/?next=/blog/'+data['id']+'/';
+                }else {
+                    $('#sideLiked')[0].innerHTML = data['voted'];
+                    $('#blog_sideLike')[0].innerHTML = data['status'];
+                }
 
             }
         });
