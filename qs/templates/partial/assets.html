@@ -63,40 +63,64 @@
 <script src="//cdn.jsdelivr.net/editor/0.1.0/editor.js"></script>
 <script src="//cdn.jsdelivr.net/editor/0.1.0/marked.js"></script>
 
-{#    <script src="{% static 'js/blog.js' %}"></script>#}
+<script src="{% static 'js/blog.js' %}"></script>
 
 <script>
     window.onload = function () {
         var editor = new Editor();
         editor.render();
-    }
+    };
 
-    $('#blog_sideLike').click(function () {
-        //url = "{% url 'blog:voted' %}";
-        url = '/blog/voted/';
-        // is_click = $('#blog_sideLike').val();
-        is_click = $('#blog_sideLike')[0].innerHTML;
-        $.ajax({
-            url: url,
-            method: 'POST', // or another (GET), whatever you need
-            dataType: 'json',
-            data: {
-                'id': window.location.href,
-                'content': is_click,
-                'csrfmiddlewaretoken': '{{ csrf_token }}',
-            },
-            success: function (data) {
-                if(data['fail']){
-                    window.location.href = '/user/login/?next=/blog/'+data['id']+'/';
-                }else {
-                    $('#sideLiked')[0].innerHTML = data['voted'];
-                    $('#blog_sideLike')[0].innerHTML = data['status'];
-                }
+    //博客推荐功能js
+{#    $('#blog_sideLike').click(function () {#}
+{#        //url = "{% url 'blog:vote' %}";#}
+{#        url = '/blog/voted/';#}
+{#        // is_click = $('#blog_sideLike').val();#}
+{#        is_click = $('#blog_sideLike')[0].innerHTML;#}
+{#        $.ajax({#}
+{#            url: url,#}
+{#            method: 'POST', // or another (GET), whatever you need#}
+{#            dataType: 'json',#}
+{#            data: {#}
+{#                'id': window.location.href,#}
+{#                'content': is_click,#}
+{#                'csrfmiddlewaretoken': '{{ csrf_token }}',#}
+{#            },#}
+{#            success: function (data) {#}
+{#                if(data['fail']){#}
+{#                    window.location.href = '/user/login/?next=/blog/'+data['id']+'/';#}
+{#                }else {#}
+{#                    $('#sideLiked')[0].innerHTML = data['voted'];#}
+{#                    $('#blog_sideLike')[0].innerHTML = data['status'];#}
+{#                }#}
+{#            }#}
+{#        });#}
+{#    });#}
 
-            }
-        });
-    });
-
+    //博客收藏功能js
+{#    $('.blog_favorite').click(function () {#}
+{#        url = "{% url 'blog:favorite' %}";#}
+{#        is_favorite = $('.blog_favorite').val();#}
+{#        //is_click = $('#blog_sideLike')[0].innerHTML;#}
+{#        $.ajax({#}
+{#            url: url,#}
+{#            method: 'POST', // or another (GET), whatever you need#}
+{#            dataType: 'json',#}
+{#            data: {#}
+{#                'id': window.location.href,#}
+{#                'is_favorite': is_favorite,#}
+{#                'csrfmiddlewaretoken': '{{ csrf_token }}',#}
+{#            },#}
+{#            success: function (data) {#}
+{#                if(data['fail']){#}
+{#                    window.location.href = '/user/login/?next=/blog/'+data['id']+'/';#}
+{#                }else {#}
+{#                    $('.blog_favorite')[0].innerHTML = data['favorite'];#}
+{#                    $('#blog_sideLike')[0].innerHTML = data['is_favorite'];#}
+{#                }#}
+{#            }#}
+{#        });#}
+{#    });#}
 </script>
 {% block foot %}
 

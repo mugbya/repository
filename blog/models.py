@@ -41,6 +41,7 @@ class Blog(PostBase):
         'invalid': "您输入了一个无效的标题，标题的长度请控制在100个字符内"
     }, verbose_name=u"标题")
     detailed = models.TextField(error_messages={}, verbose_name=u"正文")
+    count_click = models.IntegerField(default=0)  # 浏览量
 
     def save(self, *args, **kwargs):
         self.content_md = markdown.markdown(
@@ -122,3 +123,21 @@ class Favorite(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.BooleanField(default=False)  # 收藏状态
+
+    objects = QuerySetManager()
+
+    class QuerySet(QuerySet):
+
+        def get_or_none(self, *args, **kwargs):
+            """
+            Performs the query and returns a single object matching the given
+            keyword arguments.
+            """
+            clone = self.filter(*args, **kwargs)
+            if self.query.can_filter() and not self.query.distinct_fields:
+                clone = clone.order_by()
+            num = len(clone)
+            if num == 1:
+                return clone._result_cache[0]
+            if not num:
+                return None

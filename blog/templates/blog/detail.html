@@ -6,15 +6,15 @@
     <link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-5773827a/global/css/global.css"/>
     <link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-5773827a/blog/css/blog.css"/>
 
-{#    <link rel="stylesheet" href=" {% static 'css/sf_global.css' %}">#}
-{#    <link rel="stylesheet" href=" {% static 'css/sf_blog.css' %}">#}
+    {#    <link rel="stylesheet" href=" {% static 'css/sf_global.css' %}">#}
+    {#    <link rel="stylesheet" href=" {% static 'css/sf_blog.css' %}">#}
 {% endblock %}
 
 
 {% block mainbody %}
 
     <div class="wrap">
-       <div class="post-topheader custom-">
+        <div class="post-topheader custom-">
             <div class="container">
                 <div class="row">
                     <div class="col-md-9 col-sm-8 col-xs-12">
@@ -25,7 +25,8 @@
 
                             <h1 class="h3 post-topheader__info--title" id="articleTitle" data-id="1190000005861026">
 
-                                <a class="h3 post-topheader__info--title" href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+                                <a class="h3 post-topheader__info--title"
+                                   href="{{ object.get_absolute_url }}">{{ object.title }}</a>
                             </h1>
 
                             <ul class="taglist--inline inline-block article__title--tag mr10">
@@ -45,7 +46,8 @@
                             </ul>
 
                             <div class="article__author">
-                                <a href="{% url 'user:user_index' username=object.author.username %}" class="mr5 "><strong>{{ object.author }}</strong></a>
+                                <a href="{% url 'user:user_index' username=object.author.username %}"
+                                   class="mr5 "><strong>{{ object.author }}</strong></a>
                                 {{ object.last_edited }}
                             </div>
                         </div>
@@ -53,19 +55,25 @@
                     <div class="col-md-3 col-sm-4 hidden-xs">
                         <ul class="post-topheader__side list-unstyled">
                             <li>
-                                <button type="button"  class="btn btn-success btn-sm" id="blog_sideLike">{{ voted_status }}</button>
+                                <button type="button" class="btn btn-success btn-sm"
+                                        id="blog_sideLike">{{ voted_status }}</button>
                                 <strong id="sideLiked">{{ voted }}</strong> 推荐
                             </li>
                             <li>
-                                <button type="button" id="sideBookmark" class="btn btn-default btn-sm"
-                                        data-id="1190000005861026" data-type="article">收藏
-                                </button>
-{#                                <strong id="sideBookmarked">{{ object.voted }}</strong> 收藏，<strong class="no-stress">112</strong> 浏览#}
+
+                                <div style="display: none" class="is_favorite">{{ is_favorite }}</div>
+                                <button type="button" {% if not is_favorite %} style="display: none" {% endif %} id="blog_favorited" class="btn btn-default btn-sm blog_favorite">已收藏</button>
+                                <button type="button" {% if is_favorite %} style="display: none" {% endif %} id="blog_favorite" class="btn btn-default btn-sm blog_favorite">收藏</button>
+
+                                <strong id="blog_favorite_num">{{ favorite }}</strong> 收藏，<strong
+                                    class="no-stress">{{ object.count_click }}</strong> 浏览
                             </li>
                         </ul>
                     </div>
 
-
+                    {% if not object.is_active %} 
+                        <p class="alert alert-warning mt10">  <strong>这篇文章已被删除</strong>  </p> 
+                    {% endif %}
 
                 </div>
             </div>
