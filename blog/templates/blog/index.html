@@ -22,22 +22,19 @@
             <div class="qp-item">
                 <div class="tag-box">
                     <!-- tag-red tag-gray tag-green -->
+
                     <div class="tag-item">
-						<span class="tag-default">
-							2 <small>投票</small>
-						</span>
-                    </div>
-                    <div class="tag-item">
-                        {% if item.count_solution == 0 %}
-							<span class="tag-default tag-red">
-									0 <small>回答</small>
+                        {% if item.voted == 0 %}
+							<span class="tag-default">
+									{{ item.voted }} <small>推荐</small>
 							</span>
                         {% else %}
 							<span class="tag-default tag-green">
-								{{ item.count_solution }}	 <small>回答</small>
+								    {{ item.voted }} <small>推荐</small>
 							</span>
                         {% endif %}
                     </div>
+
                     <div class="tag-item">
 						<span class="tag-default">
 							{{ item.count_link }}  <small>浏览</small>

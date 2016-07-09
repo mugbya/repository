@@ -42,6 +42,9 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         object_list = Blog.objects.filter(published_date__isnull=False, is_active=True).order_by('voted', '-published_date')[:100]
+        for blog in object_list:
+            voted = Recommend.objects.filter(blog=blog, status=True).count()
+            blog.voted = voted
         return object_list
 
 
