@@ -15,8 +15,7 @@ urlpatterns = [
 
     # ajax
     url(r'^vote/$', views.VotedView.as_view(), name='vote'),
-    # url(r'^favorite/$', views.FavoriteView.as_view(), name='favorite'),
-    url(r'^favorite/$', views.favorite, name='favorite'),
+    url(r'^favorite/$', views.FavoriteView.as_view(), name='favorite'),
 
     # # url(r'^settings$', views.settings, name='settings'),
     # #

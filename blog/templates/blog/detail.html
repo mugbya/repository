@@ -55,9 +55,11 @@
                     <div class="col-md-3 col-sm-4 hidden-xs">
                         <ul class="post-topheader__side list-unstyled">
                             <li>
-                                <button type="button" class="btn btn-success btn-sm"
-                                        id="blog_sideLike">{{ voted_status }}</button>
-                                <strong id="sideLiked">{{ voted }}</strong> 推荐
+                                <div style="display: none" class="is_vote">{{ is_vote }}</div>
+                                <button type="button" {% if not is_vote %} style="display: none" {% endif %} class="btn btn-success btn-sm blog_vote" id="blog_voted">已推荐</button>
+                                <button type="button" {% if is_vote %} style="display: none" {% endif %} class="btn btn-success btn-sm blog_vote" id="blog_vote">推荐</button>
+
+                                <strong id="blog_vote_num">{{ voted }}</strong> 推荐
                             </li>
                             <li>
 
@@ -65,8 +67,7 @@
                                 <button type="button" {% if not is_favorite %} style="display: none" {% endif %} id="blog_favorited" class="btn btn-default btn-sm blog_favorite">已收藏</button>
                                 <button type="button" {% if is_favorite %} style="display: none" {% endif %} id="blog_favorite" class="btn btn-default btn-sm blog_favorite">收藏</button>
 
-                                <strong id="blog_favorite_num">{{ favorite }}</strong> 收藏，<strong
-                                    class="no-stress">{{ object.count_click }}</strong> 浏览
+                                <strong id="blog_favorite_num">{{ favorite }}</strong> 收藏，<strong class="no-stress">{{ object.count_click }}</strong> 浏览
                             </li>
                         </ul>
                     </div>

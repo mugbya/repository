@@ -80,11 +80,11 @@ class DetailView(generic.DetailView):
         self.cal_count_click(self.object)
 
         recommend_num = Recommend.objects.filter(blog=self.object, status=True).count()
-        voted_status = '推荐'
+        is_vote = False
         if not self.request.user.is_anonymous():
             recommend = Recommend.objects.get_or_none(blog=self.object, user=self.request.user)
             if recommend and recommend.status:
-                voted_status = '已推荐'
+                is_vote = True
 
         favorite_num = Favorite.objects.filter(blog=self.object, status=True).count()
         is_favorite = False
@@ -96,7 +96,7 @@ class DetailView(generic.DetailView):
         context['is_favorite'] = is_favorite
         context['favorite'] = favorite_num
 
-        context['voted_status'] = voted_status
+        context['is_vote'] = is_vote
         context['voted'] = recommend_num
         context['object'] = self.object
         return context
@@ -166,39 +166,40 @@ class DeleteView(generic.DeleteView):
         return obj
 
 
-# class FavoriteView(generic.View):
+class FavoriteView(generic.View):
 
-@csrf_exempt
-def favorite(request, *args, **kwargs):
+    # @csrf_exempt
+    # def favorite(request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
 
-    is_favorite = False
-    id = request.POST['id'][request.POST['id'].find('/blog/', ) + 6:-1]
-    if request.user.is_anonymous():
-        '''
-        如果身份验证失败,在前端去跳转
-        '''
-        # return redirect('/user/login/?next=%s' % '/blog/'+id+'/')
-        return JsonResponse({'fail': True, 'id': id})
+        is_favorite = False
+        id = request.POST['id'][request.POST['id'].find('/blog/', ) + 6:-1]
+        if request.user.is_anonymous():
+            '''
+            如果身份验证失败,在前端去跳转
+            '''
+            # return redirect('/user/login/?next=%s' % '/blog/'+id+'/')
+            return JsonResponse({'fail': True, 'id': id})
 
-    if request.is_ajax():
-        blog = get_object_or_404(Blog, pk=id)
-        if not request.user.is_anonymous():
-            favorite = Favorite.objects.get_or_none(blog=blog, user=request.user)
-        if request.POST['is_favorite'] in ['False', 'false']:
-            is_favorite = True
-            # 用户可能测试频繁操作推荐功能,故此不能重复创建与删除,而是应该创建一次,其后操作更改状态即可
-            if favorite:
-                favorite.status = True
+        if request.is_ajax():
+            blog = get_object_or_404(Blog, pk=id)
+            if not request.user.is_anonymous():
+                favorite = Favorite.objects.get_or_none(blog=blog, user=request.user)
+            if request.POST['is_favorite'] in ['False', 'false']:
+                is_favorite = True
+                # 用户可能测试频繁操作推荐功能,故此不能重复创建与删除,而是应该创建一次,其后操作更改状态即可
+                if favorite:
+                    favorite.status = True
+                else:
+                    favorite = Favorite(blog=blog, user=request.user, status=True)
             else:
-                favorite = Favorite(blog=blog, user=request.user, status=True)
-        else:
-            if favorite:
-                favorite.status = False
-        favorite.save()
+                if favorite:
+                    favorite.status = False
+            favorite.save()
 
-        favorite_num = Favorite.objects.filter(blog=blog, status=True).count()
+            favorite_num = Favorite.objects.filter(blog=blog, status=True).count()
 
-        return JsonResponse({'is_favorite': is_favorite, 'favorite': favorite_num, 'fail': False})
+            return JsonResponse({'is_favorite': is_favorite, 'favorite': favorite_num, 'fail': False})
 
 
 class VotedView(generic.View):
@@ -212,7 +213,7 @@ class VotedView(generic.View):
         :param kwargs:
         :return:
         '''
-        status = '推荐'
+        is_vote = False
         id = request.POST['id'][request.POST['id'].find('/blog/', ) + 6:-1]
         if request.user.is_anonymous():
             '''
@@ -225,8 +226,8 @@ class VotedView(generic.View):
             blog = get_object_or_404(Blog, pk=id)
             if not request.user.is_anonymous():
                 recommend = Recommend.objects.get_or_none(blog=blog, user=request.user)
-            if '推荐' == request.POST['content']:
-                status = '已推荐'
+            if request.POST['is_click'] in ['False', 'false']:
+                is_vote = True
                 # 用户可能测试频繁操作推荐功能,故此不能重复创建与删除,而是应该创建一次,其后操作更改状态即可
                 if recommend:
                     recommend.status = True
@@ -237,6 +238,6 @@ class VotedView(generic.View):
                     recommend.status = False
             recommend.save()
 
-            recommend_list = Recommend.objects.filter(blog=blog, status=True)
+            recommend_num = Recommend.objects.filter(blog=blog, status=True).count()
 
-            return JsonResponse({'status': status, 'voted': len(recommend_list), 'fail': False})
+            return JsonResponse({'is_vote': is_vote, 'voted': recommend_num, 'fail': False})
