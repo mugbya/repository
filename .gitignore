@@ -1,0 +1,17 @@
+.idea/
+.DS_Store
+.sass-cache
+db.sqlite3
+repository/local_settings.py
+
+*/__pycache__/*.pyc
+
+repository/*/migrations/
+
+repository/whoosh_index/
+
+
+
+repository/__pycache__/
+
+repository/*.pyc
