@@ -2,7 +2,10 @@
 .DS_Store
 .sass-cache
 db.sqlite3
-repository/local_settings.py
+
+repository/repository/local_settings.py
+
+repository/*/__pycache__/
 
 */__pycache__/*.pyc
 
