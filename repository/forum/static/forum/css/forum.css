@@ -1,0 +1,5 @@
+/*改样式*/
+.page-container > .container {
+    padding: 40px 15px !important;
+    background-color: #fff;
+}
