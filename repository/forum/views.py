@@ -7,23 +7,26 @@ from django.utils.decorators import method_decorator
 
 from django.views import generic
 from .forms import QuestionForm
+from .models import Question
 
 
-class IndexView(generic.TemplateView):
+class IndexView(generic.ListView):
     template_name = 'forum/index.html'
     context_object_name = 'obj_list'
 
     def get_queryset(self):
-        pass
+        questions = Question.objects.all()
+        return questions
 
 
 # @method_decorator(login_required, name='dispatch')
 class CreateView(generic.CreateView):
     template_name = 'forum/edit.html'
+    # template_name = 'forum/tmp/edit.html'
     form_class = QuestionForm
 
     def get_success_url(self):
-        return reverse('forum:detail', args=(self.object.id, ))
+        return reverse('forum:detail', args=(self.object.id,))
 
     def form_valid(self, form):
         post = form.save(commit=False)
@@ -32,9 +35,13 @@ class CreateView(generic.CreateView):
 
         return super(CreateView, self).form_valid(form)
 
+    def form_invalid(self, form):
+        form
+        return super(CreateView, self).form_invalid(form)
+
 
 class DetailView(generic.DetailView):
-    # model = Blog
+    model = Question
     template_name = 'forum/detail.html'
 
     def get_context_data(self, **kwargs):

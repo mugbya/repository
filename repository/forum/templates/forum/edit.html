@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-580f252a/global/css/global.css"/>
     <link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-580f252a/qa/css/qa.css"/>
     <link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-580f252a/global/css/responsive.css"/>
+    {#    <link rel="stylesheet" href="//cdn.jsdelivr.net/editor/0.1.0/editor.css">#}
+
+    <link rel='stylesheet' id='main-css-css' href='{% static 'editor/css/editormd.min.css' %}' type='text/css' media='all'/>
 
     <link rel='stylesheet' id='responsive-css-css' href='{% static 'lib/css/responsive5152.css' %}' type='text/css'
           media='all'/>
@@ -19,6 +22,9 @@
           type='text/css' media='all'/>
     <link rel='stylesheet' id='main-css-css' href='{% static 'lib/css/main5152.css' %}' type='text/css' media='all'/>
     <link rel='stylesheet' id='main-css-css' href='{% static 'forum/css/forum.css' %}' type='text/css' media='all'/>
+
+
+
 {% endblock %}
 
 
@@ -32,6 +38,8 @@
 
         <div class="container">
             <form id="question" method="POST" class="form" _lpchecked="1">
+                {% csrf_token %}
+
                 <input type="hidden" value="" id="draftId">
                 <input type="hidden" value="0" name="site" id="siteId">
                 <div class="form-group">
@@ -42,16 +50,16 @@
 
                 <input type="hidden" name="created" data-value="" value="">
 
-                <div id="titleSuggest" class="panel hidden widget-suggest panel-default">
-                    <div class="panel-body">
-                        <p>
-                            <strong>这些问题可能有你需要的答案</strong>
-                            <button type="button" class="widget-suggest__close btn btn-default btn-xs">关闭提示</button>
-                        </p>
-                        <ul id="qList" class="list-unstyled widget-suggest__list">
-                        </ul>
-                    </div>
-                </div>
+                {#                <div id="titleSuggest" class="panel hidden widget-suggest panel-default">#}
+                {#                    <div class="panel-body">#}
+                {#                        <p>#}
+                {#                            <strong>这些问题可能有你需要的答案</strong>#}
+                {#                            <button type="button" class="widget-suggest__close btn btn-default btn-xs">关闭提示</button>#}
+                {#                        </p>#}
+                {#                        <ul id="qList" class="list-unstyled widget-suggest__list">#}
+                {#                        </ul>#}
+                {#                    </div>#}
+                {#                </div>#}
 
 
                 <div class="form-group ">
@@ -584,54 +592,9 @@
 
                 </div>
 
-
-                <div id="questionText" class="editor liveMode">
-                    <div class="editor-toolbar" id="wmd-button-bar">
-                        <ul class="editor-mode">
-                            <li class="pull-right"><a class="editor__menu--preview" title="预览模式"></a></li>
-                            <li class="pull-right"><a class="editor__menu--live muted" title="实况模式"></a></li>
-                            <li class="pull-right"><a class="editor__menu--edit" title="编辑模式"></a></li>
-                            <li class="pull-right editor__menu--divider"></li>
-                            <li id="wmd-zen-button" class="pull-right" title="全屏"><a class="editor__menu--zen"></a></li>
-                        </ul>
-                        <ul id="wmd-button-row" class="editor__menu clearfix"
-                            style="position: static; width: auto; border-bottom: none;">
-                            <li class="wmd-button" id="wmd-bold-button" title="加粗 <strong> Ctrl+B" style="left: 0px;"><a
-                                    class="editor__menu--bold" style="background-position: 0px 0px;"></a></li>
-                            <li class="wmd-button" id="wmd-italic-button" title="斜体 <em> Ctrl+I" style="left: 25px;"><a
-                                    class="editor__menu--bold" style="background-position: -20px 0px;"></a></li>
-                            <li class="editor__menu--divider wmd-spacer1" id="wmd-spacer1"></li>
-                            <li class="wmd-button" id="wmd-link-button" title="链接 <a> Ctrl+L" style="left: 75px;"><a
-                                    class="editor__menu--bold" style="background-position: -40px 0px;"></a></li>
-                            <li class="wmd-button" id="wmd-quote-button" title="引用 <blockquote> Ctrl+Q"
-                                style="left: 100px;"><a class="editor__menu--bold"
-                                                        style="background-position: -60px 0px;"></a></li>
-                            <li class="wmd-button" id="wmd-code-button" title="代码 <pre><code> Ctrl+K"
-                                style="left: 125px;"><a class="editor__menu--bold"
-                                                        style="background-position: -80px 0px;"></a></li>
-                            <li class="wmd-button" id="wmd-image-button" title="图片 <img> Ctrl+G" style="left: 150px;"><a
-                                    class="editor__menu--bold" style="background-position: -100px 0px;"></a></li>
-                            <li class="editor__menu--divider wmd-spacer2" id="wmd-spacer2"></li>
-                            <li class="wmd-button" id="wmd-olist-button" title="数字列表 <ol> Ctrl+O" style="left: 200px;">
-                                <a class="editor__menu--bold" style="background-position: -120px 0px;"></a></li>
-                            <li class="wmd-button" id="wmd-ulist-button" title="普通列表 <ul> Ctrl+U" style="left: 225px;">
-                                <a class="editor__menu--bold" style="background-position: -140px 0px;"></a></li>
-                            <li class="wmd-button" id="wmd-heading-button" title="标题 <h1>/<h2> Ctrl+H"
-                                style="left: 250px;"><a class="editor__menu--bold"
-                                                        style="background-position: -160px 0px;"></a></li>
-                            <li class="wmd-button" id="wmd-hr-button" title="分割线 <hr> Ctrl+R" style="left: 275px;"><a
-                                    class="editor__menu--bold" style="background-position: -180px 0px;"></a></li>
-                            <li class="editor__menu--divider wmd-spacer3" id="wmd-spacer3"></li>
-                            <li class="wmd-button" id="wmd-undo-button" title="撤销 - Ctrl+Z" style="left: 325px;"><a
-                                    class="editor__menu--bold" style="background-position: -200px -20px;"></a></li>
-                            <li class="wmd-button" id="wmd-redo-button" title="重做 - Ctrl+Shift+Z" style="left: 350px;">
-                                <a class="editor__menu--bold" style="background-position: -220px -20px;"></a></li>
-                            <li class="editor__menu--divider wmd-spacer4" id="wmd-spacer4"></li>
-                            <li class="wmd-button" id="wmd-help-button" title="Markdown 语法" style="left: 400px;"><a
-                                    class="editor__menu--bold" style="background-position: -300px 0px;"></a></li>
-                        </ul>
-                    </div>
-                    <div class="wmd"><textarea id="myEditor" class="mono form-control wmd-input" placeholder="1. 描述你的问题
+                <div id="editormd" class="editor liveMode">
+                    <textarea name="content" style="display:none;" placeholder="
+1. 描述你的问题
 
 2. 贴上相关代码
 
@@ -640,30 +603,89 @@
 4. 贴上相关截图
 
 5. 已经尝试过哪些方法仍然没解决（附上相关链接）"></textarea>
-                        <div style="position: absolute;z-index: 100;top: 31px;right: 0;"
-                             class="alert alert-info code-detect hide" role="alert"><span class="showVideo"
-                                                                                          style="cursor: pointer;">使用代码格式化改进排版</span><span
-                                class="disable" style="margin-left: 10px; cursor: pointer;">✕</span></div>
-                    </div>
-                    <div class="editor-line"></div>
-                    <div class="editor-preview">
-                        <div class="fmt" id="wmd-preview"></div>
-                    </div>
                 </div>
-                <a class="editor__resize" href="javascript:void(0);">调整高度</a>
+
+{#                                <div id="questionText" class="editor liveMode">#}
+{#                                    <div class="editor-toolbar" id="wmd-button-bar">#}
+{#                                        <ul class="editor-mode">#}
+{#                                            <li class="pull-right"><a class="editor__menu--preview" title="预览模式"></a></li>#}
+{#                                            <li class="pull-right"><a class="editor__menu--live muted" title="实况模式"></a></li>#}
+{#                                            <li class="pull-right"><a class="editor__menu--edit" title="编辑模式"></a></li>#}
+{#                                            <li class="pull-right editor__menu--divider"></li>#}
+{#                                            <li id="wmd-zen-button" class="pull-right" title="全屏"><a class="editor__menu--zen"></a></li>#}
+{#                                        </ul>#}
+{#                                        <ul id="wmd-button-row" class="editor__menu clearfix"#}
+{#                                            style="position: static; width: auto; border-bottom: none;">#}
+{#                                            <li class="wmd-button" id="wmd-bold-button" title="加粗 <strong> Ctrl+B" style="left: 0px;"><a#}
+{#                                                    class="editor__menu--bold" style="background-position: 0px 0px;"></a></li>#}
+{#                                            <li class="wmd-button" id="wmd-italic-button" title="斜体 <em> Ctrl+I" style="left: 25px;"><a#}
+{#                                                    class="editor__menu--bold" style="background-position: -20px 0px;"></a></li>#}
+{#                                            <li class="editor__menu--divider wmd-spacer1" id="wmd-spacer1"></li>#}
+{#                                            <li class="wmd-button" id="wmd-link-button" title="链接 <a> Ctrl+L" style="left: 75px;"><a#}
+{#                                                    class="editor__menu--bold" style="background-position: -40px 0px;"></a></li>#}
+{#                                            <li class="wmd-button" id="wmd-quote-button" title="引用 <blockquote> Ctrl+Q"#}
+{#                                                style="left: 100px;"><a class="editor__menu--bold"#}
+{#                                                                        style="background-position: -60px 0px;"></a></li>#}
+{#                                            <li class="wmd-button" id="wmd-code-button" title="代码 <pre><code> Ctrl+K"#}
+{#                                                style="left: 125px;"><a class="editor__menu--bold"#}
+{#                                                                        style="background-position: -80px 0px;"></a></li>#}
+{#                                            <li class="wmd-button" id="wmd-image-button" title="图片 <img> Ctrl+G" style="left: 150px;"><a#}
+{#                                                    class="editor__menu--bold" style="background-position: -100px 0px;"></a></li>#}
+{#                                            <li class="editor__menu--divider wmd-spacer2" id="wmd-spacer2"></li>#}
+{#                                            <li class="wmd-button" id="wmd-olist-button" title="数字列表 <ol> Ctrl+O" style="left: 200px;">#}
+{#                                                <a class="editor__menu--bold" style="background-position: -120px 0px;"></a></li>#}
+{#                                            <li class="wmd-button" id="wmd-ulist-button" title="普通列表 <ul> Ctrl+U" style="left: 225px;">#}
+{#                                                <a class="editor__menu--bold" style="background-position: -140px 0px;"></a></li>#}
+{#                                            <li class="wmd-button" id="wmd-heading-button" title="标题 <h1>/<h2> Ctrl+H"#}
+{#                                                style="left: 250px;"><a class="editor__menu--bold"#}
+{#                                                                        style="background-position: -160px 0px;"></a></li>#}
+{#                                            <li class="wmd-button" id="wmd-hr-button" title="分割线 <hr> Ctrl+R" style="left: 275px;"><a#}
+{#                                                    class="editor__menu--bold" style="background-position: -180px 0px;"></a></li>#}
+{#                                            <li class="editor__menu--divider wmd-spacer3" id="wmd-spacer3"></li>#}
+{#                                            <li class="wmd-button" id="wmd-undo-button" title="撤销 - Ctrl+Z" style="left: 325px;"><a#}
+{#                                                    class="editor__menu--bold" style="background-position: -200px -20px;"></a></li>#}
+{#                                            <li class="wmd-button" id="wmd-redo-button" title="重做 - Ctrl+Shift+Z" style="left: 350px;">#}
+{#                                                <a class="editor__menu--bold" style="background-position: -220px -20px;"></a></li>#}
+{#                                            <li class="editor__menu--divider wmd-spacer4" id="wmd-spacer4"></li>#}
+{#                                            <li class="wmd-button" id="wmd-help-button" title="Markdown 语法" style="left: 400px;"><a#}
+{#                                                    class="editor__menu--bold" style="background-position: -300px 0px;"></a></li>#}
+{#                                        </ul>#}
+{#                                    </div>#}
+{##}
+{#                                    <div class="wmd"><textarea id="myEditor" name="content" class="mono form-control wmd-input"#}
+{#                                                               placeholder="1. 描述你的问题#}
+{##}
+{#                                                        2. 贴上相关代码#}
+{##}
+{#                                                        3. 贴上报错信息#}
+{##}
+{#                                                        4. 贴上相关截图#}
+{##}
+{#                                                        5. 已经尝试过哪些方法仍然没解决（附上相关链接）"></textarea>#}
+{#                                        <div style="position: absolute;z-index: 100;top: 31px;right: 0;"#}
+{#                                             class="alert alert-info code-detect hide" role="alert"><span class="showVideo"#}
+{#                                                                                                          style="cursor: pointer;">使用代码格式化改进排版</span><span#}
+{#                                                class="disable" style="margin-left: 10px; cursor: pointer;">✕</span></div>#}
+{#                                    </div>#}
+{#                                    <div class="editor-line"></div>#}
+{#                                    <div class="editor-preview">#}
+{#                                        <div class="fmt" id="wmd-preview"></div>#}
+{#                                    </div>#}
+{#                                </div>#}
+                                <a class="editor__resize" href="javascript:void(0);">调整高度</a>
 
 
                 <div class=" publish-footer">
                     <div class="container">
                         <div class="operations clearfix">
-{#                            <div class="shareToWeibo checkbox pull-left mr10 mb0">#}
-{#                                <label for="shareToWeibo"><input type="checkbox" id="shareToWeibo"> 同步到新浪微博</label>#}
-{#                            </div>#}
+                            {#                            <div class="shareToWeibo checkbox pull-left mr10 mb0">#}
+                            {#                                <label for="shareToWeibo"><input type="checkbox" id="shareToWeibo"> 同步到新浪微博</label>#}
+                            {#                            </div>#}
                             <div class="pull-right">
                                 <span class="text-muted hidden" id="editorStatus">已保存</span>
                                 <a id="dropIt" href="javascript:void(0);" class="mr10 hidden">[舍弃]</a>
                                 <button class="hide" type="button"></button>
-                                <button data-toggle="tooltip" data-placement="top" title="" type="button"
+                                <button data-toggle="tooltip" data-placement="top" title="" type="submit"
                                         data-type="question" id="publishIt" class="btn btn-primary ml10" data-id=""
                                         data-do="" data-url="" data-text="发布问题" data-name="" data-original-title="">
                                     发布问题
@@ -677,4 +699,33 @@
         </div>
 
     </div>
+{% endblock %}
+
+
+{% block js %}
+
+    <script type='text/javascript' src='{% static 'editor/js/editormd.min.js' %}'></script>
+    <script type="text/javascript">
+        var testEditor;
+
+        $(function () {
+            testEditor = editormd("editormd", {
+                width: "90%",
+                height: 640,
+                syncScrolling: "single",
+                path: "/static/editor/lib/"
+            });
+
+            /*
+             // or
+             testEditor = editormd({
+             id      : "test-editormd",
+             width   : "90%",
+             height  : 640,
+             path    : "../lib/"
+             });
+             */
+        });
+    </script>
+
 {% endblock %}

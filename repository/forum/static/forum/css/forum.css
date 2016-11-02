@@ -3,3 +3,17 @@
     padding: 40px 15px !important;
     background-color: #fff;
 }
+
+.editormd {
+    width: 100% !important;
+    position: relative;
+    z-index: 1;
+    min-height: 300px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.row.separator {
+    padding-left: 100px !important;
+}

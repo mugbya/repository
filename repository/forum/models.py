@@ -22,11 +22,11 @@ class BasePost(models.Model):
 
 @python_2_unicode_compatible
 class Question(BasePost):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid1(), editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
 
     title = models.CharField(max_length=100, error_messages={'blank': "标题不能为空", 'null': "标题不能为空",
                                                              'invalid': "您输入了一个无效的标题，标题的长度请控制在100个字符内"})
-    content = models.TextField()
+    content = models.TextField(null=True)
 
     def save(self, *args, **kwargs):
         self.content_md = markdown.markdown(
