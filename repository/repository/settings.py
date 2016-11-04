@@ -22,9 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'h7hb7%+2d1^0tpg^f%9fenxe)i!pc)-c@)5utuwljb#_wlky&6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'base',
     'forum',  # 静态资源，模板文件，请求处理
 ]
 
@@ -54,7 +55,8 @@ ROOT_URLCONF = 'repository.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'forum/templates'),
+        'DIRS': [os.path.join(BASE_DIR, 'base/templates'),
+                 os.path.join(BASE_DIR, 'forum/templates'),
                  ],
         'APP_DIRS': True,
         'OPTIONS': {

@@ -18,6 +18,7 @@
             <!-- Start of Main Navigation -->
             <nav class="main-nav">
                 <div class="menu-top-menu-container">
+                    {% if user.is_authenticated %}
                     <ul id="menu-top-menu" class="clearfix">
                         <li class="current-menu-item"><a href="index-2.html">Home</a></li>
                         <li><a href="home-categories-description.html">Home 2</a></li>
@@ -32,7 +33,7 @@
 {#                                <li><a href="index-2.html">Default Skin</a></li>#}
                             </ul>
                         </li>
-                        <li><a href="#">More</a>
+                        <li><a href="#">{{ user }}</a>
                             <ul class="sub-menu">
                                 <li><a href="full-width.html">Full Width</a></li>
                                 <li><a href="elements.html">Elements</a></li>
@@ -41,6 +42,10 @@
                         </li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
+                    {% else %}
+
+                    {% endif %}
+
                 </div>
             </nav>
             <!-- End of Main Navigation -->
