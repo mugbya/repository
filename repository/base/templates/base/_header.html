@@ -1,15 +1,15 @@
 {% load staticfiles %}
+
 <div class="header-wrapper">
     <header>
         <div class="container">
-
 
             <div class="logo-container">
                 <!-- Website Logo -->
                 <a href="/" title="Knowledge Base Theme">
                     <img src="{% static 'lib/images/logo.png' %}" alt="Knowledge Base Theme">
                 </a>
-{#                <span class="tag-line">Premium WordPress Theme</span>#}
+                {#                <span class="tag-line">Premium WordPress Theme</span>#}
                 <span class="tag-line"><a href="{% url 'forum:index' %}">问答</a></span>
 
             </div>
@@ -19,31 +19,35 @@
             <nav class="main-nav">
                 <div class="menu-top-menu-container">
                     {% if user.is_authenticated %}
-                    <ul id="menu-top-menu" class="clearfix">
-                        <li class="current-menu-item"><a href="index-2.html">Home</a></li>
-                        <li><a href="home-categories-description.html">Home 2</a></li>
+                        <ul id="menu-top-menu" class="clearfix">
+                            <li class="current-menu-item"><a href="index-2.html">Home</a></li>
+                            <li><a href="home-categories-description.html">Home 2</a></li>
 
-                        <li><a href="articles-list.html">Articles List</a></li>
-                        <li><a href="faq.html">FAQs</a></li>
-                        <li><a href="#">撰写</a>
-                            <ul class="sub-menu">
-                                <li><a href="{% url 'forum:quiz' %}">提问题</a></li>
-{#                                <li><a href="green-skin.html">Green Skin</a></li>#}
-{#                                <li><a href="red-skin.html">Red Skin</a></li>#}
-{#                                <li><a href="index-2.html">Default Skin</a></li>#}
-                            </ul>
-                        </li>
-                        <li><a href="#">{{ user }}</a>
-                            <ul class="sub-menu">
-                                <li><a href="full-width.html">Full Width</a></li>
-                                <li><a href="elements.html">Elements</a></li>
-                                <li><a href="page.html">Sample Page</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
+                            <li><a href="articles-list.html">Articles List</a></li>
+                            <li><a href="faq.html">FAQs</a></li>
+                            <li><a href="#">撰写</a>
+                                <ul class="sub-menu">
+                                    <li><a href="{% url 'forum:quiz' %}">提问题</a></li>
+                                    {#                                <li><a href="green-skin.html">Green Skin</a></li>#}
+                                    {#                                <li><a href="red-skin.html">Red Skin</a></li>#}
+                                    {#                                <li><a href="index-2.html">Default Skin</a></li>#}
+                                </ul>
+                            </li>
+                            <li><a href="#">{{ user }}</a>
+                                <ul class="sub-menu">
+                                    <li><a href="full-width.html">Full Width</a></li>
+                                    <li><a href="elements.html">Elements</a></li>
+                                    <li><a href="page.html">Sample Page</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
                     {% else %}
-
+                        <ul id="menu-top-menu" class="clearfix">
+{#                            <li class="current-menu-item"><a href="index-2.html">登录</a></li>#}
+                            <li><a href="{% url 'user:login' %}">登录</a></li>
+                            <li><a href="{% url 'user:register' %}">注册</a></li>
+                        </ul>
                     {% endif %}
 
                 </div>

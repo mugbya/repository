@@ -1,0 +1,86 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>Repository</title>
+{% endblock %}
+
+{% block css %}
+    <!-- Style Sheet-->
+    <link rel='stylesheet' id='bootstrap-css-css' href='{% static 'lib/css/bootstrap5152.css' %}' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='responsive-css-css' href='{% static 'lib/css/responsive5152.css' %}' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='pretty-photo-css-css' href='{% static 'lib/js/prettyphoto/prettyPhotoaeb9.css' %}'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='main-css-css' href='{% static 'lib/css/main5152.css' %}' type='text/css' media='all'/>
+    <link rel='stylesheet' id='main-css-css' href='{% static 'user/css/login.css' %}' type='text/css' media='all'/>
+
+{% endblock %}
+
+
+
+{% block container %}
+    {#    <div class="search-area-wrapper">#}
+    {#        <div class="search-area container">#}
+
+    <div class="login-box">
+        <div class="row">
+            <p class="error-text">
+                {% if form.errors %}
+                    你的用户名或密码输入错误
+                {% endif %}
+            </p>
+            <form class="form-signin" method="post" action="{% url 'user:login' %}">
+                {% csrf_token %}
+                <div class="row">
+                    <br>
+                    <input type="text" name="username" class="form-control" placeholder="用户名">
+                    <br>
+                </div>
+
+                <div class="row">
+                    {#        <a href="{% url 'password_reset' %}" tabindex="-1">（忘了密码？）</a>#}
+                    <br>
+                    <input type="password" name="password" class="form-control" placeholder="密码">
+                    <br>
+                </div>
+                <input type="hidden" name="next" value="{{ next }}"/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="checkbox" value="remember-me">
+                        <label>记住登录</label>
+
+
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <!--<a href="">忘记密码</a>-->
+                        <!-- 其他登录方式 -->
+                        <div class="oauth">
+                            <a href="https://github.com/login/oauth/authorize?client_id=dd90d6225d6bb60bf7a5&redirect_uri=http://127.0.0.1:8000/oauth/github&state={{ state }}"
+                               title="GitHub 登录">
+                                <img src="{% static 'user/image/github_login_logo_s.png' %}">
+                            </a>
+
+                            <!--<a href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101240199&redirect_uri=http://repository.pub/oauth/qq&state={{state}}" title="QQ登录">-->
+                            <!--<img src="/static/img/qq.png">-->
+                            <!--</a>-->
+                            <a href="https://api.weibo.com/oauth2/authorize?client_id=3040636693&redirect_uri=http://127.0.0.1:8000/oauth/weibo&state={{ state }}"
+                               title="新浪微博登录">
+                                <img src="{% static 'user/image/weibo.png' %}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-default btn-block" type="submit">登 录</button>
+            </form>
+        </div>
+    </div>
+    {#        </div>#}
+    {#    </div>#}
+{% endblock %}
+
+
+{% block footer %}
+    {% include 'base/_footer.html' %}
+{% endblock %}

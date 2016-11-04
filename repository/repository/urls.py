@@ -21,5 +21,6 @@ from django.conf import settings
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('forum.urls', namespace='forum')),
+    url(r'^user/', include('user.urls', namespace='user')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

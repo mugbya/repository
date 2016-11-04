@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'base',
+    'user',
     'forum',  # 静态资源，模板文件，请求处理
 ]
 
@@ -57,6 +58,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'base/templates'),
                  os.path.join(BASE_DIR, 'forum/templates'),
+                 os.path.join(BASE_DIR, 'user/templates'),
                  ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -122,6 +124,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+
+
 
 try:
     from .local_settings import *
