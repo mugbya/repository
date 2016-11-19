@@ -53,6 +53,9 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'repository.urls'
 
+# 验证失败跳转到登陆接口
+LOGIN_URL = 'user:login'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

@@ -19,6 +19,7 @@ class EmailForm(forms.Form):
         max_length=50,
         initial='',
         widget=forms.TextInput(attrs={'class': 'form-control'}),
+        error_messages={'blank': u'请输入邮箱', 'null': u'请输入邮箱', 'invalid': u'请输入正确的邮箱格式。'}
         )
 
     def clean_mail(self):
@@ -65,6 +66,7 @@ class BaseRegisterForm(forms.Form):
         max_length=50,
         initial='',
         widget=forms.TextInput(attrs={'class': 'form-control'}),
+        error_messages={'blank': u'请输入邮箱', 'null': u'请输入邮箱', 'invalid': u'请输入正确的邮箱格式。'}
         )
 
     username = forms.CharField(
@@ -73,6 +75,7 @@ class BaseRegisterForm(forms.Form):
         max_length=20,
         initial='',
         widget=forms.TextInput(attrs={'class': 'form-control'}),
+        error_messages={'blank': u'请输入登录名', 'null': u'请输入登录名', 'invalid': u'不多于20个字符。只能用字母、数字和下划线。'}
         )
 
     def clean_username(self):
@@ -100,7 +103,8 @@ class RegisterForm(BaseRegisterForm):
         help_text=u'密码只有长度要求，长度为 6 ~ 18 。',
         min_length=6,
         max_length=18,
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': '密码'}),
+        error_messages={'blank': "请输入密码", 'null': "请输入密码", 'invalid': u'密码只有长度要求，长度为 6 ~ 18 。'}
         )
 
     def save(self):

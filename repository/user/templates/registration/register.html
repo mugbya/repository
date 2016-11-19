@@ -1,63 +1,77 @@
-{% extends "partial/base.html" %}
-
+{% extends "base/base.html" %}
 {% load staticfiles %}
 
-{% block head %}
-<link rel="stylesheet" href=" {%static 'user/css/user.css' %}">
+{% block title %}
+    <title>Repository</title>
 {% endblock %}
 
-{% block mainbody %}
+{% block css %}
+    <!-- Style Sheet-->
+    <link rel='stylesheet' id='bootstrap-css-css' href='{% static 'lib/css/bootstrap5152.css' %}' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='responsive-css-css' href='{% static 'lib/css/responsive5152.css' %}' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='pretty-photo-css-css' href='{% static 'lib/js/prettyphoto/prettyPhotoaeb9.css' %}'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='main-css-css' href='{% static 'lib/css/main5152.css' %}' type='text/css' media='all'/>
+    <link rel='stylesheet' id='main-css-css' href='{% static 'user/css/register.css' %}' type='text/css' media='all'/>
 
-<div class="register-box">
-
-    <form class="" method="post" action="{% url 'user:register' %}">
-        {% csrf_token %}
-
-        <div class="row {% if form.username.errors %} has-error {% endif %} ">
-            <label for="username">用户名:</label>
-            {% if form.username.errors %}
-            <span class="text-danger pull-right">{{ form.username.errors }}</span>
-            {% endif %}
-            {{ form.username }}
-            <br>
-            <p><strong>*</strong>不多于20个字符。只能用字母、数字和下划线</p>
-            <br>
-        </div>
-
-        <div class="row">
-            <label for="email">Email:</label>
-            {% if form.email.errors %}
-            <span class="text-danger pull-right">{{ form.email.errors }}</span>
-            {% endif %}
-            {{ form.email }}
-            <br>
-            <p><strong>*</strong>邮箱用于找回密码,请输入您的可用邮箱。</p>
-            <br>
-        </div>
-
-        <div class="row">
-            <label for="password">密 码:</label>
-            {% if form.password.errors %}
-            <span class="text-danger pull-right">{{ form.password.errors }}</span>
-            {% endif %}
-            {{ form.password }}
-            <br>
-            <p><strong>*</strong>请输入你自己觉得足够安全的密码(最好大于8位)</p>
-        </div>
-
-        <!--<div class="row">-->
-        <!--<label for="password">确认密码:</label>-->
-        <!--<br>-->
-        <!--<input type="password" name="password2" class="form-control">-->
-        <!--<br>-->
-        <!--<p><strong>*</strong>再次确认密码</p>-->
-        <!--</div>-->
-
-        <div class="row">
-            <button class="btn btn-default btn-block" type="submit">注 册</button>
-        </div>
-    </form>
-</div>
+{% endblock %}
 
 
+
+{% block container %}
+    {#    <div class="search-area-wrapper">#}
+    {#        <div class="search-area container">#}
+
+    <div class="register-box">
+
+{#        <form class="" method="post" action="{% url 'user:register' %}">#}
+{#            {% csrf_token %}#}
+
+            <div class="row">
+
+                <p class="username-error" style="display: none"><strong>*</strong></p>
+
+                <input type="text" name="username" class="form-control username" placeholder="用户名(唯一)" required>
+                <br>
+                <p><strong>*</strong>不多于20个字符。只能用字母、数字和下划线</p>
+                <br>
+            </div>
+
+            <div class="row">
+                <p class="email-error" style="display: none"><strong>*</strong></p>
+
+                <input type="email" name="email" class="form-control" placeholder="邮箱" required>
+                <br>
+                <p><strong>*</strong>邮箱用于找回密码,请输入您的可用邮箱。</p>
+                <br>
+            </div>
+
+            <div class="row">
+                <p class="password-error" style="display: none"><strong>*</strong></p>
+
+                <input type="password" name="password" class="form-control password" placeholder="密码" required>
+                <br>
+                <p><strong>*</strong>请输入你自己觉得足够安全的密码(最好大于8位)</p>
+            </div>
+
+            <div class="row">
+                <button class="btn btn-default btn-block register-btn" type="submit">注 册</button>
+            </div>
+{#        </form>#}
+    </div>
+
+    {#        </div>#}
+    {#    </div>#}
+{% endblock %}
+
+
+{% block footer %}
+    {% include 'base/_footer.html' %}
+{% endblock %}
+
+
+{% block js %}
+    <script type='text/javascript' src='{% static 'user/js/user.js' %}'></script>
 {% endblock %}
