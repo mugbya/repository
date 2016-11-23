@@ -14,6 +14,7 @@ repository/*/migrations/
 repository/whoosh_index/
 
 
+log/
 
 repository/__pycache__/
 
