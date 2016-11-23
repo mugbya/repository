@@ -10,10 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
-import os
+import os, sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(os.path.join(BASE_DIR, '../repository/apps'))
+sys.path.append(os.path.join(BASE_DIR, '../repository/config'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -51,7 +53,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'repository.urls'
+ROOT_URLCONF = 'repository.config.urls'
 
 # 验证失败跳转到登陆接口
 LOGIN_URL = 'user:login'
@@ -59,9 +61,9 @@ LOGIN_URL = 'user:login'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'base/templates'),
-                 os.path.join(BASE_DIR, 'forum/templates'),
-                 os.path.join(BASE_DIR, 'user/templates'),
+        'DIRS': [os.path.join(BASE_DIR, 'apps/base/templates'),
+                 os.path.join(BASE_DIR, 'apps/forum/templates'),
+                 os.path.join(BASE_DIR, 'apps/user/templates'),
                  ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -75,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'repository.wsgi.application'
+WSGI_APPLICATION = 'repository.config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
@@ -129,7 +131,93 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(threadName)s:%(thread)d] [%(name)s:%(lineno)d] [%(module)s:%(funcName)s] [%(levelname)s]- %(message)s'}
+        # 日志格式
+    },
+    'filters': {
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
+        },
+        'default': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'log/all.log',  # 日志输出文件
+            'maxBytes': 1024 * 1024 * 5,  # 文件大小
+            'backupCount': 5,  # 备份份数
+            'formatter': 'standard',  # 使用哪种formatters日志格式
+        },
+        'debug': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'log/debug.log',
+            'maxBytes': 1024 * 1024 * 5,
+            'backupCount': 5,
+            'formatter': 'standard',
+        },
+        'error': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'log/error.log',
+            'maxBytes': 1024 * 1024 * 5,
+            'backupCount': 5,
+            'formatter': 'standard',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+        # 'request_handler': {
+        #     'level': 'DEBUG',
+        #     # 'class': 'logging.handlers.RotatingFileHandler',
+        #     'class': 'logging.FileHandler',
+        #     'filename': 'log/error.log',
+        #     # 'maxBytes': 1024 * 1024 * 5,
+        #     # 'backupCount': 5,
+        #     # 'formatter': 'standard',
+        # },
+        'scprits_handler': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'log/script.log',
+            'maxBytes': 1024 * 1024 * 5,
+            'backupCount': 5,
+            'formatter': 'standard',
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['default', 'console'],
+            'level': 'DEBUG',
+            'propagate': False
+        },
+        # 'django.request': {
+        #     'handlers': ['request_handler'],
+        #     'level': 'DEBUG',
+        #     'propagate': True,
+        # },
+        # 'scripts': {
+        #     'handlers': ['scprits_handler'],
+        #     'level': 'INFO',
+        #     'propagate': False
+        # },
+        'user.views': {
+            'handlers': ['default', 'console'],
+            'level': 'DEBUG',
+            'propagate': False
+        }
 
+    }
+}
 
 
 try:

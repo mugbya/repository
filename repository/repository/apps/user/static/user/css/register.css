@@ -1,5 +1,5 @@
 .register-box {
-    width: 400px !important;
+    width: 306px !important;
     margin: 0 auto !important;
     padding: 100px 0 !important;
 }
@@ -18,7 +18,7 @@
 }
 
 .form-control {
-    width: 70% !important;
+    width: 100% !important;
     height: 25px !important;
     padding: 6px 12px !important;
     background-color: #fff !important;
@@ -31,7 +31,7 @@
 }
 
 .btn {
-    width: 306px !important;
+    width: 332px !important;
 }
 
 .username-error, .password-error, .email-error{

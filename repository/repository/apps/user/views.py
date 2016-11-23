@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.files.storage import FileSystemStorage
 
-import os, time
+
+import os, time, re
 from PIL import Image
 
 from django.contrib.auth.forms import AuthenticationForm
@@ -16,17 +17,19 @@ from django.views import generic
 from django.core.urlresolvers import reverse_lazy, reverse
 
 from django.http import JsonResponse
-
-try:
-    from repository.local_settings import EMAIL_HOST_USER
-except:
-    from repository.settings import EMAIL_HOST_USER
+from django.contrib import messages
+# try:
+#     from repository.local_settings import EMAIL_HOST_USER
+# except:
+#     from repository.settings import EMAIL_HOST_USER
 
 from .util import generator_token
 import traceback
-from django.contrib import messages
 
-# Create your views here.
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 UPLOAD_PATH = os.path.join(BASE_DIR, 'media/upload')
@@ -72,45 +75,56 @@ class LoginForm(generic.FormView):
         login(self.request, user)
         return super(LoginForm, self).form_valid(form)
 
+    def form_invalid(self, form):
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
+        return super(LoginForm, self).form_valid(form)
+
 
 class RegisterView(generic.TemplateView):
-    template_name = "registration/register.html"
+    template_name = "user/register.html"
 
-    # form_class = RegisterForm
     success_url = reverse_lazy('forum:index')
 
     def post(self, request):
-        username = request.POST.get('username', None)
-        email = request.POST.get('email', None)
-        password = request.POST.get('password', None)
+        '''
+        不用 form_valid --> 便于控制错误样式
+        不用 ajax/JsonResponse --> 不用js来控制样式
+        :param request:
+        :return:
+        '''
+        try:
+            username = request.POST.get('username', None)
+            email = request.POST.get('email', None)
+            password = request.POST.get('password', None)
 
-        # 验证
-        if not username or len(username) > 20:
-            return JsonResponse({'result': 'fail', 'type': 'username', 'message': u'请输入用户20个字符'})
+            # int('sdfasdf')
+            result = re.match('^[a-zA-Z][a-zA-Z0-9_]{1,20}$', username)
 
-        if not password:
-            return JsonResponse({'result': 'fail', 'type': 'password', 'message': u'请输入密码'})
+            if not username or len(username) > 20 or not result:
+                messages.error(request, u'请输入不含特殊字符的用户名,且长度不要超过20')
+                return render(request, 'user/register.html')
 
-        # TODO 验证
-        user = User.objects.create_user(username=username, email=email, password=password)
-        user.save()
-        user = authenticate(username=username, password=password)
-        login(request, user)
+            if not password:
+                messages.error(request, u'请输入密码')
+                return render(request, 'user/register.html')
 
-        return JsonResponse({'result': 'success'})
+            user = User.objects.filter(username=username)
+            if user:
+                messages.error(request, u'该账户已经被注册')
+                return render(request, 'user/register.html')
 
-        # def get(self, request, *args, **kwargs):
-        #     return JsonResponse({'result': 'success'})
+            user = User.objects.create_user(username=username, email=email, password=password)
+            user.save()
+            user = authenticate(username=username, password=password)
+            login(request, user)
+
+            return redirect('forum:index')
+        except Exception as e:
+            messages.error(request, u'注册失败,请重试或者联系管理员')
+            logger.error(u' 注册失败 ' + str(e))
+            return render(request, 'user/register.html')
 
 
-        # def form_valid(self, form):
-        #     form.save()
-        #     username = form.cleaned_data.get('username')
-        #     password = form.cleaned_data.get('password')
-        #     user = authenticate(username=username, password=password)
-        #     login(self.request, user)
-        #     return super(RegisterView, self).form_valid(form)
-        #
-        # def form_invalid(self, form):
-        #     response = super(RegisterView, self).form_invalid(form)
-        #     return response
