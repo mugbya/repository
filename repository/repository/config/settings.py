@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.9/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
-
+# -*- coding: utf-8 -*-
 import os, sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'base',
     'user',
+    'oauth',
     'forum',  # 静态资源，模板文件，请求处理
 ]
 
@@ -130,7 +131,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
@@ -154,6 +154,7 @@ LOGGING = {
             'maxBytes': 1024 * 1024 * 5,  # 文件大小
             'backupCount': 5,  # 备份份数
             'formatter': 'standard',  # 使用哪种formatters日志格式
+            "encoding": "utf8"
         },
         'debug': {
             'level': 'DEBUG',
@@ -162,6 +163,7 @@ LOGGING = {
             'maxBytes': 1024 * 1024 * 5,
             'backupCount': 5,
             'formatter': 'standard',
+            "encoding": "utf8"
         },
         'error': {
             'level': 'ERROR',
@@ -170,21 +172,24 @@ LOGGING = {
             'maxBytes': 1024 * 1024 * 5,
             'backupCount': 5,
             'formatter': 'standard',
+            "encoding": "utf8"
         },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'standard'
+            'formatter': 'standard',
+            "encoding": "utf8"
         },
-        # 'request_handler': {
-        #     'level': 'DEBUG',
-        #     # 'class': 'logging.handlers.RotatingFileHandler',
-        #     'class': 'logging.FileHandler',
-        #     'filename': 'log/error.log',
-        #     # 'maxBytes': 1024 * 1024 * 5,
-        #     # 'backupCount': 5,
-        #     # 'formatter': 'standard',
-        # },
+        'request_handler': {
+            'level': 'DEBUG',
+            # 'class': 'logging.handlers.RotatingFileHandler',
+            'class': 'logging.FileHandler',
+            'filename': 'log/error.log',
+            # 'maxBytes': 1024 * 1024 * 5,
+            # 'backupCount': 5,
+            # 'formatter': 'standard',
+            "encoding": "utf8"
+        },
         'scprits_handler': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
@@ -192,6 +197,7 @@ LOGGING = {
             'maxBytes': 1024 * 1024 * 5,
             'backupCount': 5,
             'formatter': 'standard',
+            "encoding": "utf8"
         }
     },
     'loggers': {
@@ -200,25 +206,24 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': False
         },
-        # 'django.request': {
-        #     'handlers': ['request_handler'],
-        #     'level': 'DEBUG',
-        #     'propagate': True,
-        # },
-        # 'scripts': {
-        #     'handlers': ['scprits_handler'],
-        #     'level': 'INFO',
-        #     'propagate': False
-        # },
-        'user.views': {
-            'handlers': ['default', 'console'],
+        'django.request': {
+            'handlers': ['request_handler'],
             'level': 'DEBUG',
+            'propagate': True,
+        },
+        'scripts': {
+            'handlers': ['scprits_handler'],
+            'level': 'INFO',
             'propagate': False
+        },
+        'user.views': {  # user.views
+            'handlers': ['debug', 'console'],
+            'level': 'DEBUG',
+            'propagate': True
         }
 
     }
 }
-
 
 try:
     from .local_settings import *

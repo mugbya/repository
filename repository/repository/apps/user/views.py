@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import auth
@@ -26,10 +27,6 @@ from django.contrib import messages
 from .util import generator_token
 import traceback
 
-import logging
-
-logger = logging.getLogger(__name__)
-
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 UPLOAD_PATH = os.path.join(BASE_DIR, 'media/upload')
@@ -38,6 +35,10 @@ storage = FileSystemStorage(
     location=UPLOAD_PATH,
     base_url='/media/upload/'
 )
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class LoginForm(generic.FormView):
@@ -100,7 +101,6 @@ class RegisterView(generic.TemplateView):
             email = request.POST.get('email', None)
             password = request.POST.get('password', None)
 
-            # int('sdfasdf')
             result = re.match('^[a-zA-Z][a-zA-Z0-9_]{1,20}$', username)
 
             if not username or len(username) > 20 or not result:

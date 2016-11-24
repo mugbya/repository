@@ -56,8 +56,9 @@
 {#                        <a href="">忘记密码</a>#}
                         <!-- 其他登录方式 -->
                         <div class="oauth">
-                            <a href="https://github.com/login/oauth/authorize?client_id=dd90d6225d6bb60bf7a5&redirect_uri=http://127.0.0.1:8000/oauth/github&state={{ state }}"
-                               title="GitHub 登录">
+{#                            <a href="https://github.com/login/oauth/authorize?client_id=dd90d6225d6bb60bf7a5&redirect_uri=http://127.0.0.1:8000/oauth/github&state={{ state }}"#}
+{#                               title="GitHub 登录">#}
+                                <a href="{% url 'oauth:github' %}" title="GitHub 登录">
                                 <img src="{% static 'user/image/github_login_logo_s.png' %}">
                             </a>
 

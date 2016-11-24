@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('forum.urls', namespace='forum')),
     url(r'^user/', include('user.urls', namespace='user')),
+    url(r'^oauth/', include('oauth.urls', namespace='oauth')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
