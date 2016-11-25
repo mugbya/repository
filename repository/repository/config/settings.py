@@ -178,7 +178,6 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'standard',
-            "encoding": "utf8"
         },
         'request_handler': {
             'level': 'DEBUG',

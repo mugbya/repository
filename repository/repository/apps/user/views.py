@@ -16,7 +16,7 @@ from .models import Profile
 from .forms import BaseRegisterForm, ChangepwdForm, RegisterForm, EmailForm
 from django.views import generic
 from django.core.urlresolvers import reverse_lazy, reverse
-
+from django.db.models import Q
 from django.http import JsonResponse
 from django.contrib import messages
 # try:
@@ -128,3 +128,68 @@ class RegisterView(generic.TemplateView):
             return render(request, 'user/register.html')
 
 
+class ResetPWD(generic.View):
+    '''
+    充值密码
+    '''
+    def post(self, request):
+        try:
+            user = request.POST.get('user', None)
+            password = request.POST.get('password', None)
+            password_ = request.POST.get('password_', None)
+
+            user = User.objects.filter(Q(username=user) | Q(email=user))
+            if not user:
+                messages.error(request, u'用户未注册')
+                return redirect('user:login')
+            user = user.first()
+
+            if not password or not password_:
+                messages.error(request, u'请输入密码')
+                return redirect('user:login')
+            if password != password_:
+                messages.error(request, u'两次输入的密码不一致')
+                return redirect('user:login')
+
+            user.set_password(password)
+            user.save()
+            user = authenticate(username=user.username, password=password)
+            login(request, user)
+
+            return redirect('forum:index')
+        except Exception as e:
+            messages.error(request, u'充值密码失败,请重试或者联系管理员')
+            logger.error(u' 充值密码失败 ' + str(e))
+            return redirect('user:login')
+
+
+# class BindView(generic.FormView):
+#     '''
+#     绑定第三方
+#     '''
+#     template_name = 'user/bind.html'
+#     success_url = reverse_lazy('index')
+#     form_class = EmailForm
+#
+#     def form_valid(self, form):
+#         email = form.cleaned_data['mail']
+#         type = form.cleaned_data['type']
+#         username = self.request.session['username']
+#         link = self.request.session['link']
+#         token = generator_token()
+#         self.request.session['token'] = token
+#         self.request.session['time'] = time.time()
+#         self.request.session['email'] = email
+#
+#         opts = {
+#             'token': token,
+#             'from_email': EMAIL_HOST_USER,
+#             'username': username,
+#             'typename': oauth_type[type],
+#             'link': link,
+#             'html_email_template_name': 'user/email/bind_oauth.html',
+#         }
+#         form.save(**opts)
+#
+#         messages.success(self.request, "一封确认邮件已经发送至" + email + "，请根据提示完成绑定")
+#         return super(BindView, self).form_valid(form)

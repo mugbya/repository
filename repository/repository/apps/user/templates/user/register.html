@@ -21,49 +21,49 @@
 
 
 {% block container %}
-    {#    <div class="search-area-wrapper">#}
-    {#        <div class="search-area container">#}
+{#    <div class="search-area-wrapper">#}
+{#        <div class="search-area container">#}
 
-    <div class="register-box">
+            <div class="register-box">
 
-        <form class="" method="post" action="{% url 'user:register' %}">
-            {% csrf_token %}
+                <form class="" method="post" action="{% url 'user:register' %}">
+                    {% csrf_token %}
 
-            <div class="row">
+                    <div class="row">
 
-                {% if messages %}
-                    {% for message in messages %}
-                        <p class="username-error"><strong>*  {{ message }}</strong></p>
-                    {% endfor %}
-                {% endif %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p class="username-error"><strong>* {{ message }}</strong></p>
+                            {% endfor %}
+                        {% endif %}
 
-                <input type="text" name="username" class="form-control username" placeholder="用户名(唯一)" required>
-                <br>
-                <p><strong>*</strong>不多于20个字符。只能用字母、数字和下划线</p>
-                <br>
+                        <input type="text" name="username" class="form-control username" placeholder="用户名(唯一)" required>
+                        <br>
+                        <p><strong>*</strong>不多于20个字符。只能用字母、数字和下划线</p>
+                        <br>
+                    </div>
+
+                    <div class="row">
+                        <input type="email" name="email" class="form-control" placeholder="邮箱" required>
+                        <br>
+                        <p><strong>*</strong>邮箱用于找回密码,请输入您的可用邮箱。</p>
+                        <br>
+                    </div>
+
+                    <div class="row">
+                        <input type="password" name="password" class="form-control password" placeholder="密码" required>
+                        <br>
+                        <p><strong>*</strong>请输入你自己觉得足够安全的密码(最好大于8位)</p>
+                    </div>
+
+                    <div class="row">
+                        <button class="btn btn-default btn-block register-btn" type="submit">注 册</button>
+                    </div>
+                </form>
             </div>
 
-            <div class="row">
-                <input type="email" name="email" class="form-control" placeholder="邮箱" required>
-                <br>
-                <p><strong>*</strong>邮箱用于找回密码,请输入您的可用邮箱。</p>
-                <br>
-            </div>
-
-            <div class="row">
-                <input type="password" name="password" class="form-control password" placeholder="密码" required>
-                <br>
-                <p><strong>*</strong>请输入你自己觉得足够安全的密码(最好大于8位)</p>
-            </div>
-
-            <div class="row">
-                <button class="btn btn-default btn-block register-btn" type="submit">注 册</button>
-            </div>
-        </form>
-    </div>
-
-    {#        </div>#}
-    {#    </div>#}
+{#        </div>#}
+{#    </div>#}
 {% endblock %}
 
 

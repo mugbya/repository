@@ -3,11 +3,12 @@
 from django.conf.urls import url
 from django.views.generic.base import RedirectView
 
-from .views import GithubView
+from .views import GitHubView, GitHubVerifyView
 
 urlpatterns = [
 
-    url(r'^github/$', GithubView.as_view(), name='github'),
+    url(r'^github/$', GitHubView.as_view(), name='github'),
+    url(r'^github/verify/$', GitHubVerifyView.as_view(), name='github_verify'),
 
 
 
