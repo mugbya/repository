@@ -19,3 +19,5 @@ log/
 repository/__pycache__/
 
 repository/*.pyc
+
+repository/repository/config/local_settings.py
