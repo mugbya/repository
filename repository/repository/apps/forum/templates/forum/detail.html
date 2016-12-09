@@ -8,13 +8,13 @@
 {% block css %}
     <!-- Style Sheet-->
     {#    <link rel="stylesheet" href="{% static 'lib/css/style.css' %}"/>#}
-    <link rel='stylesheet' id='bootstrap-css-css' href='{% static '../../../base/static/lib/css/bootstrap5152.css' %}' type='text/css'
+    <link rel='stylesheet' id='bootstrap-css-css' href='{% static 'lib/css/bootstrap5152.css' %}' type='text/css'
           media='all'/>
-    <link rel='stylesheet' id='responsive-css-css' href='{% static '../../../base/static/lib/css/responsive5152.css' %}' type='text/css'
+    <link rel='stylesheet' id='responsive-css-css' href='{% static 'lib/css/responsive5152.css' %}' type='text/css'
           media='all'/>
-    <link rel='stylesheet' id='pretty-photo-css-css' href='{% static '../../../base/static/lib/js/prettyphoto/prettyPhotoaeb9.css' %}'
+    <link rel='stylesheet' id='pretty-photo-css-css' href='{% static 'lib/js/prettyphoto/prettyPhotoaeb9.css' %}'
           type='text/css' media='all'/>
-    <link rel='stylesheet' id='main-css-css' href='{% static '../../../base/static/lib/css/main5152.css' %}' type='text/css' media='all'/>
+    <link rel='stylesheet' id='main-css-css' href='{% static 'lib/css/main5152.css' %}' type='text/css' media='all'/>
     {#    <link rel='stylesheet' id='custom-css-css' href='css/custom5152.html?ver=1.0' type='text/css' media='all'/>#}
     <link rel='stylesheet' id='main-css-css' href='{% static 'forum/css/forum.css' %}' type='text/css' media='all'/>
 
@@ -361,5 +361,5 @@
 
 
 {% block footer %}
-    {% include '../../../base/templates/include/_footer.html' %}
+    {% include 'base/_footer.html' %}
 {% endblock %}
