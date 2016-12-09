@@ -52,6 +52,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'repository.config.urls'
@@ -111,7 +112,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
+# LANGUAGE_CODE = 'en-us'
 
 # TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Shanghai'
@@ -223,6 +225,21 @@ LOGGING = {
 
     }
 }
+
+# 多语言
+# django-admin.py makemessages -l zh-Hans
+# django-admin.py compilemessages
+
+from django.utils.translation import ugettext_lazy as _
+
+LANGUAGES = (
+    ('zh-cn', _('Simplified Chinese')),
+    ('en', _('English')),
+)
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, "locale"),
+)
+
 
 try:
     from .local_settings import *

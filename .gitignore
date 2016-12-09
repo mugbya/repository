@@ -7,6 +7,9 @@ repository/repository/local_settings.py
 
 repository/*/__pycache__/
 
+repository/repository/apps/*/__pycache__/*.pyc
+repository/repository/config/__pycache__/*.pyc
+
 */__pycache__/*.pyc
 
 repository/*/migrations/
@@ -21,3 +24,5 @@ repository/__pycache__/
 repository/*.pyc
 
 repository/repository/config/local_settings.py
+
+repository/repository/apps/base/static/lib/css/*gst.html.py

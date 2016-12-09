@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    # url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
     url('', include('django.contrib.auth.urls')),
     url(r'^', include('forum.urls', namespace='forum')),
     url(r'^user/', include('user.urls', namespace='user')),
