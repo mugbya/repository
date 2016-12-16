@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'user',
     'oauth',
     'forum',  # 静态资源，模板文件，请求处理
+    'tag',
+    'blog',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -66,6 +68,7 @@ TEMPLATES = [
         'DIRS': [os.path.join(BASE_DIR, 'apps/base/templates'),
                  os.path.join(BASE_DIR, 'apps/forum/templates'),
                  os.path.join(BASE_DIR, 'apps/user/templates'),
+                 os.path.join(BASE_DIR, 'apps/blog/templates'),
                  ],
         'APP_DIRS': True,
         'OPTIONS': {
