@@ -28,12 +28,12 @@ class CreateView(generic.CreateView):
         return super(CreateView, self).form_valid(form)
 
 
-class DetailView(generic.DetailView):
+class DetailViewOO(generic.DetailView):
     model = Blog
     template_name = 'blog/detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(DetailView, self).get_context_data(**kwargs)
+        context = super(DetailViewOO, self).get_context_data(**kwargs)
         # recommend_list = Recommend.objects.filter(blog=self.object, status=True)
 
         voted_status = '推荐'
@@ -42,7 +42,7 @@ class DetailView(generic.DetailView):
         #     if recommend and recommend.status:
         #         voted_status = '已推荐'
 
-        context['voted_status'] = voted_status
+        # context['voted_status'] = voted_status
         # context['voted'] = len(recommend_list)
         context['object'] = self.object
         return context

@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url('', include('django.contrib.auth.urls')),
     url(r'^', include('base.urls', namespace='base')),
-    url(r'^', include('forum.urls', namespace='forum')),
+    url(r'^forum/', include('forum.urls', namespace='forum')),
     url(r'^blog/', include('blog.urls', namespace='blog')),
     url(r'^user/', include('user.urls', namespace='user')),
     url(r'^oauth/', include('oauth.urls', namespace='oauth')),

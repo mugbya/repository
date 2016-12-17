@@ -55,7 +55,7 @@ class DetailView(generic.DetailView):
         #     if recommend and recommend.status:
         #         voted_status = '已推荐'
 
-        context['voted_status'] = voted_status
+        # context['voted_status'] = voted_status
         # context['voted'] = len(recommend_list)
         context['object'] = self.object
         return context

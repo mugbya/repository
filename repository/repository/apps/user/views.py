@@ -55,7 +55,7 @@ logger = logging.getLogger(__name__)
 
 class LoginForm(generic.FormView):
     template_name = 'user/login.html'
-    success_url = reverse_lazy('forum:index')
+    success_url = reverse_lazy('base:index')
     form_class = AuthenticationForm
 
     def get_success_url(self):
@@ -67,7 +67,7 @@ class LoginForm(generic.FormView):
         if next_url:
             return "%s" % (next_url)
         else:
-            return reverse('forum:index')
+            return reverse('base:index')
 
     def get_context_data(self, **kwargs):
         '''
@@ -99,7 +99,7 @@ class LoginForm(generic.FormView):
 class RegisterView(generic.TemplateView):
     template_name = "user/register.html"
 
-    success_url = reverse_lazy('forum:index')
+    success_url = reverse_lazy('base:index')
 
     def post(self, request):
         '''
@@ -133,7 +133,7 @@ class RegisterView(generic.TemplateView):
             user = authenticate(username=username, password=password)
             login(request, user)
 
-            return redirect('forum:index')
+            return redirect('base:index')
         except Exception as e:
             messages.error(request, u'注册失败,请重试或者联系管理员')
             logger.error(u' 注册失败 ' + str(e))
@@ -171,7 +171,7 @@ def password_reset_confirm(request, uidb64=None, token=None):
                 user = authenticate(username=user.username, password=password)
                 login(request, user)
 
-                return redirect('forum:index')
+                return redirect('base:index')
 
         else:
             messages.error(request, u'密码已经重置，该链接无效')
