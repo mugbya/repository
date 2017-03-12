@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import Http404
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
 
@@ -59,3 +60,39 @@ class DetailView(generic.DetailView):
         # context['voted'] = len(recommend_list)
         context['object'] = self.object
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class UpdateView(generic.UpdateView):
+    template_name = 'forum/edit.html'
+    form_class = QuestionForm
+    model = Question
+
+    def get_success_url(self):
+        return reverse('forum:detail', args=(self.object.id,))
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.author = self.request.user
+        post.save()
+        # if 'publish' in self.request.POST:
+        #     post.publish()
+        # else:
+        #     post.save()
+        #     return redirect('blog:private')
+        return super(UpdateView, self).form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class DeleteView(generic.DeleteView):
+    model = Question
+    template_name = 'forum/detail.html'
+
+    def get_object(self, queryset=None):
+        obj = super(DeleteView, self).get_object()
+        if not obj.author == self.request.user:
+            raise Http404
+        # obj.is_active = False
+        # obj.save()
+        obj.delete()
+        return redirect('base:index')

@@ -8,5 +8,5 @@ class IndexView(generic.ListView):
     context_object_name = 'obj_list'
 
     def get_queryset(self):
-        blogs = Blog.objects.all()
+        blogs = Blog.objects.filter(is_active=True)
         return blogs

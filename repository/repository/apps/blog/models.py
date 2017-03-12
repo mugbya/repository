@@ -17,6 +17,7 @@ class BasePost(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now_add=True)
     content_md = models.TextField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         abstract = True
@@ -33,8 +34,8 @@ class Blog(BasePost):
     tags = models.ManyToManyField(Tag, null=True)
 
     def save(self, *args, **kwargs):
-        self.content_md = markdown.markdown(
-            self.content,
+        self.content = markdown.markdown(
+            self.content_md,
             safe_mode='escape',
             output_format='html5',
             extensions=[

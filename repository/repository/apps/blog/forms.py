@@ -6,7 +6,7 @@ from django import forms
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ('title', 'content')
+        fields = ('title', 'content_md')
         widgets = {
             'title': forms.TextInput(attrs={'placeholder': '标题：我是MAC黑！'}),
         }

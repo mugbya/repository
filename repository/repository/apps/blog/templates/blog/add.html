@@ -45,18 +45,18 @@
                 <div class="form-group">
                     <label for="title" class="sr-only">标题</label>
                     <input id="myTitle" type="text" name="title" required="" data-error="" autocomplete="off"
-                           class="form-control tagClose input-lg" placeholder="标题：一句话说清问题，用问号结尾" value="{{ object.title }}">
+                           class="form-control tagClose input-lg" placeholder="标题：一句话说清问题，用问号结尾" >
                 </div>
 
                 <input type="hidden" name="created" data-value="" value="">
 
                 <div class="form-group ">
                     <label for="tags" class="sr-only">标签：至少1个，最多5个</label>
-                    <input class="tagsInput form-control hidden" data-init="null" name="tags" type="text"
-                           placeholder="标签，如：php 可使用逗号,分号;分隔" data-role="tagsinput">
+                    <input class="tagsInput form-control hidden" data-init="null" type="text"
+                           placeholder="标签，如：php 可使用逗号,分号;分隔" data-role="tagsinput" name="tags">
                     <div class="sf-typeHelper">
                         <input type="text" data-role="sf_typeHelper-input" class="sf-typeHelper-input"
-                               placeholder="标签，如：php 可使用逗号,分号;分隔" style="width: 20em;">
+                               placeholder="标签，如：php 可使用逗号,分号;分隔" style="width: 20em;" name="tags">
                         <ul class="sf-typeHelper-list dropdown-menu" style="display: none;"></ul>
                     </div>
 
@@ -72,7 +72,7 @@
 
 4. 贴上相关截图
 
-5. 已经尝试过哪些方法仍然没解决（附上相关链接）">{{ object.content_md }}</textarea>
+5. 已经尝试过哪些方法仍然没解决（附上相关链接）"></textarea>
                 </div>
 
 
